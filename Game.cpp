@@ -19,35 +19,13 @@ Game::~Game()
 }
 
 // 완성
-void Game::loadPlayers()
-{
-	ifstream fin;
-	fin.open("players.txt");
-	
-	int numofplayers;
-	
-	fin>>numofplayers;
-	
-	int num;
-	string playerName;
-	double balance;
-	
-	for(int i = 0; i < numofplayers; i++ )
-	{
-		fin>>num>>playerName>>balance;
-		Players.push_back(Player(num, playerName, balance));
-	}
-	fin.close();
-}
-
-// 완성
 void Game::storePlayers()
 {
 	ofstream fout;
 	fout.open("players.txt");
 	
 	sort(Players.begin(), Players.end(), cmpNum);
-	fout<<Players.size()<<endl;
+	fout << Players.size() << endl;
 	
 	
 	for(int i = 0; i < Players.size(); i++ )
@@ -82,25 +60,6 @@ void Game::showIntro()
 	
 	cout<<"Which menu are you going to choose? : ";
 }
-
-// 플레이어의 인덱스를 반환하고 없으면 -1반환
-int Game::getRegisteredPlayerIdx(string playerName)
-{
-	int idx = 0;
-	int result = -1;
-	while(idx < Players.size())
-	{
-		if(Players[idx].getName() == playerName)
-		{
-			result = idx;
-			break;
-		}
-		idx++;
-	}
-	
-	return result;
-}
-
 
 
 // 완성)#1. 새로운 플레이어 등록
