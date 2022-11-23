@@ -3,3 +3,7 @@
 Create a game of blackjack using C++
 
 Group Members : Minjun, Eugene, Dongchan, Siwoo, Kyoungmin
+
+# How to play game
+
+Some text.
