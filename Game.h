@@ -21,17 +21,17 @@ public:
 	Game();
 	~Game();
 	
-	// 완성
-	void storePlayers();
-	
 	// Print intro on terminal
 	void showIntro();
 	
-	// Print license of game
-	void showLicence();
+    // 기존 플레이어로 게임시작
+    void addNewPlayer();
 	
 	// #2. 기존 플레이어로 게임 시작
 	virtual void startGame();
+
+	// Print license of game
+	void showLicence();
 
 	// Exit game
 	void exit();
@@ -55,9 +55,6 @@ protected:
 public:
 	BlackJack();
 	~BlackJack();
-	
-	// 테스트)현재 게임하는 사람 로딩 : 성공하면 true, 실패하면 false 반환
-	bool loadPlayer();
 
 	// Player bets : Return true if betting has no error, else return false
 	bool doBetting();
