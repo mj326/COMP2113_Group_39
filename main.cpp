@@ -11,7 +11,7 @@ int main()
 	while(1)
 	{
 		//BJ.showIntro();
-		
+
 		try{
 			// 메뉴 선택
 			cin>>menu;
