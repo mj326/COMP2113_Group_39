@@ -103,18 +103,10 @@ void Game::addNewPlayer()
 				else
 					throw playerName;
 			}
-			if( getRegisteredPlayerIdx(playerName) != -1 )
-			{
-				cout<<endl<<"You already have registered you name."<<endl;
-				throw playerName;
-			}
-			else
-			{
 				Player newPlayer((unsigned int)Players.size(), playerName, 0);
 				Players.push_back(newPlayer);
 				fillUp(playerName);
 				return;
-			}
 			
 		}
 		catch(...)
@@ -132,118 +124,6 @@ void Game::startGame()
 	/*
 	 이 부분은 Blackjack 클래스의 멤버함수로 함
 	 */
-}
-// 완성)#3. 잔고 기준 플레이어 랭킹 출력
-void Game::showPlayers()
-{
-	/*
-	 벡터로 선언된 Players의 랭킹 출력
-	 1. 순번 2. 이름 3. 잔고
-	 */
-	sort(Players.begin(), Players.end(), cmpBalance);
-	
-	cout.setf(ios::left, ios::adjustfield);
-	
-	printLine();
-	cout<<setw(4)<<"Num"<<setw(20)<<"Player's name"<<setw(10)<<"Balance"<<endl;
-	printLine();
-	for(int i = 0; i < Players.size(); i++ )
-	{
-		cout<<setw(4)<<Players[i].getNum()<<setw(20)<<Players[i].getName();
-		cout<<setw(10)<<Players[i].getBalance()<<endl;
-	}
-	printLine();
-	
-	sort(Players.begin(), Players.end(), cmpNum);
-}
-
-// 완성)#4. 기존 플레이어 게임머니 충전하기
-void Game::fillUp(string playerName)
-{
-	/*
-	 1. 메뉴 첫 화면에서 들어온 경우 : ->playerName == "" 이다.
-	 이름을 입력 받아서 Players에서 검색후 이름이 있으면 충전할 금액 입력받아서 업데이트 하기
-	 이름이 없으면 오류 문구 출력하고 메뉴 첫화면으로 return
-	 2. 새로운 플레이어 등록, 혹은 게임 중에서 들어온 경우 : playerName != "" 이다.
-	 충전할 금액 입력 받아서 Players의 end()의 잔고를 업데이트 한 후 메뉴 첫화면으로 return
-	 */
-	string money;
-	double money_value;
-	int idx;
-	
-	if(playerName == "")
-	{
-		while(true)
-		{
-			try {
-				cout<<"Enter your name. : ";
-				cin>>playerName;
-				cin.ignore();
-				
-				for(int i = 0; i < playerName.size(); i++)
-				{
-					if(isalnum(playerName[i]))
-						continue;
-					else
-						throw playerName;
-				}
-				
-				idx = getRegisteredPlayerIdx(playerName);
-				if( idx == -1 )
-				{
-					cout<<endl<<"Your Name ["<<playerName<<"] does not exist. "<<endl;
-					throw playerName;
-				}
-				break;
-			}
-			catch (...)
-			{
-				
-				cout<<"Please Try Again."<<endl;
-				cin.clear();
-			}
-		}
-	}
-	
-	idx = getRegisteredPlayerIdx(playerName);
-	while(true)
-	{
-		try{
-			
-			
-			cout<<"Enter the amount as you want to charge. : ";
-			cin>>money;
-			cin.ignore();
-			int cnt = 0;
-			for(int i = 0; i < money.size(); i++)
-			{
-				if(money[i] =='.' && cnt == 0)
-				{
-					cnt++;
-					continue;
-				}
-				else if(isnumber(money[i]))
-					continue;
-				else
-					throw money;
-			}
-			
-			money_value = stod(money);
-			if(money_value <= 0)
-				throw money_value;
-			
-			break;
-			
-		}
-		catch(...)
-		{
-			cout<<"Please Try Again."<<endl;
-			cin.clear();
-		}
-	}
-	
-	Players[idx].setBalance(money_value);
-	Players[idx].showPlayerInfo(); // 업데이트 된 정보 출력
 }
 
 // 완성)#5. 라이센스 출력
@@ -303,13 +183,6 @@ bool Blackjack::loadPlayer()
 					continue;
 				else
 					throw playerName;
-			}
-			
-			idx = getRegisteredPlayerIdx(playerName);
-			if( idx == -1 )
-			{
-				cout<<endl<<"Your Name ["<<playerName<<"] does not exist. "<<endl;
-				throw playerName;
 			}
 			break;
 		}
@@ -788,12 +661,4 @@ void Blackjack::startGame()
 		else
 			cont = false;
 	}
-	updatePlayer();
-}
-
-// Update current player on players
-void Blackjack::updatePlayer()
-{
-	int idx = getRegisteredPlayerIdx(currentPlayer.getName());
-	Players[idx].setPlayer(currentPlayer);
 }
