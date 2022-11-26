@@ -55,6 +55,7 @@ void Game::storePlayers()
 void Game::showIntro()
 {
 	/*
+	 먼저 loadPlayers() 통해서 players.txt로부터 Players 로딩
 	 1. 새로운 플레이어 등록
 	 2. 기존 플레이어로 게임 시작
 	 3. 잔고 기준 플레이어 랭킹 출력
@@ -62,23 +63,24 @@ void Game::showIntro()
 	 5. 라이센스 출력 혹은 게임방법 출력
 	 6. 게임 종료
 	 */
+
 	printLine();
 	
-	cout << "1. Register Player (R or r)" << endl;
-	cout << "2. Game start (G or g)" << endl;
-	cout << "3. Show player status (S or s)" << endl;
-	cout << "4. Charge money (C or c)" << endl;
-	cout << "5. Information (I or i)" << endl;
-	cout << "6. End game (E or e)" << endl;
+	cout<<"1. Register new Player.(R or r)"<<endl;
+	cout<<"2. Game start if you have registered.(G or g)"<<endl;
+	cout<<"3. Show players status.(S or s)"<<endl;
+	cout<<"4. Charge your money.(C or c)"<<endl;
+	cout<<"5. Information : Who made this game.(I or i)"<<endl;
+	cout<<"6. End game.(E or e)"<<endl;
 	
 	printLine();
 	
-	cout << "Enter command : ";
+	cout<<"Which menu are you going to choose? : ";
 }
 
 
 // 완성)#1. 새로운 플레이어 등록
-void Game::addPlayer()
+void Game::addNewPlayer()
 {
 	/*
 	 1. 이름 입력
@@ -90,8 +92,8 @@ void Game::addPlayer()
 	while(true)
 	{
 		try{
-			cout << "Enter your name: ";
-			cin >> playerName;
+			cout<<"Enter your name. : ";
+			cin>>playerName;
 			cin.ignore();
 			
 			for(int i = 0; i < playerName.size(); i++)
@@ -101,14 +103,21 @@ void Game::addPlayer()
 				else
 					throw playerName;
 			}
-
-			Player newPlayer((unsigned int)Players.size(), playerName, 50);
-			Players.push_back(newPlayer);
-			fillUp(playerName);
-			return;
+			if( getRegisteredPlayerIdx(playerName) != -1 )
+			{
+				cout<<endl<<"You already have registered you name."<<endl;
+				throw playerName;
+			}
+			else
+			{
+				Player newPlayer((unsigned int)Players.size(), playerName, 0);
+				Players.push_back(newPlayer);
+				fillUp(playerName);
+				return;
+			}
 			
 		}
-		catch(...) // any variable type
+		catch(...)
 		{
 			cout<<"Please Try Again."<<endl;
 			cin.clear();
@@ -117,14 +126,125 @@ void Game::addPlayer()
 }
 
 
-// Start Game
+// #2. 기존 플레이어로 게임 시작
 void Game::startGame()
 {
 	/*
 	 이 부분은 Blackjack 클래스의 멤버함수로 함
 	 */
 }
+// 완성)#3. 잔고 기준 플레이어 랭킹 출력
+void Game::showPlayers()
+{
+	/*
+	 벡터로 선언된 Players의 랭킹 출력
+	 1. 순번 2. 이름 3. 잔고
+	 */
+	sort(Players.begin(), Players.end(), cmpBalance);
+	
+	cout.setf(ios::left, ios::adjustfield);
+	
+	printLine();
+	cout<<setw(4)<<"Num"<<setw(20)<<"Player's name"<<setw(10)<<"Balance"<<endl;
+	printLine();
+	for(int i = 0; i < Players.size(); i++ )
+	{
+		cout<<setw(4)<<Players[i].getNum()<<setw(20)<<Players[i].getName();
+		cout<<setw(10)<<Players[i].getBalance()<<endl;
+	}
+	printLine();
+	
+	sort(Players.begin(), Players.end(), cmpNum);
+}
 
+// 완성)#4. 기존 플레이어 게임머니 충전하기
+void Game::fillUp(string playerName)
+{
+	/*
+	 1. 메뉴 첫 화면에서 들어온 경우 : ->playerName == "" 이다.
+	 이름을 입력 받아서 Players에서 검색후 이름이 있으면 충전할 금액 입력받아서 업데이트 하기
+	 이름이 없으면 오류 문구 출력하고 메뉴 첫화면으로 return
+	 2. 새로운 플레이어 등록, 혹은 게임 중에서 들어온 경우 : playerName != "" 이다.
+	 충전할 금액 입력 받아서 Players의 end()의 잔고를 업데이트 한 후 메뉴 첫화면으로 return
+	 */
+	string money;
+	double money_value;
+	int idx;
+	
+	if(playerName == "")
+	{
+		while(true)
+		{
+			try {
+				cout<<"Enter your name. : ";
+				cin>>playerName;
+				cin.ignore();
+				
+				for(int i = 0; i < playerName.size(); i++)
+				{
+					if(isalnum(playerName[i]))
+						continue;
+					else
+						throw playerName;
+				}
+				
+				idx = getRegisteredPlayerIdx(playerName);
+				if( idx == -1 )
+				{
+					cout<<endl<<"Your Name ["<<playerName<<"] does not exist. "<<endl;
+					throw playerName;
+				}
+				break;
+			}
+			catch (...)
+			{
+				
+				cout<<"Please Try Again."<<endl;
+				cin.clear();
+			}
+		}
+	}
+	
+	idx = getRegisteredPlayerIdx(playerName);
+	while(true)
+	{
+		try{
+			
+			
+			cout<<"Enter the amount as you want to charge. : ";
+			cin>>money;
+			cin.ignore();
+			int cnt = 0;
+			for(int i = 0; i < money.size(); i++)
+			{
+				if(money[i] =='.' && cnt == 0)
+				{
+					cnt++;
+					continue;
+				}
+				else if(isnumber(money[i]))
+					continue;
+				else
+					throw money;
+			}
+			
+			money_value = stod(money);
+			if(money_value <= 0)
+				throw money_value;
+			
+			break;
+			
+		}
+		catch(...)
+		{
+			cout<<"Please Try Again."<<endl;
+			cin.clear();
+		}
+	}
+	
+	Players[idx].setBalance(money_value);
+	Players[idx].showPlayerInfo(); // 업데이트 된 정보 출력
+}
 
 // 완성)#5. 라이센스 출력
 void Game::printLicence()
@@ -164,8 +284,47 @@ Blackjack::Blackjack() : Game()
 Blackjack::~Blackjack()
 {}
 
+// 테스트)현재 게임하는 사람 로딩 : 성공하면 true, 실패하면 false 반환
+bool Blackjack::loadPlayer()
+{
+	string playerName;
+	
+	int idx;
+	while(true)
+	{
+		try {
+			cout<<"Enter your name. : ";
+			cin>>playerName;
+			cin.ignore();
+			
+			for(int i = 0; i < playerName.size(); i++)
+			{
+				if(isalnum(playerName[i]))
+					continue;
+				else
+					throw playerName;
+			}
+			
+			idx = getRegisteredPlayerIdx(playerName);
+			if( idx == -1 )
+			{
+				cout<<endl<<"Your Name ["<<playerName<<"] does not exist. "<<endl;
+				throw playerName;
+			}
+			break;
+		}
+		catch (...)
+		{
+			
+			cout<<"Please Try Again."<<endl;
+			cin.clear();
+		}
+	}
+	currentPlayer.setPlayer(Players[idx]);
+	return true;
+}
 
-// Player betting : Return true if betting works, else return false.
+// 테스트)플레이어가 베팅하기 : 정상적으로 베팅되었으면 true 반환, 아니면 false 반환
 bool Blackjack::doBetting()
 {
 	string money_s;
@@ -211,7 +370,7 @@ bool Blackjack::doBetting()
 	}
 }
 
-void Blackjack::showInitialCards() // 딜러는 오픈카드만, 플레이어는 두 장의 첫 카드를 보여준다.
+void Blackjack::showFirstCards() // 딜러는 오픈카드만, 플레이어는 두 장의 첫 카드를 보여준다.
 {
 	Computer.showOpenCard();
 	currentPlayer.showFirstTwoCards();
@@ -263,16 +422,18 @@ int Blackjack::getTwoCards()
 // Print choices for player
 void Blackjack::showPlayerChoices()
 {
-	// 1. STAY 2. HIT
-	cout<< "What is your choice?" <<endl;
+	/*
+	 1. STAY 2. HIT 3. DOUBLEDOWN 4. SURRENDER(2번째부터는 비활성화)
+	 */
+	cout<<"What do you want to do?"<<endl;
 	printLine();
 	
 	cout<<"1. Stay.(S or s)"<<endl;
 	cout<<"2. Hit.(H or h)"<<endl;
-
 	if(player_draw == 1)
 	{
 		cout<<"3. Double down.(D or d)"<<endl;
+		cout<<"4. Surrender. (G or g)"<<endl;
 	}
 	printLine();
 }
@@ -303,14 +464,13 @@ int Blackjack::playerTurn()
 			
 			if(player_draw == 1)
 			{
-				switch (input) {
-					// Stay
+				switch (response) {
+						// STAY
 					case 'S':
 					case 's':
-						result = 1; // Stay
+						result = 1; // STAY
 						break;
-
-					// Hit
+						// HIT
 					case 'H':
 					case 'h':
 						currentPlayer.drawACard(deck);
@@ -318,22 +478,23 @@ int Blackjack::playerTurn()
 						currentPlayer.showHand();
 						if(currentPlayer.getCardSum() > 21)
 						{
-							result = 5; // Lose round
+							result = 5; // BURST
 							break;
 						}
 						else
 						{
 							continue;
 						}
+						
 					
-					// DOUBLE DOWN
+						// DOUBLE DOWN
 					case 'D':
 					case 'd':
-						if(currentPlayer.canBet(currentPlayer.getBet() * 2))
+						if(currentPlayer.canBet(currentPlayer.getBet() *2))
 							currentPlayer.plusBet(currentPlayer.getBet());
 						else
 						{
-							cout<< "Not enough money" <<endl;
+							cout<<"You don't have enough money."<<endl;
 							continue;
 						}
 						currentPlayer.drawACard(deck);
@@ -341,22 +502,28 @@ int Blackjack::playerTurn()
 						currentPlayer.showHand();
 						if(currentPlayer.getCardSum() > 21)
 						{
-							result = 5; // Lose round
+							result = 5; //BURST
 							break;
 						}
 						else
 						{
-							result = 1; // Stay
+							result = 1;
 							break;
 						}
+						// SURRENDER
+					case 'G':
+					case 'g':
+						result = 6;
+						break;
+				
 					default:
 						continue;
 				}
 			}
-			else // same as above without double down
+			else
 			{
-				switch (input) {
-					// Stay
+				switch (response) {
+						// STAY
 					case 'S':
 					case 's':
 						result = 1; // Stay
@@ -475,7 +642,9 @@ void Blackjack::getResult(int result)
 	}
 }
 
-bool Blackjack::restart()
+
+
+bool Blackjack::wannaEvenMoney()
 {
 	cout<<"Do you want to restart the Game? (Y/N) :";
 	char response;
@@ -610,8 +779,73 @@ void Blackjack::startGame()
 		switch (first_result)
 		{
 			case 1:
-				nextRound();
-				after_dealer = dealerTurn();
+				if(wannaEvenMoney()) // 이븐 머니 한다면
+				{
+					printf("You chose to even money.\n");
+					Computer.showHand(); // 딜러의 히든 카드를 보여줌
+					getResult(2); // 2번 결과로 처리
+				}
+				else
+				{
+					printf("You didn't choose to even money.\n");
+					Computer.showHand(); // 딜러의 히든 카드를 보여줌
+					if(Computer.isFirstCardsBJ()) // 딜러가 블랙잭이면
+						getResult(3); // 3번 결과로 처리
+					else // 딜러가 블랙잭이 아니면
+						getResult(1); // 1번 결과로 처리
+				}
+				break;
+			case 2:
+				if(wannaInsurance())
+				{
+					printf("You chose to put insurance.\n");
+					after_player = doPlayerTurn();
+					if(after_player == 1) // 플레이어가 stay한 경우
+					{
+						if(Computer.isFirstCardsBJ()) // 딜러가 블랙잭이면
+						{
+							Computer.showHand(); // 딜러의 히든 카드를 보여줌
+							getResult(4); // 4번 결과로 처리
+						}
+						else // 딜러가 블랙잭이 아니면 보험금은 버리고
+						{
+							after_dealer = doDealerTurn();
+							getResult(after_dealer);
+						}
+					}
+					else // 플레이어가 burst, surrender한 경우
+					{
+						Computer.showHand(); // 딜러의 히든 카드를 보여줌
+						getResult(after_player);
+					}
+				}
+				else // 인슈런스 하지 않겠다.
+				{
+					printf("You didn't choose to put insurance. \n");
+					after_player = doPlayerTurn();
+					if(after_player == 1) // 플레이어가 stay해서 비교해야함
+					{
+						if(Computer.isFirstCardsBJ()) // 딜러가 블랙잭이면
+						{
+							Computer.showHand(); // 딜러의 히든 카드를 보여줌
+							getResult(5); // 5번 결과로 처리
+						}
+						else
+						{
+							after_dealer = doDealerTurn();
+							getResult(after_dealer);
+						}
+					}
+					else
+					{
+						Computer.showHand(); // 딜러의 히든 카드를 보여줌
+						getResult(after_player);
+					}
+				}
+				break;
+			case 3:
+				wannaNextStage();
+				after_dealer = doDealerTurn();
 				if(after_dealer == 7)
 				{
 					getResult(3);
