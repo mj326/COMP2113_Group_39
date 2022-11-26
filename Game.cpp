@@ -12,7 +12,7 @@ Game::Game() {}
 
 Game::~Game()
 {
-	storePlayers();// 게임 종료 시 players.txt에 플레이어 목록 저장
+	savePlayer();// 게임 종료 시 players.txt에 플레이어 목록 저장
 }
 
 void Game::loadPlayer()
