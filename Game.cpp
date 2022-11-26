@@ -71,7 +71,7 @@ void Game::showIntro()
 void Game::startGame()
 {
 	/*
-	 이 부분은 BlackJack 클래스의 멤버함수로 함
+	 이 부분은 Blackjack 클래스의 멤버함수로 함
 	 */
 }
 
@@ -166,47 +166,86 @@ void Game::fillUp(string playerName)
 }
 
 // 완성)#5. 라이센스 출력
-void Game::showLicence()
+void Game::printLicence()
 {
 	/*
 	 2. 라이센스 출력
 	 */
-	cout<<"-----------------------------------------------------------------"<<endl;
-	cout<<"|           - =-=-=- Who made this Game -=-=-=-                 |"<<endl;
-	cout<<"|                                                               |"<<endl;
-	cout<<"|            1. Taekyoung Oh                                    |"<<endl;
-	cout<<"|            2. Seoyeon Choi                                    |"<<endl;
-	cout<<"|            3. Gwangyoung Choi                                 |"<<endl;
-	cout<<"|                                                               |"<<endl;
-	cout<<"|                                                               |"<<endl;
-	cout<<"|                                                               |"<<endl;
-	cout<<"-----------------------------------------------------------------"<<endl;
+	cout<<"---------------------------------------------------"<<endl;
+	cout<<"|            Contributors to this Game            |"<<endl;
+	cout<<"|                                                 |"<<endl;
+	cout<<"|               Kyoungmin Park                    |"<<endl;
+	cout<<"|               Minjun Kim                        |"<<endl;
+	cout<<"|               Dongchan Shin                     |"<<endl;
+	cout<<"|               Siwoo Kim                         |"<<endl;
+	cout<<"|               Yujin Kim                         |"<<endl;
+	cout<<"|                                                 |"<<endl;
+	cout<<"---------------------------------------------------"<<endl;
 }
 
 // 완성)#6. 게임 종료
 void Game::exit()
 {
 	/*
-	 1. storePlayers() 통해서 Players를 players.txt 파일에 다시 저장하고
+	 1. savePlayer() 통해서 Players를 players.txt 파일에 다시 저장하고
 	 2. "Thank you for playing" 출력후
 	 3. return
 	 */
-	storePlayers();
-	cout<<"Thank you for playing."<<endl;
+	savePlayers();
+	cout<<"Thank you for playing BLACKJACK"<<endl;
 }
 
 
-BlackJack::BlackJack() : Game()
+Blackjack::Blackjack() : Game()
 {
 	player_draw = 0;
 }
-BlackJack::~BlackJack()
+Blackjack::~Blackjack()
 {}
 
 
+// 테스트)현재 게임하는 사람 로딩 : 성공하면 true, 실패하면 false 반환
+bool Blackjack::loadPlayer()
+{
+	string playerName;
+	
+	int idx;
+	while(true)
+	{
+		try {
+			cout<<"Enter your name. : ";
+			cin>>playerName;
+			cin.ignore();
+			
+			for(int i = 0; i < playerName.size(); i++)
+			{
+				if(isalnum(playerName[i]))
+					continue;
+				else
+					throw playerName;
+			}
+			
+			idx = getRegisteredPlayerIdx(playerName);
+			if( idx == -1 )
+			{
+				cout<<endl<<"Your Name ["<<playerName<<"] does not exist. "<<endl;
+				throw playerName;
+			}
+			break;
+		}
+		catch (...)
+		{
+			
+			cout<<"Please Try Again."<<endl;
+			cin.clear();
+		}
+	}
+	currentPlayer.setPlayer(Players[idx]);
+	return true;
+}
 
 // 테스트)플레이어가 베팅하기 : 정상적으로 베팅되었으면 true 반환, 아니면 false 반환
-bool BlackJack::doBetting()
+bool Blackjack::doBetting()
 {
 	string input;
 	double money;
@@ -250,8 +289,9 @@ bool BlackJack::doBetting()
 	}
 }
 
+
+void Blackjack::showFirstCards() // 딜러는 오픈카드만, 플레이어는 두 장의 첫 카드를 보여준다.
 //카드 오픈하는 function
-void BlackJack::showFirstCards() // 딜러는 오픈카드만, 플레이어는 두 장의 첫 카드를 보여준다.
 {
 	Computer.showOpenCard();
 	currentPlayer.showFirstTwoCards();
@@ -259,7 +299,7 @@ void BlackJack::showFirstCards() // 딜러는 오픈카드만, 플레이어는 �
 
 
 // 게임 시작시 두 장의 카드 받기
-int BlackJack::getTwoCards()
+int Blackjack::getTwoCards()
 {
 	currentPlayer.drawTwoCards(deck);
 	Computer.drawTwoCards(deck);
@@ -303,7 +343,7 @@ int BlackJack::getTwoCards()
 }
 
 // 플레이어가 어떤 일할지 메뉴 출력하기
-void BlackJack::showPlayerWhatToDo()
+void Blackjack::showPlayerWhatToDo()
 {
 	/*
 	 1. STAY 2. HIT
@@ -318,7 +358,7 @@ void BlackJack::showPlayerWhatToDo()
 }
 
 // 플레이어 턴에 할일 : 블랙잭이나 버스트가 아닐 경우
-int BlackJack::doPlayerTurn()
+int Blackjack::doPlayerTurn()
 {/*
   * 플레이어 할일 :(플레이어가 블랙잭인 경우는 이미 다뤄졌음)
   ** 메뉴를 출력한다. -> 메뉴를 선택한다.
@@ -406,7 +446,7 @@ int BlackJack::doPlayerTurn()
 }
 
 // 딜러 턴에 할 일 : 플레이어가 할일 다 한 경우
-int BlackJack::doDealerTurn()
+int Blackjack::doDealerTurn()
 {
 	int result = -1;
 	
@@ -446,7 +486,7 @@ int BlackJack::doDealerTurn()
 
 
 // 어떤 케이스냐에 따라 처리하는 결과가 달라짐
-void BlackJack::getResult(int result)
+void Blackjack::getResult(int result)
 {
 	/*
 	 1 -> 플레이어가 BLACKJACK인 경우 : 베팅금액 + 베팅금액 * 1.5를 돌려받기
@@ -496,9 +536,84 @@ void BlackJack::getResult(int result)
 }
 
 
+bool Blackjack::wannaEvenMoney()
+{
+	cout<<"Do you want to Even money?(Y/N) :";
+	char response;
+	while(true)
+	{
+		try{
+			// 메뉴 선택
+			cin>>response;
+			cin.ignore();
+			
+			if(!isalpha(response))
+				throw response;
+			
+			switch (response) {
+				case 'Y':
+				case 'y':
+					return true;
+				case 'N':
+				case 'n':
+					return false;
+				default:
+					continue;
+			}
+			break;
+		}
+		catch(char exception)
+		{
+			cout<<"Please Try Again."<<endl;
+			cin.clear();
+		}
+	}
+}
 
+bool Blackjack::wannaInsurance()
+{
+	cout<<"Do you want to Insurance?(Y/N) :";
+	char response;
+	while(true)
+	{
+		try{
+			// 메뉴 선택
+			cin>>response;
+			cin.ignore();
+			
+			if(!isalpha(response))
+				throw response;
+			
+			switch (response) {
+				case 'Y':
+				case 'y':
+					if(currentPlayer.canBet(currentPlayer.getBet() / 2)) // 추가적으로 베팅금의 반만큼 베팅 할 수 있나?
+					{
+						currentPlayer.setInsurance(currentPlayer.getBet() / 2);
+						return true;
+					}
+					else
+					{
+						cout<<"You don't have enough money.";
+						return false;
+					}
+				case 'N':
+				case 'n':
+					return false;
+				default:
+					continue;
+			}
+			break;
+		}
+		catch(char exception)
+		{
+			cout<<"Please Try Again."<<endl;
+			cin.clear();
+		}
+	}
+}
 
-bool BlackJack::wannaRestart()
+bool Blackjack::wannaRestart()
 {
 	cout<<"Do you want to restart the Game?(Y/N) :";
 	char response;
@@ -532,7 +647,7 @@ bool BlackJack::wannaRestart()
 	}
 }
 
-bool BlackJack::wannaNextStage()
+bool Blackjack::wannaNextStage()
 {
 	cout<<"Continue?(Y) :";
 	char response;
@@ -563,7 +678,7 @@ bool BlackJack::wannaNextStage()
 	}
 }
 
-void BlackJack::startGame()
+void Blackjack::startGame()
 {
 	/*
 	 1. 카드를 섞는다.
@@ -724,7 +839,7 @@ void BlackJack::startGame()
 }
 
 // Players에 이번 플레이어의 정보 업데이트
-void BlackJack::updatePlayer()
+void Blackjack::updatePlayer()
 {
 	int idx = getRegisteredPlayerIdx(currentPlayer.getName());
 	Players[idx].setPlayer(currentPlayer);

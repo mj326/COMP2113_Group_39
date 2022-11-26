@@ -24,6 +24,9 @@ public:
 	// Print intro on terminal
 	void showIntro();
 	
+	// Save player record on players.txt
+	void savePlayers();
+
     // 기존 플레이어로 게임시작
     void addNewPlayer();
 	
@@ -31,14 +34,14 @@ public:
 	virtual void startGame();
 
 	// Print license of game
-	void showLicence();
+	void printLicence();
 
 	// Exit game
 	void exit();
 	
 };
 
-class BlackJack : public Game
+class Blackjack : public Game
 {
 protected:
 
@@ -53,8 +56,8 @@ protected:
 	int player_draw; // 플레이어가 몇 번 카드를 드로우 했는지.
 
 public:
-	BlackJack();
-	~BlackJack();
+	Blackjack();
+	~Blackjack();
 
 	// Player bets : Return true if betting has no error, else return false
 	bool doBetting();
