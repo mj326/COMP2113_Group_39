@@ -24,11 +24,14 @@ public:
 	// Print intro on terminal
 	void showIntro();
 	
+	// Load current player from players.txt
+	void loadPlayer();
+
 	// Save player record on players.txt
-	void savePlayers();
+	void savePlayer();
 
     // 기존 플레이어로 게임시작
-    void addNewPlayer();
+    void addPlayer();
 	
 	// #2. 기존 플레이어로 게임 시작
 	virtual void startGame();
@@ -59,30 +62,33 @@ public:
 	Blackjack();
 	~Blackjack();
 
+	// Load the current player info : return true if no error, else return false
+	bool loadPlayer();
+
 	// Player bets : Return true if betting has no error, else return false
 	bool doBetting();
 	
-	void showFirstCards();
+	void showInitialCards();
 
 	
 	// Receive 2 cards in the beginning
 	int getTwoCards();
 	
-	// Print user manual
-	void showPlayerWhatToDo();
+	// Print choices for the player after card open
+	void showPlayerChoices();
 	
 	// 플레이어 턴에 할일 : 블랙잭이나 버스트가 아닐 경우
-	int doPlayerTurn();
+	int playerTurn();
 	
 	// 딜러 턴에 할 일 : 플레이어가 할일 다 한 경우
-	int doDealerTurn();
+	int dealerTurn();
 	
 	// 어떤 케이스냐에 따라 처리하는 결과가 달라짐
 	void getResult(int result);
 	
-	bool wannaRestart();
+	bool restart();
 	
-	bool wannaNextStage();
+	bool nextRound();
 	virtual void startGame();
 	
 	// Players에 이번 플레이어의 정보 업데이트
