@@ -642,42 +642,6 @@ void Blackjack::getResult(int result)
 	}
 }
 
-
-
-bool Blackjack::wannaEvenMoney()
-{
-	cout<<"Do you want to restart the Game? (Y/N) :";
-	char response;
-	while(true)
-	{
-		try{
-			// 메뉴 선택
-			cin>>response;
-			cin.ignore();
-			
-			if(!isalpha(response))
-				throw response;
-			
-			switch (response) {
-				case 'Y':
-				case 'y':
-					return true;
-				case 'N':
-				case 'n':
-					return false;
-				default:
-					continue;
-			}
-			break;
-		}
-		catch(char exception)
-		{
-			cout<<"Please Enter again"<<endl;
-			cin.clear();
-		}
-	}
-}
-
 bool Blackjack::nextRound()
 {
 	cout<<"Continue? (Y) :";
@@ -779,72 +743,7 @@ void Blackjack::startGame()
 		switch (first_result)
 		{
 			case 1:
-				if(wannaEvenMoney()) // 이븐 머니 한다면
-				{
-					printf("You chose to even money.\n");
-					Computer.showHand(); // 딜러의 히든 카드를 보여줌
-					getResult(2); // 2번 결과로 처리
-				}
-				else
-				{
-					printf("You didn't choose to even money.\n");
-					Computer.showHand(); // 딜러의 히든 카드를 보여줌
-					if(Computer.isFirstCardsBJ()) // 딜러가 블랙잭이면
-						getResult(3); // 3번 결과로 처리
-					else // 딜러가 블랙잭이 아니면
-						getResult(1); // 1번 결과로 처리
-				}
-				break;
-			case 2:
-				if(wannaInsurance())
-				{
-					printf("You chose to put insurance.\n");
-					after_player = doPlayerTurn();
-					if(after_player == 1) // 플레이어가 stay한 경우
-					{
-						if(Computer.isFirstCardsBJ()) // 딜러가 블랙잭이면
-						{
-							Computer.showHand(); // 딜러의 히든 카드를 보여줌
-							getResult(4); // 4번 결과로 처리
-						}
-						else // 딜러가 블랙잭이 아니면 보험금은 버리고
-						{
-							after_dealer = doDealerTurn();
-							getResult(after_dealer);
-						}
-					}
-					else // 플레이어가 burst, surrender한 경우
-					{
-						Computer.showHand(); // 딜러의 히든 카드를 보여줌
-						getResult(after_player);
-					}
-				}
-				else // 인슈런스 하지 않겠다.
-				{
-					printf("You didn't choose to put insurance. \n");
-					after_player = doPlayerTurn();
-					if(after_player == 1) // 플레이어가 stay해서 비교해야함
-					{
-						if(Computer.isFirstCardsBJ()) // 딜러가 블랙잭이면
-						{
-							Computer.showHand(); // 딜러의 히든 카드를 보여줌
-							getResult(5); // 5번 결과로 처리
-						}
-						else
-						{
-							after_dealer = doDealerTurn();
-							getResult(after_dealer);
-						}
-					}
-					else
-					{
-						Computer.showHand(); // 딜러의 히든 카드를 보여줌
-						getResult(after_player);
-					}
-				}
-				break;
-			case 3:
-				wannaNextStage();
+				nextRound();
 				after_dealer = doDealerTurn();
 				if(after_dealer == 7)
 				{
