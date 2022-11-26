@@ -40,73 +40,31 @@ void Game::showIntro()
 {
 	/*
 	 먼저 loadPlayers() 통해서 players.txt로부터 Players 로딩
-	 1. 새로운 플레이어 등록
-	 2. 기존 플레이어로 게임 시작
-	 3. 잔고 기준 플레이어 랭킹 출력
-	 4. 기존 플레이어 게임머니 충전하기
-	 5. 라이센스 출력 혹은 게임방법 출력
-	 6. 게임 종료
+	 1. 게임 시작
+	    a. 딜러 카드 2개 , 플레이어 카드 2개 할당
+	    b. 딜러 카드 하나 오픈, 플레이어 카드 2개 오픈
+	 2. 기본 베팅 ( player.cpp에서 )
+	 4. 플레이어 옵션 선택
+	    a. Stand : 딜러랑 비교해서 승자 선택
+        b. Hit : 카드 한 장 더 받고 , 합이 21이상이면 Burst
+	 3. 라이센스 출력 혹은 게임방법 출력
+	 4. 게임 종료
 	 */
+
 	printLine();
-	
-	cout<<"1. Register new Player.(R or r)"<<endl;
-	cout<<"2. Game start if you have registered.(G or g)"<<endl;
-	cout<<"3. Show players status.(S or s)"<<endl;
-	cout<<"4. Charge your money.(C or c)"<<endl;
-	cout<<"5. Information : Who made this game.(I or i)"<<endl;
-	cout<<"6. End game.(E or e)"<<endl;
+
+    //일단 보류
+	cout<<"1. Game start"<<endl
+	cout<<"2. Charge your money.(C or c)"<<endl;
+	cout<<"4. Information : Who made this game.(I or i)"<<endl;
+	cout<<"5. End game.(E or e)"<<endl;
 	
 	printLine();
-	
+
+    //
 	cout<<"Which menu are you going to choose? : ";
 }
 
-
-// 완성)#1. 새로운 플레이어 등록
-void Game::addNewPlayer()
-{
-	/*
-	 1. 이름 입력
-	 2. ->입력한 이름이 이미 있는 이름이면 메뉴 첫화면으로 return
-	 3. ->입력한 이름이 없으면 이름 입력 받고 그 이름으로 fillUp() 호출해 게임머니 충전하고 메뉴 첫화면으로 return
-	 */
-	string playerName;
-	
-	while(true)
-	{
-		try{
-			cout<<"Enter your name. : ";
-			cin>>playerName;
-			cin.ignore();
-			
-			for(int i = 0; i < playerName.size(); i++)
-			{
-				if(isalnum(playerName[i]))
-					continue;
-				else
-					throw playerName;
-			}
-			if( getRegisteredPlayerIdx(playerName) != -1 )
-			{
-				cout<<endl<<"You already have registered you name."<<endl;
-				throw playerName;
-			}
-			else
-			{
-				Player newPlayer((unsigned int)Players.size(), playerName, 0);
-				Players.push_back(newPlayer);
-				fillUp(playerName);
-				return;
-			}
-			
-		}
-		catch(...)
-		{
-			cout<<"Please Try Again."<<endl;
-			cin.clear();
-		}
-	}
-}
 
 
 // #2. 기존 플레이어로 게임 시작
@@ -116,29 +74,7 @@ void Game::startGame()
 	 이 부분은 Blackjack 클래스의 멤버함수로 함
 	 */
 }
-// 완성)#3. 잔고 기준 플레이어 랭킹 출력
-void Game::showPlayers()
-{
-	/*
-	 벡터로 선언된 Players의 랭킹 출력
-	 1. 순번 2. 이름 3. 잔고
-	 */
-	sort(Players.begin(), Players.end(), cmpBalance);
-	
-	cout.setf(ios::left, ios::adjustfield);
-	
-	printLine();
-	cout<<setw(4)<<"Num"<<setw(20)<<"Player's name"<<setw(10)<<"Balance"<<endl;
-	printLine();
-	for(int i = 0; i < Players.size(); i++ )
-	{
-		cout<<setw(4)<<Players[i].getNum()<<setw(20)<<Players[i].getName();
-		cout<<setw(10)<<Players[i].getBalance()<<endl;
-	}
-	printLine();
-	
-	sort(Players.begin(), Players.end(), cmpNum);
-}
+
 
 // 완성)#4. 기존 플레이어 게임머니 충전하기
 void Game::fillUp(string playerName)
@@ -267,6 +203,7 @@ Blackjack::Blackjack() : Game()
 Blackjack::~Blackjack()
 {}
 
+
 // 테스트)현재 게임하는 사람 로딩 : 성공하면 true, 실패하면 false 반환
 bool Blackjack::loadPlayer()
 {
@@ -352,7 +289,9 @@ bool Blackjack::doBetting()
 	}
 }
 
+
 void Blackjack::showFirstCards() // 딜러는 오픈카드만, 플레이어는 두 장의 첫 카드를 보여준다.
+//카드 오픈하는 function
 {
 	Computer.showOpenCard();
 	currentPlayer.showFirstTwoCards();
@@ -407,18 +346,14 @@ int Blackjack::getTwoCards()
 void Blackjack::showPlayerWhatToDo()
 {
 	/*
-	 1. STAY 2. HIT 3. DOUBLEDOWN 4. SURRENDER(2번째부터는 비활성화)
+	 1. STAY 2. HIT
 	 */
 	cout<<"What do you want to do?"<<endl;
 	printLine();
 	
 	cout<<"1. Stay.(S or s)"<<endl;
 	cout<<"2. Hit.(H or h)"<<endl;
-	if(player_draw == 1)
-	{
-		cout<<"3. Double down.(D or d)"<<endl;
-		cout<<"4. Surrender. (G or g)"<<endl;
-	}
+
 	printLine();
 }
 
@@ -453,61 +388,25 @@ int Blackjack::doPlayerTurn()
 			if(player_draw == 1)
 			{
 				switch (response) {
-						// STAY
-					case 'S':
-					case 's':
-						result = 1; // STAY
-						break;
-						// HIT
-					case 'H':
-					case 'h':
-						currentPlayer.drawACard(deck);
-						player_draw++;
-						currentPlayer.showHand();
-						if(currentPlayer.getCardSum() > 21)
-						{
-							result = 5; // BURST
-							break;
-						}
-						else
-						{
-							continue;
-						}
-						
-					
-						// DOUBLE DOWN
-					case 'D':
-					case 'd':
-						if(currentPlayer.canBet(currentPlayer.getBet() *2))
-							currentPlayer.plusBet(currentPlayer.getBet());
-						else
-						{
-							cout<<"You don't have enough money."<<endl;
-							continue;
-						}
-						currentPlayer.drawACard(deck);
-						player_draw++;
-						currentPlayer.showHand();
-						if(currentPlayer.getCardSum() > 21)
-						{
-							result = 5; //BURST
-							break;
-						}
-						else
-						{
-							result = 1;
-							break;
-						}
-						// SURRENDER
-					case 'G':
-					case 'g':
-						result = 6;
-						break;
-				
-					default:
-						continue;
-				}
-			}
+                    // STAY
+                    case 'S':
+                    case 's':
+                        result = 1; // STAY
+                        break;
+                        // HIT
+                    case 'H':
+                    case 'h':
+                        currentPlayer.drawACard(deck);
+                        player_draw++;
+                        currentPlayer.showHand();
+                        if (currentPlayer.getCardSum() > 21) {
+                            result = 5; // BURST
+                            break;
+                        } else {
+                            continue;
+                        }
+
+                }
 			else
 			{
 				switch (response) {
@@ -635,7 +534,6 @@ void Blackjack::getResult(int result)
 			break;
 	}
 }
-
 
 
 bool Blackjack::wannaEvenMoney()
@@ -865,47 +763,7 @@ void Blackjack::startGame()
 		
 		switch (first_result)
 		{
-			case 1:
-				if(wannaEvenMoney()) // 이븐 머니 한다면
-				{
-					printf("You chose to even money.\n");
-					Computer.showHand(); // 딜러의 히든 카드를 보여줌
-					getResult(2); // 2번 결과로 처리
-				}
-				else
-				{
-					printf("You didn't choose to even money.\n");
-					Computer.showHand(); // 딜러의 히든 카드를 보여줌
-					if(Computer.isFirstCardsBJ()) // 딜러가 블랙잭이면
-						getResult(3); // 3번 결과로 처리
-					else // 딜러가 블랙잭이 아니면
-						getResult(1); // 1번 결과로 처리
-				}
-				break;
-			case 2:
-				if(wannaInsurance())
-				{
-					printf("You chose to put insurance.\n");
-					after_player = doPlayerTurn();
-					if(after_player == 1) // 플레이어가 stay한 경우
-					{
-						if(Computer.isFirstCardsBJ()) // 딜러가 블랙잭이면
-						{
-							Computer.showHand(); // 딜러의 히든 카드를 보여줌
-							getResult(4); // 4번 결과로 처리
-						}
-						else // 딜러가 블랙잭이 아니면 보험금은 버리고
-						{
-							after_dealer = doDealerTurn();
-							getResult(after_dealer);
-						}
-					}
-					else // 플레이어가 burst, surrender한 경우
-					{
-						Computer.showHand(); // 딜러의 히든 카드를 보여줌
-						getResult(after_player);
-					}
-				}
+			  //히트랑 스테이
 				else // 인슈런스 하지 않겠다.
 				{
 					printf("You didn't choose to put insurance. \n");
