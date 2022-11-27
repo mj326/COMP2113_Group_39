@@ -76,7 +76,7 @@ namespace Card_namespace{
 	const int CLUBS_Q = 430;
 }
 
-class Card_class //into Card_class 
+class Card //into Card_class 
 {
 protected:
 	int value; // 실제로 적용되는 값
@@ -85,10 +85,10 @@ private:
 	int cards;
 	
 public:
-	int shp, number, cardName;
+	int sut, number, cardName; //shp => sut
 	Card();
 	~Card();
-	Card(const Card_class & ca);
+	Card(const Card & ca);
 	void setupCard(int cardName) ; //setCard => setupCard 
 	
 	void setupSuit(int cardName); //prev - void setShape(int cardName);
@@ -109,12 +109,12 @@ public:
 	~Deck();
 	void mixDeck(); //shuffleDeck => mixDeck
 	int printRemainCardsNum(); //getRemainCardsNum => printRemainCardsNum
-	Card_class collectACard() ; //getACard() => collectACard()
+	Card collectACard() ; //getACard() => collectACard()
 	void init();
 };
 
 template <typename T>
-T printSum(vector <Card_class> &Hand) { //getSum => printSum
+T printSum(vector <Card> &Hand) { //getSum => printSum
 	T num, sum = 0;
 	if (Hand.empty())
 		return 0;

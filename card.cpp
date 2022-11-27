@@ -11,7 +11,7 @@ Card::Card(const Card & Ca){ // ca => Ca
 	cardName = Ca.cardName;
 }
 
-void Card::setupCard(int cardName) { //set=> setup
+void Card::setupCard(int cardName) { //setCard=> setupCard
 	setupSuit(cardName); // setShape => setupSuit
 	setupValue(cardName); // setValue => setupValue
 	setupNumber(cardName); // setNumber => setupNumber
@@ -20,9 +20,9 @@ void Card::setupCard(int cardName) { //set=> setup
 void Card::setupSuit(int cardName) { //setShape => setupSuit
 	if (cardName < 10)
 		sut = cardName;
-	elif (10 < cardName && cardName < 50)
+	else if (10 < cardName && cardName < 50)
 		sut = cardName / 10;
-	elif (50 < cardName) {
+	else if (50 < cardName) {
 		sut = cardName / 100;
 	}
 }
@@ -30,25 +30,25 @@ void Card::setupSuit(int cardName) { //setShape => setupSuit
 void Card::setupValue(int cardName) { // setValue => setupValue
 	if (cardName < 10)
 		value = 11;                     // A를 무조건 11로 처리
-	elif (10 < cardName && cardName < 50)
+	else if (10 < cardName && cardName < 50)
 		value = cardName % 10;
-	elif (50 < cardName)
+	else if (50 < cardName)
 		value = 10;
 }
 
 void Card::setupNumber(int cardName) { // setNumber => setupNumber
 	if (cardName < 10)
 		number = 'A';  //65
-	elif (10 < cardName && cardName < 50)
+	else if (10 < cardName && cardName < 50)
 		number = cardName % 10;
-	elif (50 < cardName) {
+	else if (50 < cardName) {
 		if (cardName % 100 == 0)
 			number = 10;
-		elif (cardName % 100 == 10)
+		else if (cardName % 100 == 10)
 			number = 'K'; //75
-		elif (cardName % 100 == 20)
+		else if (cardName % 100 == 20)
 			number = 'J'; //74
-		elif (cardName % 100 == 30)
+		else if (cardName % 100 == 30)
 			number = 'Q'; //81
 	}
 }
@@ -67,7 +67,7 @@ char Card::printSuit() { //getShape => printSuit
 			cout<<"|       ◇ |"<<endl;
 			cout<<" ㅡㅡㅡㅡㅡ"<<endl;
 		}
-		elif (sut == 2){ //shp => sut
+		else if (sut == 2){ //shp => sut
 			suit = 'S'; //shape => suit
 			cout<<endl;
 			cout<<" ㅡㅡㅡㅡㅡ"<<endl;
@@ -78,7 +78,7 @@ char Card::printSuit() { //getShape => printSuit
 			cout<<"|       ♤ |"<<endl;
 			cout<<" ㅡㅡㅡㅡㅡ"<<endl;
 		}
-		elif (sut == 3){ //shp => sut
+		else if (sut == 3){ //shp => sut
 			suit = 'H'; //shape => suit
 			cout<<endl;
 			cout<<" ㅡㅡㅡㅡㅡ"<<endl;
@@ -89,7 +89,7 @@ char Card::printSuit() { //getShape => printSuit
 			cout<<"|       ♡ |"<<endl;
 			cout<<" ㅡㅡㅡㅡㅡ"<<endl;
 		}
-		elif (sut == 4){ //shp => sut
+		else if (sut == 4){ //shp => sut
 			suit = 'C'; //shape => suit
 			cout<<endl;
 			cout<<" ㅡㅡㅡㅡㅡ"<<endl;
@@ -112,7 +112,7 @@ char Card::printSuit() { //getShape => printSuit
 			cout<<"|       ◇ |"<<endl;
 			cout<<" ㅡㅡㅡㅡㅡ"<<endl;
 		}
-		elif (sut == 2){ //shp => sut
+		else if (sut == 2){ //shp => sut
 			suit = 'S'; //shape => suit
 			cout<<endl;
 			cout<<" ㅡㅡㅡㅡㅡ"<<endl;
@@ -123,7 +123,7 @@ char Card::printSuit() { //getShape => printSuit
 			cout<<"|       ♤ |"<<endl;
 			cout<<" ㅡㅡㅡㅡㅡ"<<endl;
 		}
-		elif (sut == 3){ //shp => sut
+		else if (sut == 3){ //shp => sut
 			suit = 'H'; //shape => suit
 			cout<<endl;
 			cout<<" ㅡㅡㅡㅡㅡ"<<endl;
@@ -134,7 +134,7 @@ char Card::printSuit() { //getShape => printSuit
 			cout<<"|       ♡ |"<<endl;
 			cout<<" ㅡㅡㅡㅡㅡ"<<endl;
 		}
-		elif (sut == 4){ //shp => sut
+		else if (sut == 4){ //shp => sut
 			suit = 'C'; //shape => suit
 			cout<<endl;
 			cout<<" ㅡㅡㅡㅡㅡ"<<endl;
@@ -171,7 +171,7 @@ void Deck::mixDeck() //shuffleDeck => mixDeck
 	std::random_device rd;
 	std::mt19937 g(rd());
 	
-	std::mix(cards.begin(), cards.end(), g); //shuffle(...) => mix(...)
+	std::shuffle(cards.begin(), cards.end(), g); //shuffle(...) => mix(...)
 }
 
 int Deck::printRemainCardsNum() { // getRemainCardsNum() => printRemainCardsNum()
@@ -184,7 +184,7 @@ Card Deck::collectACard() { //getACard() => collectACard()
 	if (cards.size() >= 1) {
 		card = cards[cards.size() - 1];
 		cards.pop_back();
-		card.Card::setCard(card.cardName);
+		card.Card::setupCard(card.cardName);
 	}
 	else {
 		cout << "All the cards are drawn from the deck." << endl;
@@ -198,7 +198,7 @@ void Deck::init() {
 	int card_array[52] = { 1, 2, 3, 4, 12, 13, 14, 15, 16, 17, 18, 19, 22, 23, 24, 25, 26, 27, 28, 29, 32, 33, 34, 35, 36, 37, 38, 39, 42, 43, 44, 45, 46, 47, 48, 49, 100, 110, 120, 130, 200, 210, 220, 230, 300, 310, 320, 330, 400, 410, 420, 430 };
 	cards.clear();
 	for (int i = 0; i < 52; i++) {
-		NewCard.cardName = cardy_array[i]; //from arry[..]
+		NewCard.cardName = card_array[i]; //from arry[..]
 		cards.push_back(NewCard);
 	}
 }
