@@ -139,7 +139,7 @@ void Game::printLicence()
 	cout<<"|               MinJun Kim                        |"<<endl;
 	cout<<"|               DongChan Shin                     |"<<endl;
 	cout<<"|               SiWoo Kim                         |"<<endl;
-	cout<<"|               Yujin Kim                         |"<<endl;
+	cout<<"|               Yoojin Kang                        |"<<endl;
 	cout<<"|                                                 |"<<endl;
 	cout<<"---------------------------------------------------"<<endl;
 }
@@ -303,12 +303,12 @@ void Blackjack::showPlayerChoices()
 	
 	cout<<"1. Stay.(S or s)"<<endl;
 	cout<<"2. Hit.(H or h)"<<endl;
-	if(player_draw == 1)
-	{
-		cout<<"3. Double down.(D or d)"<<endl;
-		cout<<"4. Surrender. (G or g)"<<endl;
-	}
-	printLine();
+//	if(player_draw == 1)
+//	{
+//		cout<<"3. Double down.(D or d)"<<endl;
+//		cout<<"4. Surrender. (G or g)"<<endl;
+//	}
+//	printLine();
 }
 
 // 플레이어 턴에 할일 : 블랙잭이나 버스트가 아닐 경우
@@ -359,39 +359,7 @@ int Blackjack::playerTurn()
 							continue;
 						}
 						
-					
-						// DOUBLE DOWN
-					case 'D':
-					case 'd':
-						if(currentPlayer.canBet(currentPlayer.getBet() *2))
-							currentPlayer.plusBet(currentPlayer.getBet());
-						else
-						{
-							cout<<"You don't have enough money."<<endl;
-							continue;
-						}
-						currentPlayer.drawACard(deck);
-						player_draw++;
-						currentPlayer.showHand();
-						if(currentPlayer.getCardSum() > 21)
-						{
-							result = 5; //BURST
-							break;
-						}
-						else
-						{
-							result = 1;
-							break;
-						}
-						// SURRENDER
-					case 'G':
-					case 'g':
-						result = 6;
-						break;
-				
-					default:
-						continue;
-				}
+
 			}
 			else
 			{
