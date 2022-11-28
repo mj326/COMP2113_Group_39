@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include <cctype>
-#include "Game.h"
+#include "game.h"
 #include "Card.h"
 #include "Player.h"
 using namespace std;
