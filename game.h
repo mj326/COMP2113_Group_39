@@ -1,6 +1,6 @@
 #pragma once
-#include "Card.h"
-#include "Player.h"
+#include "card.h"
+#include "player.h"
 #include <iostream>
 #include <fstream>
 #include <string>
