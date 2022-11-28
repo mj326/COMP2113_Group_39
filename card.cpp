@@ -62,9 +62,9 @@ char Card::printSuit() { //getShape => printSuit
 			cout<<" ㅡㅡㅡㅡㅡ"<<endl;
 			cout<<"| ◆        |"<<endl;
 			cout<<"|          |"<<endl;
-			cout<<"|    "<<(char)number<<"     |"<<endl;
 			cout<<"|          |"<<endl;
-			cout<<"|       ◇ |"<<endl;
+			cout<<"|          |"<<endl;
+			cout<<"|    "<<(char)number<<"     |"<<endl;      
 			cout<<" ㅡㅡㅡㅡㅡ"<<endl;
 		}
 		else if (sut == 2){ //shp => sut
@@ -73,9 +73,9 @@ char Card::printSuit() { //getShape => printSuit
 			cout<<" ㅡㅡㅡㅡㅡ"<<endl;
 			cout<<"| ♠        |"<<endl;
 			cout<<"|          |"<<endl;
-			cout<<"|    "<<(char)number<<"     |"<<endl;
 			cout<<"|          |"<<endl;
-			cout<<"|       ♤ |"<<endl;
+			cout<<"|          |"<<endl;
+			cout<<"|    "<<(char)number<<"     |"<<endl;
 			cout<<" ㅡㅡㅡㅡㅡ"<<endl;
 		}
 		else if (sut == 3){ //shp => sut
@@ -84,9 +84,9 @@ char Card::printSuit() { //getShape => printSuit
 			cout<<" ㅡㅡㅡㅡㅡ"<<endl;
 			cout<<"| ♥        |"<<endl;
 			cout<<"|          |"<<endl;
-			cout<<"|    "<<(char)number<<"     |"<<endl;
 			cout<<"|          |"<<endl;
-			cout<<"|       ♡ |"<<endl;
+			cout<<"|          |"<<endl;
+			cout<<"|    "<<(char)number<<"     |"<<endl;
 			cout<<" ㅡㅡㅡㅡㅡ"<<endl;
 		}
 		else if (sut == 4){ //shp => sut
@@ -95,9 +95,9 @@ char Card::printSuit() { //getShape => printSuit
 			cout<<" ㅡㅡㅡㅡㅡ"<<endl;
 			cout<<"| ♣        |"<<endl;
 			cout<<"|          |"<<endl;
-			cout<<"|    "<<(char)number<<"     |"<<endl;
 			cout<<"|          |"<<endl;
-			cout<<"|       ♧ |"<<endl;
+			cout<<"|          |"<<endl;
+			cout<<"|    "<<(char)number<<"     |"<<endl;
 			cout<<" ㅡㅡㅡㅡㅡ"<<endl;
 		}
 	} else {
@@ -107,9 +107,9 @@ char Card::printSuit() { //getShape => printSuit
 			cout<<" ㅡㅡㅡㅡㅡ"<<endl;
 			cout<<"| ◆        |"<<endl;
 			cout<<"|          |"<<endl;
-			cout<<"|    "<<number<<"     |"<<endl;
 			cout<<"|          |"<<endl;
-			cout<<"|       ◇ |"<<endl;
+			cout<<"|          |"<<endl;
+			cout<<"|    "<<number<<"     |"<<endl;
 			cout<<" ㅡㅡㅡㅡㅡ"<<endl;
 		}
 		else if (sut == 2){ //shp => sut
@@ -118,9 +118,9 @@ char Card::printSuit() { //getShape => printSuit
 			cout<<" ㅡㅡㅡㅡㅡ"<<endl;
 			cout<<"| ♠        |"<<endl;
 			cout<<"|          |"<<endl;
-			cout<<"|    "<<number<<"     |"<<endl;
 			cout<<"|          |"<<endl;
-			cout<<"|       ♤ |"<<endl;
+			cout<<"|          |"<<endl;
+			cout<<"|    "<<number<<"     |"<<endl;
 			cout<<" ㅡㅡㅡㅡㅡ"<<endl;
 		}
 		else if (sut == 3){ //shp => sut
@@ -129,9 +129,9 @@ char Card::printSuit() { //getShape => printSuit
 			cout<<" ㅡㅡㅡㅡㅡ"<<endl;
 			cout<<"| ♥        |"<<endl;
 			cout<<"|          |"<<endl;
-			cout<<"|    "<<number<<"     |"<<endl;
 			cout<<"|          |"<<endl;
-			cout<<"|       ♡ |"<<endl;
+			cout<<"|          |"<<endl;
+			cout<<"|    "<<number<<"     |"<<endl;
 			cout<<" ㅡㅡㅡㅡㅡ"<<endl;
 		}
 		else if (sut == 4){ //shp => sut
@@ -140,9 +140,9 @@ char Card::printSuit() { //getShape => printSuit
 			cout<<" ㅡㅡㅡㅡㅡ"<<endl;
 			cout<<"| ♣        |"<<endl;
 			cout<<"|          |"<<endl;
-			cout<<"|    "<<number<<"     |"<<endl;
 			cout<<"|          |"<<endl;
-			cout<<"|       ♧ |"<<endl;
+			cout<<"|          |"<<endl;
+			cout<<"|    "<<number<<"     |"<<endl;
 			cout<<" ㅡㅡㅡㅡㅡ"<<endl;
 		}
 	}
