@@ -2,8 +2,8 @@
 #include <string>
 #include <cctype>
 #include "game.h"
-#include "Card.h"
-#include "Player.h"
+#include "card.h"
+#include "player.h"
 using namespace std;
 
 int main()
