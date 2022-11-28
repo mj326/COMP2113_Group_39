@@ -250,6 +250,7 @@ void Blackjack::showFirstCards() // 딜러는 오픈카드만, 플레이어는 �
 }
 
 
+//다시 수정 -> 민준
 // 게임 시작시 두 장의 카드 받기
 int Blackjack::getTwoCards()
 {
