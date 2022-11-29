@@ -12,7 +12,7 @@ Game::Game() {}
 
 Game::~Game()
 {
-	savePlayer();// 게임 종료 시 players.txt에 플레이어 목록 저장
+	storePlayers(); // 게임 종료 시 players.txt에 플레이어 목록 저장
 }
 
 void Game::loadPlayer()
@@ -30,7 +30,7 @@ void Game::loadPlayer()
 	for(int i = 0; i < numofplayers; i++ )
 	{
 		fin>>num>>playerName>>balance;
-		Players.push_back(Player(num, playerName, balance));
+		Players.push_back(PlayerInfo(playerName, balance));
 	}
 	fin.close();
 }
@@ -41,12 +41,12 @@ void Game::storePlayers()
 	ofstream fout;
 	fout.open("players.txt");
 	
-	sort(Players.begin(), Players.end(), cmpNum);
+	sort(Players.begin(), Players.end(), compNum);
 	fout << Players.size() << endl;
 	
 	for(int i = 0; i < Players.size(); i++ )
 	{
-		fout<<Players[i].getNum()<<" "<<Players[i].getName()<<" "<<Players[i].getBalance()<<endl;
+		fout<<" "<<Players[i].getName()<<" "<<Players[i].getBalance()<<endl;
 	}
 	fout.close();
 }
@@ -80,7 +80,7 @@ void Game::showIntro()
 
 
 // 완성)#1. 새로운 플레이어 등록
-void Game::addNewPlayer()
+void Game::addPlayer()
 {
 	/*
 	 1. 이름 입력
@@ -92,8 +92,8 @@ void Game::addNewPlayer()
 	while(true)
 	{
 		try{
-			cout<<"Enter your name. : ";
-			cin>>playerName;
+			cout << "Enter your name : ";
+			cin >> playerName;
 			cin.ignore();
 			
 			for(int i = 0; i < playerName.size(); i++)
@@ -103,15 +103,14 @@ void Game::addNewPlayer()
 				else
 					throw playerName;
 			}
-				Player newPlayer((unsigned int)Players.size(), playerName, 0);
+				PlayerInfo newPlayer(playerName, 50);
 				Players.push_back(newPlayer);
-				fillUp(playerName);
 				return;
 			
 		}
 		catch(...)
 		{
-			cout<<"Please Try Again."<<endl;
+			cout<<"Please Try Again"<<endl;
 			cin.clear();
 		}
 	}
@@ -127,7 +126,7 @@ void Game::startGame()
 }
 
 // 완성)#5. 라이센스 출력
-void Game::printLicence()
+void Game::printLicense()
 {
 	/*
 	 2. 라이센스 출력
@@ -152,8 +151,8 @@ void Game::exit()
 	 2. "Thank you for playing" 출력후
 	 3. return
 	 */
-	savePlayer();
-	cout<<"Thank you for playing BLACKJACK"<<endl;
+	storePlayers();
+	cout << "Thank you for playing BLACKJACK" << endl;
 }
 
 
@@ -173,7 +172,7 @@ bool Blackjack::loadPlayer()
 	while(true)
 	{
 		try {
-			cout<<"Enter your name. : ";
+			cout<<"Enter your name : ";
 			cin>>playerName;
 			cin.ignore();
 			
@@ -189,11 +188,11 @@ bool Blackjack::loadPlayer()
 		catch (...)
 		{
 			
-			cout<<"Please Try Again."<<endl;
+			cout << "Please Try Again." << endl;
 			cin.clear();
 		}
 	}
-	currentPlayer.setPlayer(Players[idx]);
+	currentPlayer.setName(Players[idx]);
 	return true;
 }
 
@@ -201,10 +200,10 @@ bool Blackjack::loadPlayer()
 bool Blackjack::doBetting()
 {
 	string money_s;
-	double money;
+	double amount;
 	// Update Starting balance.
 	// Subtract betting amount from Balance.
-	currentPlayer.setStartingBalance();
+	currentPlayer.setStartBal();
 	
 	while(true)
 	{
@@ -220,11 +219,11 @@ bool Blackjack::doBetting()
 				else
 					throw money_s;
 			}
-			money = stod(money_s);
-			if (currentPlayer.canBet(money))
+			amount = stod(money_s);
+			if (currentPlayer.betMoneyAvail(amount))
 			{
-				currentPlayer.plusBet(money); // 베팅금액을 덮어씌우는게 아니라 더해야 함.
-				currentPlayer.showPlayerInfo();
+				currentPlayer.betMoney(amount); // 베팅금액을 덮어씌우는게 아니라 더해야 함.
+				currentPlayer.show_info();
 				return true;
 			}
 			else
@@ -243,7 +242,7 @@ bool Blackjack::doBetting()
 	}
 }
 
-void Blackjack::showFirstCards() // 딜러는 오픈카드만, 플레이어는 두 장의 첫 카드를 보여준다.
+void Blackjack::showInitialCards() // 딜러는 오픈카드만, 플레이어는 두 장의 첫 카드를 보여준다.
 {
 	Computer.showOpenCard();
 	currentPlayer.showFirstTwoCards();

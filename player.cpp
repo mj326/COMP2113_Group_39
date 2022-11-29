@@ -12,19 +12,19 @@ PlayerInfo::PlayerInfo(string player_name, int player_balance)
     this->player_balance = player_balance;
 }
 PlayerInfo::~PlayerInfo() {};
-void PlayerInfo::setName(string player_name)
+void PlayerInfo::setName(PlayerInfo who)
 {
     cin.getline(player_name);
     this->player_name = player_name;
 }
 
-void PlayerInfo::setBalance(string player_balance)
+void PlayerInfo::setBalance(int player_balance)
 {
     cin >> player_balance;
     this->player_balance = player_balance;
 }
 
-Game::Game()
+GamePlayer::GamePlayer()
 {
     this->Deck = vector<Card> Deck;
     this->bet_money = 0;
@@ -32,15 +32,15 @@ Game::Game()
     this -> start_balance = 0;
 }
 
-Game::Game(string player_name, int player_balance)
+GamePlayer::GamePlayer(string player_name, int player_balance)
 {
     PlayerInfo(player_name, player_balance);
 }
 
-Game::~Game()
+GamePlayer::~GamePlayer()
 {}
 
-void Game::setStartBal()
+void GamePlayer::setStartBal()
 {
     if (this->player_balance != 0)          //If player balance is successfully initialized
     {
@@ -52,7 +52,7 @@ void Game::setStartBal()
     }
 }
 
-bool Game::betMoneyAvail(int amount)
+bool GamePlayer::betMoneyAvail(int amount)
 {
     try             //Handling Exceptions
     {
@@ -89,15 +89,15 @@ bool Game::betMoneyAvail(int amount)
     }
 }
 
-void Game:show_info()
+void GamePlayer::show_info()
 {
-    cout << "Name : " << this->name << endl;
+    cout << "Name : " << this->player_name << endl;
     cout << "Starting Balance : " << this->start_balance << endl;
-    cout << "Current Balance : " << this->player_balance << end;
+    cout << "Current Balance : " << this->player_balance << endl;
     cout << "Current accumulated Bet Money" << this->bet_money << endl;
 }
 
-void Game::betMoney(int amount)
+void GamePlayer::betMoney(int amount)
 {
     try             //Handling Exceptions
     {
@@ -118,4 +118,19 @@ void Game::betMoney(int amount)
         this->player_balance += amount * 2;
     else
         this->player_balance += 0;
+}
+
+void GamePlayer::showFirstTwoCards()
+{
+	cout << "[ Player ]" << endl;
+	Deck[0].getShape();
+	Deck[1].getShape();
+	cout << "[ " << getSum<int>(Deck)<< " ]" << endl;
+	cout << "---------------------------------" << endl;
+}
+
+void GamePlayer::drawTwoCards(Deck &deck)
+{
+	(this->Hand).push_back(deck.getACard());
+	(this->Hand).push_back(deck.getACard());
 }

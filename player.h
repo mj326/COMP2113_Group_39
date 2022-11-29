@@ -11,11 +11,11 @@ public:     //Initializing Player
     PlayerInfo(string player_name, int player_balance);
     ~PlayerInfo();
 
-public: //Setting Information
-    void setName(string player_name);
+public: // Setting Information
+    void setName(PlayerInfo who);
     void setBalance(int player_balance);
 
-public: //Getting Information
+public: // Getting Information
     inline string getName() const {return player_name;}
     inline int getBalance() const {return player_balance;}
 
@@ -25,13 +25,15 @@ protected:
 private:
 };
 
+bool compNum(const PlayerInfo &a, const PlayerInfo &b);
+bool compBalance(const PlayerInfo &a, const PlayerInfo &b);
 
-class Game : public PlayerInfo          //Inheritance of Player class to Game class
+class GamePlayer : public PlayerInfo          // Inheritance of Player class to Game class
 {
-public:                                 //Initilization
-    Game();
-    Game(string player_name, int balance);
-    ~Game();
+public:                                 // Initilization
+    GamePlayer();
+    GamePlayer(string player_name, int balance);
+    ~GamePlayer();
 
 public:         //Getting Player in-game Information
     inline int getSum() const {return sum;}
@@ -43,11 +45,21 @@ public:         //Setting Player in-game Information
     bool betMoneyAvail(int amount);
     void betMoney(int amount);
     void show_info();
+    void showFirstTwoCards();
+    void drawTwoCards();
 
 protected:
-private:
     vector<Card> Deck;
     int bet_money;
     int sum;
     int start_balance;
+};
+
+class Dealer : public GamePlayer
+{
+public:
+	
+	void showOpenCard();
+	bool isOpenCardAce();
+	void showHand();
 };

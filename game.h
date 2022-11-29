@@ -15,7 +15,7 @@ void printLine();
 class Game
 {
 protected:
-	vector<Player> Players; // 등록된 플레이어들
+	vector<PlayerInfo> Players; // 등록된 플레이어들
 
 public:
 	Game();
@@ -28,7 +28,7 @@ public:
 	void loadPlayer();
 
 	// Save player record on players.txt
-	void savePlayer();
+	void storePlayers();
 
     // 기존 플레이어로 게임시작
     void addPlayer();
@@ -37,7 +37,7 @@ public:
 	virtual void startGame();
 
 	// Print license of game
-	void printLicence();
+	void printLicense();
 
 	// Exit game
 	void exit();
@@ -50,13 +50,8 @@ protected:
 
 	GamePlayer currentPlayer; // current player (User)
 	Dealer Computer; // dealer (Computer)
-	Deck deck; // 52 cards total
+	Deck deck; // 52 cards in total
 	int player_draw; // How many cards the player drew
-
-	GamePlayer currentPlayer; // 현재 게임하는 사람
-	Dealer Computer; // 딜러
-	Deck deck; // 총 52장의 카드
-	int player_draw; // 플레이어가 몇 번 카드를 드로우 했는지.
 
 public:
 	Blackjack();
