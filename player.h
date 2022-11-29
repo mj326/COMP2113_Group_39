@@ -30,7 +30,8 @@ bool compBalance(const PlayerInfo &a, const PlayerInfo &b);
 
 class GamePlayer : public PlayerInfo          // Inheritance of Player class to Game class
 {
-public:                                 // Initilization
+public:
+    // Initilization
     GamePlayer();
     GamePlayer(string player_name, int balance);
     ~GamePlayer();
@@ -46,14 +47,24 @@ public:         //Setting Player in-game Information
     void betMoney(int amount);
     void show_info();
     void showFirstTwoCards();
-    void drawTwoCards();
+    void drawTwoCards(Deck &deck);
+    bool isFirstCardsBJ();
+    void drawACard(Deck &deck);
+    void showHand();
+    double getCardSum();
+    double getBet();
+    void initGame();
 
 protected:
-    vector<Card> Deck;
+    vector<Card> Hand;
     int bet_money;
     int sum;
     int start_balance;
 };
+
+bool operator>(GamePlayer& p1, GamePlayer& p2);
+
+bool operator==(GamePlayer& p1, GamePlayer& p2);
 
 class Dealer : public GamePlayer
 {

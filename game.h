@@ -65,6 +65,7 @@ public:
 	
 	void showInitialCards();
 
+
 	
 	// Receive 2 cards in the beginning
 	int getTwoCards();

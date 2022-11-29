@@ -1,4 +1,5 @@
-#include <player.h>
+#include "player.h"
+using namespace std;
 
 PlayerInfo::PlayerInfo()
 {
@@ -129,8 +130,7 @@ void GamePlayer::showFirstTwoCards()
 	cout << "---------------------------------" << endl;
 }
 
-void GamePlayer::drawTwoCards(Deck &deck)
-{
+void GamePlayer::drawTwoCards(Deck &deck){
 	(this->Hand).push_back(deck.getACard());
 	(this->Hand).push_back(deck.getACard());
 }
