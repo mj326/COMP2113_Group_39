@@ -15,8 +15,8 @@ PlayerInfo::PlayerInfo(string player_name, int player_balance)
 PlayerInfo::~PlayerInfo() {};
 void PlayerInfo::setName(PlayerInfo who)
 {
-    cin.getline(player_name);
-    this->player_name = player_name;
+    //cin.getline(player_name);
+    this->player_name = who.player_name;
 }
 
 void PlayerInfo::setBalance(int player_balance)
@@ -124,13 +124,13 @@ void GamePlayer::betMoney(int amount)
 void GamePlayer::showFirstTwoCards()
 {
 	cout << "[ Player ]" << endl;
-	Deck[0].getShape();
-	Deck[1].getShape();
-	cout << "[ " << getSum<int>(Deck)<< " ]" << endl;
+	Hand[0].printSuit();
+	Hand[1].printSuit();
+	cout << "[ "::printSum<int>(Hand)<<"]" << endl;
 	cout << "---------------------------------" << endl;
 }
 
 void GamePlayer::drawTwoCards(Deck &deck){
-	(this->Hand).push_back(deck.getACard());
-	(this->Hand).push_back(deck.getACard());
+	(this->Hand).push_back(deck.collectACard());
+	(this->Hand).push_back(deck.collectACard());
 }

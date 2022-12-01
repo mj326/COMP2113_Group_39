@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include "card.h"
 using namespace std;
 
 class PlayerInfo
@@ -37,7 +38,7 @@ public:
     ~GamePlayer();
 
 public:         //Getting Player in-game Information
-    inline int getSum() const {return sum;}
+    inline int printSum() const {return sum;}
     inline int getStartBal() const {return start_balance;}
     inline int getBetMoney() const {return bet_money;}
 
