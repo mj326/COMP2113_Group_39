@@ -108,7 +108,6 @@ class Deck
 public:
 	Deck();
 	~Deck();
-    void shuffleDeck();
 	void mixDeck(); //shuffleDeck => mixDeck
 	int printRemainCardsNum(); //getRemainCardsNum => printRemainCardsNum
 	Card drawACard() ; //getACard() => drawACard()
