@@ -43,7 +43,7 @@ void Game::storePlayers()
 	
 	//sort(Players.begin(), Players.end(), //compNum// );
 	fout << Players.size() << endl;
-	
+
 	for(int i = 0; i < Players.size(); i++ )
 	{
 		fout<<" "<<Players[i].getName()<<" "<<Players[i].getBalance()<<endl;
@@ -121,7 +121,7 @@ void Game::addPlayer()
 void Game::startGame()
 {
 	/*
-	 이 부분은 Blackjack 클래스의 멤버함수로 함
+	 이 부분은 Blarkjack 클래스의 멤버함수로 함
 	 */
 }
 
@@ -293,6 +293,42 @@ int Blackjack::getTwoCards()
 		}
 	}
 }
+
+bool Blackjack::restart() //새로 시작
+{
+    cout<<"Do you want to restart the Game?(Y/N) :";
+    char response;
+    while(true)
+    {
+        try{
+            // 메뉴 선택
+            cin>>response;
+            cin.ignore();
+
+            if(!isalpha(response))
+                throw response;
+
+            switch (response) {
+                case 'Y':
+                case 'y':
+                    return true;
+                case 'N':
+                case 'n':
+                    return false;
+                default:
+                    continue;
+            }
+            break;
+        }
+        catch(char exception)
+        {
+            cout<<"Please Try Again."<<endl;
+            cin.clear();
+        }
+    }
+}
+
+
 
 // Print choices for player
 void Blackjack::showPlayerChoices()
@@ -572,6 +608,7 @@ void Blackjack::startGame() {
         int first_result = getTwoCards();
 
         showInitialCards();
+
         int after_player, after_dealer;
 
         switch (first_result) {
