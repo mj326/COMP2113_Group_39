@@ -41,7 +41,7 @@ void Game::storePlayers()
 	ofstream fout;
 	fout.open("players.txt");
 	
-	sort(Players.begin(), Players.end(), compNum);
+	//sort(Players.begin(), Players.end(), //compNum// );
 	fout << Players.size() << endl;
 	
 	for(int i = 0; i < Players.size(); i++ )
@@ -561,7 +561,7 @@ void Blackjack::startGame() {
 
     while (cont) {
         deck.init(); // 52장 카드로 초기화한다.
-        deck.shuffleDeck(); // shuffle the deck
+        deck.mixDeck(); // shuffle the deck
 
         currentPlayer.initGame(); // 카드와 베팅금액을 비운다.
         Computer.initGame(); // 카드를 비운다.
