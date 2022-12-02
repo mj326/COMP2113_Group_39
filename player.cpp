@@ -44,20 +44,16 @@ bool compBalance(const PlayerInfo &a, const PlayerInfo &b){
     return a.getBalance() > b.getBalance();
 }
 
-/* GamePlayer::GamePlayer()
-{
-    this->Hand = vector<Card> Deck;
-    this->bet_money = 10;
-    this->sum = 0;
-    this -> start_balance = 50;
-} */
-
 GamePlayer::GamePlayer(string player_name, int player_balance)
 {
     PlayerInfo(player_name, player_balance);
 }
 
-GamePlayer::~GamePlayer() {}
+GamePlayer::GamePlayer() : PlayerInfo()
+{}
+
+GamePlayer::~GamePlayer()
+{}
 
 int GamePlayer::printCardSum() {
 	this->sum = printSum<int>(Hand);
