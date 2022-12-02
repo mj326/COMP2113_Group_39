@@ -38,9 +38,9 @@ public:
     ~GamePlayer();
 
 public:         //Getting Player in-game Information
-    inline int printSum() const {return sum;}
     inline int getStartBal() const {return start_balance;}
     inline int getBetMoney() const {return bet_money;}
+    int printCardSum();
 
 public:         //Setting Player in-game Information
     void setStartBal();

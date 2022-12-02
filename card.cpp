@@ -29,7 +29,7 @@ void Card::setupSuit(int cardName) { //setShape => setupSuit
 
 void Card::setupValue(int cardName) { // setValue => setupValue
 	if (cardName < 10)
-		value = 11;                     // A를 무조건 11로 처리
+		value = 11;                     // A is always 11
 	else if (10 < cardName && cardName < 50)
 		value = cardName % 10;
 	else if (50 < cardName)
@@ -38,23 +38,23 @@ void Card::setupValue(int cardName) { // setValue => setupValue
 
 void Card::setupNumber(int cardName) { // setNumber => setupNumber
 	if (cardName < 10)
-		number = 'A';  //65
+		number = 'A';  // 65
 	else if (10 < cardName && cardName < 50)
 		number = cardName % 10;
 	else if (50 < cardName) {
 		if (cardName % 100 == 0)
 			number = 10;
 		else if (cardName % 100 == 10)
-			number = 'K'; //75
+			number = 'K'; // 75
 		else if (cardName % 100 == 20)
-			number = 'J'; //74
+			number = 'J'; // 74
 		else if (cardName % 100 == 30)
-			number = 'Q'; //81
+			number = 'Q'; // 81
 	}
 }
 
-char Card::printSuit() { //getShape => printSuit
-	char suit; //shape => suit
+char Card::printSuit() { // getShape => printSuit
+	char suit; // shape => suit
 	if (number > 10){
 		if (sut == 1){ //shp => sut
 			suit = 'D'; //shape => suit
@@ -179,7 +179,7 @@ int Deck::printRemainCardsNum() { // getRemainCardsNum() => printRemainCardsNum(
 }
 
 
-Card Deck::collectACard() { //getACard() => collectACard()
+Card Deck::drawACard() { //getACard() => collectACard()
 	Card card;
 	if (cards.size() >= 1) {
 		card = cards[cards.size() - 1];

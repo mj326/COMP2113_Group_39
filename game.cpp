@@ -163,7 +163,7 @@ Blackjack::Blackjack() : Game()
 Blackjack::~Blackjack()
 {}
 
-// 테스트)현재 게임하는 사람 로딩 : 성공하면 true, 실패하면 false 반환
+// Load current player : Return true if succeed to load, else false
 bool Blackjack::loadPlayer()
 {
 	string playerName;
@@ -196,7 +196,7 @@ bool Blackjack::loadPlayer()
 	return true;
 }
 
-// 테스트)플레이어가 베팅하기 : 정상적으로 베팅되었으면 true 반환, 아니면 false 반환
+// Player betting : Return true if betting succeeds, else false
 bool Blackjack::doBetting()
 {
 	string money_s;
@@ -222,7 +222,7 @@ bool Blackjack::doBetting()
 			amount = stod(money_s);
 			if (currentPlayer.betMoneyAvail(amount))
 			{
-				currentPlayer.betMoney(amount); // 베팅금액을 덮어씌우는게 아니라 더해야 함.
+				currentPlayer.betMoney(amount); // Add the betting amount
 				currentPlayer.show_info();
 				return true;
 			}
@@ -242,7 +242,7 @@ bool Blackjack::doBetting()
 	}
 }
 
-void Blackjack::showInitialCards() // 딜러는 오픈카드만, 플레이어는 두 장의 첫 카드를 보여준다.
+void Blackjack::showInitialCards() // Dealer shows one(open card), player shows two
 {
 	Computer.showOpenCard();
 	currentPlayer.showFirstTwoCards();

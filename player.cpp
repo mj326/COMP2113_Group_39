@@ -13,10 +13,11 @@ PlayerInfo::PlayerInfo(string player_name, int player_balance)
     this->player_balance = player_balance;
 }
 PlayerInfo::~PlayerInfo() {};
-void PlayerInfo::setName(PlayerInfo who)
+
+void PlayerInfo::setName(PlayerInfo playerX) // who -> playerX
 {
     //cin.getline(player_name);
-    this->player_name = who.player_name;
+    this->player_name = playerX.player_name;
 }
 
 void PlayerInfo::setBalance(int player_balance)
@@ -25,31 +26,35 @@ void PlayerInfo::setBalance(int player_balance)
     this->player_balance = player_balance;
 }
 
-GamePlayer::GamePlayer()
+/* GamePlayer::GamePlayer()
 {
-    this->Deck = vector<Card> Deck;
-    this->bet_money = 0;
+    this->Hand = vector<Card> Deck;
+    this->bet_money = 10;
     this->sum = 0;
-    this -> start_balance = 0;
-}
+    this -> start_balance = 50;
+} */
 
 GamePlayer::GamePlayer(string player_name, int player_balance)
 {
     PlayerInfo(player_name, player_balance);
 }
 
-GamePlayer::~GamePlayer()
-{}
+GamePlayer::~GamePlayer() {}
+
+int GamePlayer::printCardSum() {
+	this->sum = printSum<int>(Hand);
+	return this->sum;
+}
 
 void GamePlayer::setStartBal()
 {
-    if (this->player_balance != 0)          //If player balance is successfully initialized
+    if (this->player_balance != 0)          // If player balance is successfully initialized
     {
         this->start_balance = this->player_balance;
     }
     else
     {
-        this->start_balance = 50;           //starting balance = 50
+        this->start_balance = 50;           // starting balance = 50
     }
 }
 
@@ -100,7 +105,7 @@ void GamePlayer::show_info()
 
 void GamePlayer::betMoney(int amount)
 {
-    try             //Handling Exceptions
+    try             // Handling Exceptions
     {
         if (amount != 0 || amount != 10 || amount != 20)
             throw amount;
@@ -114,23 +119,28 @@ void GamePlayer::betMoney(int amount)
     this->start_balance -= amount;
     this->player_balance = this->start_balance;
     this->bet_money += amount;
-
-    if (//win)
+    /*
+    if ( player wins )
         this->player_balance += amount * 2;
     else
         this->player_balance += 0;
+    */
 }
 
 void GamePlayer::showFirstTwoCards()
 {
-	cout << "[ Player ]" << endl;
+	cout << "- Player -" << endl;
 	Hand[0].printSuit();
 	Hand[1].printSuit();
-	cout << "[ "::printSum<int>(Hand)<<"]" << endl;
-	cout << "---------------------------------" << endl;
+	cout << printSum<int>(Hand) << endl;
 }
 
 void GamePlayer::drawTwoCards(Deck &deck){
-	(this->Hand).push_back(deck.collectACard());
-	(this->Hand).push_back(deck.collectACard());
+	(this->Hand).push_back(deck.drawACard());
+	(this->Hand).push_back(deck.drawACard());
+}
+
+void GamePlayer::drawACard(Deck &deck)
+{
+	(this->Hand).push_back(deck.drawACard());
 }

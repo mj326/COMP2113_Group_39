@@ -8,16 +8,17 @@
 #include <iterator>
 using namespace std;
 
-namespace Card_namespace{
+// Create namespace for the Deck
+namespace Card_namespace {
 
 	const int NumofCards = 52;
-	/* 1또는 10으로 계산할 수 있는 A */
+	// Calculate Ace as 1 or 10
 	const int DIAMOND_A = 1; 
 	const int SPADE_A = 2;
 	const int HEART_A = 3;
 	const int CLUBS_A = 4;
 	
-	/* 2 ~ 9 */
+	// Card numbers 2 to 9
 	const int DIAMOND_2 = 12;
 	const int DIAMOND_3 = 13;
 	const int DIAMOND_4 = 14;
@@ -54,7 +55,7 @@ namespace Card_namespace{
 	const int CLUBS_8 = 48;
 	const int CLUBS_9 = 49;
 	
-	/* 10으로 계산되는 10, K, J, Q */
+	// 10, K, J, Q are calculated as 10
 	const int DIAMOND_10 = 100;
 	const int DIAMOND_K = 110;
 	const int DIMOND_J = 120;
@@ -76,10 +77,10 @@ namespace Card_namespace{
 	const int CLUBS_Q = 430;
 }
 
-class Card //into Card_class 
+class Card // into Card_class 
 {
 protected:
-	int value; // 실제로 적용되는 값
+	int value; // Actual value used
 	
 private:
 	int cards;
@@ -110,7 +111,7 @@ public:
     void shuffleDeck();
 	void mixDeck(); //shuffleDeck => mixDeck
 	int printRemainCardsNum(); //getRemainCardsNum => printRemainCardsNum
-	Card collectACard() ; //getACard() => collectACard()
+	Card drawACard() ; //getACard() => drawACard()
 	void init();
 };
 
