@@ -99,7 +99,7 @@ void Game::addPlayer()
 void Game::startGame()
 {
 	/*
-	 이 부분은 Blarkjack 클래스의 멤버함수로 함
+	 이 부분은 Blackjack 클래스의 멤버함수로 함
 	 */
 }
 
@@ -146,6 +146,7 @@ bool Blackjack::doBetting()
 {
 	string money_s;
 	double amount;
+
 	// Update Starting balance.
 	// Subtract betting amount from Balance.
 	currentPlayer.setStartBal();
@@ -157,31 +158,26 @@ bool Blackjack::doBetting()
             cout << " 1) $10   2) $20   3) $30 " << endl;
 			cin >> money_s;
 			cin.ignore();
-			
-    		amount = stod(money_s);
-			if (amount == 10 || amount == 20 || amount == 30)
-					continue;
-			else
-				throw money_s;
 
-			if (currentPlayer.betMoneyAvail(amount))
-			{
-				currentPlayer.betMoney(amount); // Add the betting amount
-				currentPlayer.show_info();
-				return true;
-			}
-			else
-			{
-				cout << "Not enough money!" << endl;
-				cout << "You Lose :(" << endl;
-				return false;
-			}
+    		amount = stod(money_s);
+
+			if (amount == 10 || amount == 20 || amount == 30) {
+                return true;
+            }
+			else{
+
+				throw money_s;
+            }
+
 		}
+
+        //to tell the playe that he entered wrong betting amount
 		catch(string wrong)
 		{
 			cout << "Wrong input. Please enter 10, 20 or 30." << endl;
 			cout << "You entered : " << wrong << endl;
 			cin.clear();
+            return false;
 		}
 	}
 }
@@ -520,8 +516,8 @@ void Blackjack::startGame() {
 
     bool cont;
 
-    while (cont) {
-        deck.init(); // 52장 카드로 초기화한다.
+    while (true) {
+        deck.init(); // initialise  52 cards
         deck.mixDeck(); // shuffle the deck
 
         currentPlayer.initGame(); // 카드와 베팅금액을 비운다.
