@@ -66,7 +66,7 @@ void Game::intro()
 
 	printLine();
 	
-	<<"1. Register new Player.(R or r)"<<endl;
+	cout<<"1. Register new Player.(R or r)"<<endl;
 	cout<<"2. Game start if you have registered.(G or g)"<<endl;
 	cout<<"3. Information : Who made this game?(I or i)"<<endl;
 	cout<<"4. End game.(E or e)"<<endl;
