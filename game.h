@@ -22,7 +22,7 @@ public:
 	~Game();
 	
 	// Print intro on terminal
-	void showIntro();
+	void intro();
 	
 	// Load current player from players.txt
 	void loadPlayer();

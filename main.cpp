@@ -11,12 +11,12 @@ int main()
     Blackjack BJ;
     string menu;
 
-    cout << "----------------------------------Welcome To BlackJack----------------------------------" << endl;
+    cout << "----------------------------Welcome To BlackJack----------------------------" << endl;
     cout << endl;
 
     while(1)
     {
-        BJ.showIntro();
+        BJ.intro();
 
         try
         {

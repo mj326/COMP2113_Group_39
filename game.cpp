@@ -4,7 +4,7 @@ using namespace std;
 
 void printLine()
 {
-	cout<<"---------------------------------------------------------------"<<endl;
+	cout<<"---------------------------------------------------"<<endl;
 }
 
 
@@ -51,8 +51,8 @@ void Game::storePlayers()
 	fout.close();
 }
 
-// 완성)게임 첫 화면 출력
-void Game::showIntro()
+// Show Intro
+void Game::intro()
 {
 	/*
 	 먼저 loadPlayers() 통해서 players.txt로부터 Players 로딩
@@ -79,11 +79,11 @@ void Game::showIntro()
 }
 
 
-// 완성)#1. 새로운 플레이어 등록
+// Add new player
 void Game::addPlayer()
 {
 	/*
-	 1. 이름 입력
+	 1. Enter name
 	 2. ->입력한 이름이 이미 있는 이름이면 메뉴 첫화면으로 return
 	 3. ->입력한 이름이 없으면 이름 입력 받고 그 이름으로 fillUp() 호출해 게임머니 충전하고 메뉴 첫화면으로 return
 	 */
