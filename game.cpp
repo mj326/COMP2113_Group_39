@@ -46,7 +46,7 @@ void Game::storePlayers()
 
 	for(int i = 0; i < Players.size(); i++ )
 	{
-		fout<<" "<<Players[i].getName()<<" "<<Players[i].getBalance()<<endl;
+		fout << " " << Players[i].getName() << " " << Players[i].getBalance() << endl;
 	}
 	fout.close();
 }
@@ -68,10 +68,8 @@ void Game::intro()
 	
 	cout<<"1. Register new Player.(R or r)"<<endl;
 	cout<<"2. Game start if you have registered.(G or g)"<<endl;
-	cout<<"3. Show players status.(S or s)"<<endl;
-	cout<<"4. Charge your money.(C or c)"<<endl;
-	cout<<"5. Information : Who made this game.(I or i)"<<endl;
-	cout<<"6. End game.(E or e)"<<endl;
+	cout<<"3. Information : Who made this game?(I or i)"<<endl;
+	cout<<"4. End game.(E or e)"<<endl;
 	
 	printLine();
 	
@@ -91,8 +89,8 @@ void Game::addPlayer()
 	
 	while(true)
 	{
-		try{
-			cout << "Enter your name : ";
+		try {
+			cout << "Enter your name: ";
 			cin >> playerName;
 			cin.ignore();
 			
@@ -138,7 +136,7 @@ void Game::printLicense()
 	cout<<"|               MinJun Kim                        |"<<endl;
 	cout<<"|               DongChan Shin                     |"<<endl;
 	cout<<"|               SiWoo Kim                         |"<<endl;
-	cout<<"|               Yoojin Kang                        |"<<endl;
+	cout<<"|               Yoojin Kang                       |"<<endl;
 	cout<<"|                                                 |"<<endl;
 	cout<<"---------------------------------------------------"<<endl;
 }

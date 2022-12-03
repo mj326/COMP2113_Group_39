@@ -9,14 +9,14 @@ class PlayerInfo
 {
 
 protected:
-    //player's name
+    // player's name
     string player_name;
-    //player/s money
+    // player's money
     int player_balance;
 
 
-public:     //Initializing Player
-    PlayerInfo(string player_name,int player_balance);
+public:     // Initializing Player
+    PlayerInfo(string player_name, int player_balance);
     PlayerInfo();
     ~PlayerInfo();
 
