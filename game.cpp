@@ -15,26 +15,6 @@ Game::~Game()
 	storePlayers(); // 게임 종료 시 players.txt에 플레이어 목록 저장
 }
 
-void Game::loadPlayer()
-{
-	ifstream fin;
-	fin.open("players.txt");
-
-	int numofplayers;
-	fin >> numofplayers;
-	
-	int num;
-	string playerName;
-	double balance;
-	
-	for(int i = 0; i < numofplayers; i++ )
-	{
-		fin>>num>>playerName>>balance;
-		Players.push_back(PlayerInfo(playerName, balance));
-	}
-	fin.close();
-}
-
 // 완성
 void Game::storePlayers()
 {
@@ -101,7 +81,7 @@ void Game::addPlayer()
 				else
 					throw playerName;
 			}
-				PlayerInfo newPlayer(playerName, 50);
+				PlayerInfo newPlayer(playerName, 0);
 				Players.push_back(newPlayer);
 				return;
 			
@@ -161,39 +141,6 @@ Blackjack::Blackjack() : Game()
 Blackjack::~Blackjack()
 {}
 
-// Load current player : Return true if succeed to load, else false
-bool Blackjack::loadPlayer()
-{
-	string playerName;
-	
-	int idx;
-	while(true)
-	{
-		try {
-			cout<<"Enter your name : ";
-			cin>>playerName;
-			cin.ignore();
-			
-			for(int i = 0; i < playerName.size(); i++)
-			{
-				if(isalnum(playerName[i]))
-					continue;
-				else
-					throw playerName;
-			}
-			break;
-		}
-		catch (...)
-		{
-			
-			cout << "Please Try Again." << endl;
-			cin.clear();
-		}
-	}
-	currentPlayer.setName(Players[idx]);
-	return true;
-}
-
 // Player betting : Return true if betting succeeds, else false
 bool Blackjack::doBetting()
 {
@@ -206,18 +153,17 @@ bool Blackjack::doBetting()
 	while(true)
 	{
 		try {
-			cout << "How much do you want to bet? :";
+			cout << "Choose how much you want to bet : " << endl;
+            cout << " 1) $10   2) $20   3) $30 " << endl;
 			cin >> money_s;
 			cin.ignore();
 			
-			for(int i = 0; i < money_s.size(); i++)
-			{
-				if(money_s[i] == '.' || isdigit(money_s[i]))
+    		amount = stod(money_s);
+			if (amount == 10 || amount == 20 || amount == 30)
 					continue;
-				else
-					throw money_s;
-			}
-			amount = stod(money_s);
+			else
+				throw money_s;
+
 			if (currentPlayer.betMoneyAvail(amount))
 			{
 				currentPlayer.betMoney(amount); // Add the betting amount
@@ -227,14 +173,14 @@ bool Blackjack::doBetting()
 			else
 			{
 				cout << "Not enough money!" << endl;
-				cout << "You Lose" << endl;
+				cout << "You Lose :(" << endl;
 				return false;
 			}
 		}
 		catch(string wrong)
 		{
-			cout << "Please enter again" << endl;
-			cout << wrong << endl;
+			cout << "Wrong input. Please enter 10, 20 or 30." << endl;
+			cout << "You entered : " << wrong << endl;
 			cin.clear();
 		}
 	}
@@ -331,23 +277,17 @@ bool Blackjack::restart() //새로 시작
 // Print choices for player
 void Blackjack::showPlayerChoices()
 {
-	/*
-	 1. STAY 2. HIT 3. DOUBLEDOWN 4. SURRENDER(2번째부터는 비활성화)
-	 */
+	
+	// 1. STAY 2. HIT
 	cout<<"What do you want to do?"<<endl;
 	printLine();
 	
-	cout<<"1. Stay.(S or s)"<<endl;
-	cout<<"2. Hit.(H or h)"<<endl;
-//	if(player_draw == 1)
-//	{
-//		cout<<"3. Double down.(D or d)"<<endl;
-//		cout<<"4. Surrender. (G or g)"<<endl;
-//	}
+	cout<<"1. Stay. (S or s)"<<endl;
+	cout<<"2. Hit. (H or h)"<<endl;
 //	printLine();
 }
 
-
+// 1=Stay, 5=burst
 int Blackjack::playerTurn()
 {
     /*
@@ -359,14 +299,12 @@ int Blackjack::playerTurn()
         (b) Sum <= 21 -> go to 1)
     */
 
-
     char input;
     int result = -1;
     while(true)
     {
         try{
-            showPlayerChoices();
-            // 메뉴 선택
+            showPlayerChoices();   // 메뉴 선택
             cin>>input;
             cin.ignore();
 
@@ -382,7 +320,7 @@ int Blackjack::playerTurn()
                     case 's':
                         result = 1; // STAY
                         break;
-                        // HIT
+                    // HIT
                     case 'H':
                     case 'h':
                         currentPlayer.drawACard(deck);
@@ -440,26 +378,30 @@ int Blackjack::playerTurn()
 }
 
 
-// 딜러 턴에 할 일 : 플레이어가 할일 다 한 경우
+// 7=BJ 2=Dealer lose 3=Draw 5=Player wins
 int Blackjack::dealerTurn() {
     int result = -1;
 
     Computer.showHand();
     if (Computer.isFirstCardsBJ())
         return 7;
+
     bool dealer = true;
     while (dealer) {
 
         int dealerSum = Computer.getCardSum();
-        if (dealerSum <= 16) {
+        if (dealerSum < 16) {
             Computer.drawACard(deck);
             Computer.showHand();
             dealer = true;
-        } else if (dealerSum >= 22) {
+        }
+        else if (dealerSum > 21) {
             dealer = false;
             cout << "Dealer burst!" << endl;
             result = 2; // Dealer lose
-        } else {
+        }
+        else
+        {
             dealer = false;
             if (currentPlayer == Computer)// Sum = Player == Dealer
                 result = 3; // Draw
@@ -473,22 +415,20 @@ int Blackjack::dealerTurn() {
 }
 
 
-// 어떤 케이스냐에 따라 처리하는 결과가 달라짐
+// 1.BJ 2.Player Win 3.Draw 4.Lose
 void Blackjack::getResult(int result) {
     /*
-     1 -> 플레이어가 BLACKJACK인 경우 : 베팅금액 + 베팅금액 * 1.5를 돌려받기
-     2 -> 플레이어가 win한 경우 : 베팅금액 + 베팅금액을 돌려받기
-     3 -> push 인 경우 : 베팅금액을 돌려받기
-     4 -> 인슈런스 성공인 경우 : 인슈런스 금액 + 인슈런스 금액 * 2를 돌려받기
+     1 -> 플레이어가 BLACKJACK인 경우 : 베팅금액 3배를 돌려받기
+     2 -> 플레이어가 win한 경우 : 베팅금액 2배ㄹ 돌려받기
+     3 -> draw 인 경우 : 베팅금액을 돌려받기
      5 -> 모든 실패의 경우 : 그냥 끝
-     6 -> 플레이어가 SURREND한 경우 : 베팅금액의 1/2를 돌려받기
      */
 
     int bet = currentPlayer.getBet();
     switch (result) {
         case 1:
             cout << "BLACKJACK!" << endl;
-            currentPlayer.setBalance(bet + bet * 1.5);
+            currentPlayer.setBalance(bet + bet * 2);
             break;
 
         case 2:
@@ -497,19 +437,13 @@ void Blackjack::getResult(int result) {
             break;
 
         case 3:
-            cout << "Push!" << endl;
+            cout << "Draw!" << endl;
             currentPlayer.setBalance(bet);
             break;
 
         case 4:
-            cout << "You Fail!" << endl;
+            cout << "You Lose!" << endl;
             break;
-
-        case 5:
-            cout << "You Surrender!" << endl;
-            currentPlayer.setBalance(bet * 0.5);
-            break;
-
 
         default:
             break;
@@ -518,17 +452,17 @@ void Blackjack::getResult(int result) {
 
 bool Blackjack::nextRound() {
     cout << "Continue? (Y) :";
-    char response;
+    char answer;
     while (true) {
         try {
             // 메뉴 선택
-            cin >> response;
+            cin >> answer;
             cin.ignore();
 
-            if (!isalpha(response))
-                throw response;
+            if (!isalpha(answer))
+                throw answer;
 
-            switch (response) {
+            switch (answer) {
                 case 'Y':
                 case 'y':
                     return true;
@@ -585,13 +519,6 @@ void Blackjack::startGame() {
      */
 
     bool cont;
-    if (loadPlayer()) // 이름 입력 받아서 플레이어 정보를 로딩한다.
-        cont = true;
-    else {
-        cont = false;
-        // add new player
-        return;
-    }
 
     while (cont) {
         deck.init(); // 52장 카드로 초기화한다.
@@ -600,7 +527,7 @@ void Blackjack::startGame() {
         currentPlayer.initGame(); // 카드와 베팅금액을 비운다.
         Computer.initGame(); // 카드를 비운다.
         player_draw = 0;
-        if (!doBetting()) // player는 베팅을 한다.
+        if (!doBetting()) // doBetting() returns true if betting succeeds, else return false
             break;
 
         int first_result = getTwoCards();
@@ -610,7 +537,7 @@ void Blackjack::startGame() {
         int after_player, after_dealer;
 
         switch (first_result) {
-            case 1:
+            case 1: // Player is BJ
                 nextRound();
                 after_dealer = dealerTurn();
                 if (after_dealer == 7) {
@@ -624,11 +551,12 @@ void Blackjack::startGame() {
                 if (after_player == 1) {
                     after_dealer = dealerTurn();
                     if (after_dealer == 7) {
-                        getResult(5);
+                        getResult(4);
                     } else {
                         getResult(after_dealer);
                     }
-                } else {
+                }
+                else {
                     Computer.showHand(); // Show dealer's hidden card
                     getResult(after_player);
                 }

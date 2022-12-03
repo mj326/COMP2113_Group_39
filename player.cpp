@@ -62,21 +62,14 @@ int GamePlayer::printCardSum() {
 
 void GamePlayer::setStartBal()
 {
-    /* if (this->player_balance != 0)          // If player balance is successfully initialized
-    {
-        this->start_balance = this->player_balance;
-    }
-    else
-    { */
-        this->start_balance = 50;           // starting balance = 50
-    
+        this->start_balance = 50;           // starting balance = $50
 }
 
 bool GamePlayer::betMoneyAvail(int amount)
 {
-    try             //Handling Exceptions
+    try             // Handling Exceptions
     {
-        if (amount != 0 || amount != 10 || amount != 20)
+        if (amount != 10 || amount != 20 || amount != 30)
             throw amount;
     }
     catch(int exception)
@@ -87,10 +80,15 @@ bool GamePlayer::betMoneyAvail(int amount)
 
     switch(amount)
     {
-        case 1:         //betting 0
-            return true;
+        case 1:         //betting 10
+       {
+            if (this->player_balance >= amount && this->player_balance - amount >= 0)
+                return true;
+            else
+                return false;
             break;
-        case 2:         //betting 10
+        }
+        case 2:         //betting 20
         {
             if (this->player_balance >= amount && this->player_balance - amount >= 0)
                 return true;
@@ -98,7 +96,7 @@ bool GamePlayer::betMoneyAvail(int amount)
                 return false;
             break;
         }
-        case 3:        //betting 20
+        case 3:        //betting 30
         {
             if (this->player_balance >= amount && this->player_balance - amount >= 0)
                 return true;
@@ -187,7 +185,7 @@ void GamePlayer::showHand(){
 
 void GamePlayer::showFirstTwoCards()
 {
-	cout << "- Player -" << endl;
+	cout << "[ Player ]" << endl;
 	Hand[0].printSuit();
 	Hand[1].printSuit();
 	cout << printSum<int>(Hand) << endl;
