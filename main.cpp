@@ -21,16 +21,11 @@ int main()
             cin >> menu;
             cin.ignore();
 
-            /* if ((menu.size() >= 1) || (isalpha(menu[0] == 0)))
-            {
-                throw menu;
-            } */
-
             if (menu == "R" || menu == "r")
             {
                 BJ.addPlayer();
             }            
-            else if (menu == "G" || menu == "g")
+            if (menu == "G" || menu == "g")
             {
                 BJ.startGame();
             }
@@ -46,7 +41,7 @@ int main()
             else
             {   
                 cout << endl;
-                cout << "Please try again." << endl;
+                cout << "Please enter again." << endl;
                 cout << endl;
                 cin.clear();
             }
