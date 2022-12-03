@@ -10,7 +10,7 @@ int main()
 	cout<<endl;
 	while(1)
 	{
-		//BJ.showIntro();
+		BJ.showIntro();
 
 		try{
 			// 메뉴 선택
