@@ -23,17 +23,14 @@ public:
 	
 	// Print intro on terminal
 	void intro();
-	
-	// Load current player from players.txt
-	void loadPlayer();
 
 	// Save player record on players.txt
 	void storePlayers();
 
-    // 기존 플레이어로 게임시작
+    // Input user's name
     void addPlayer();
 	
-	// #2. 기존 플레이어로 게임 시작
+	// Start playing game
 	virtual void startGame();
 
 	// Print license of game
@@ -64,8 +61,6 @@ public:
 	
 	void showInitialCards();
 
-
-	
 	// Receive 2 cards in the beginning
 	int getTwoCards();
 	

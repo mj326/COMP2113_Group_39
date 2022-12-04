@@ -236,13 +236,6 @@ void Dealer::showOpenCard(){
     cout<<"-----------------------------------------------------------------"<<endl;
 }
 
-bool Dealer::isOpenCardAce(){
-    if(Hand[1].printNum() == 'A')
-        return true;
-    else
-        return false;
-}
-
 void Dealer::showHand(){
     cout<<"[ Dealer ]"<<endl;
     vector<Card>::iterator i;
