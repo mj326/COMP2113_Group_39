@@ -1,14 +1,15 @@
 # BlackJack project
 
+## Game Explained
+
 1. Shuffle the cards.
 2. Player bets.($10, $20, $30) -> Show Starting_Balance and subtract betting amount from balance.
       a) Starting balance is $100
-         - Player LOSES if balance < 10. -> End Game
-         - Player WINS if balance > 200. -> End Game
+        - Player LOSES if balance < 10. -> End Game
 3. Player and dealer each draws two cards.
 4. Show each cards except dealer's hidden card. (Total 3 cards shown)
 5. BLACKJACK == sum of cards is 21.
-      1. Player is BLACKJACK, player automatically WINS -> Round over
+      1. Player is BLACKJACK, player automatically WINS -> player receives bet_money*3 -> Round over
       2. Dealer is BLACKJACK, player automatically LOSES -> Round over
       3. If no BLACKJACK, move on.
       
@@ -16,15 +17,27 @@
       1. STAY
          - Player's turn is over and dealer shows hidden card.
             1. If player's card sum < dealer's card sum, player LOSES -> Round over
-            2. If player's card sum > dealer's card sum OR dealer's card sum > 21, player WINS -> Round over
+            2. If player's card sum > dealer's card sum OR dealer's card sum > 21, player WINS -> player receives
+            bet_money*2 -> Round over
       2. HIT
          - Player draws another card. (If the player's card sum < 21, player goes back to step 5.)
             1. If player card sum > 21 OR player card sum < dealer card sum, player LOSES -> Round over
-            2. If player card sum > dealer card sum, player WINS -> Round over
+            2. If player card sum > dealer card sum, player WINS -> player receives bet_money*2 -> Round over
+
+7. Dealer's turn.
+    1. If card sum of dealer <= 16
+        - dealer automatically draws another card. -> print the card
+    2. If card sum of dealer > 21
+        - dealer bursts and player WINS -> player receives bet_money*2 -> Round over
+    3. If card sum of dealer > 16 and less than 22 -> compare card sum
+        - if dealer card sum > player card sum -> player LOSE -> Round over
+        - if dealer card sum < player card sum -> player WINS -> player receives bet_money*2 -> Round over
+
       
-7. Player decided which amount to bet from the options($10, $20, $30)
+8. Player decided which amount to bet from the options($10, $20, $30)
    - if player LOSE: balance -= bet_money
    - if player WINS: balance += bet_money * 2
+   - if player WINS by BLACKJACK: balance += bet_money * 3
 
 
 
