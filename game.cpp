@@ -182,7 +182,7 @@ bool Blackjack::doBetting()
         // tell the player that he entered wrong betting amount
 		catch(string wrong)
 		{
-			cout << "Wrong input. Please enter 10, 20 or 30." << endl;
+			cout << endl << "Wrong input. Please enter 10, 20 or 30." << endl;
 			cout << "You entered : " << wrong << endl;
             printLine();
 			cin.clear();
@@ -220,8 +220,8 @@ bool Blackjack::restart() //새로 시작
     char answer;
     while(true)
     {
-        try{
-            // 메뉴 선택
+        try
+        {
             cin>>answer;
             cin.ignore();
 
@@ -235,9 +235,11 @@ bool Blackjack::restart() //새로 시작
                     case 'Y':
                     case 'y':
                         return true;
+                        break;
                     case 'N':
                     case 'n':
                         return false;
+                        break;
                     default:
                         continue;
             }
