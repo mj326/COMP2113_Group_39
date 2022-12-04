@@ -7,14 +7,8 @@ PlayerInfo::PlayerInfo(int player_num, string player_name, int player_balance) :
 PlayerInfo::PlayerInfo() {}
 PlayerInfo::~PlayerInfo() {}
 
-/* void PlayerInfo::setName(PlayerInfo playerX) // who -> playerX
-{
-    // cin >> player_name;
-    this->player_name = playerX.player_name;
-    this->player_balance = playerX.player_balance;
-} */
 
-void PlayerInfo::setPlayer(PlayerInfo playerX) // who -> playerX
+void PlayerInfo::setPlayer(PlayerInfo playerX)
 {
     this->player_num = playerX.player_num;
 	this->player_name = playerX.player_name;
@@ -58,6 +52,25 @@ GamePlayer::GamePlayer() : PlayerInfo()
 GamePlayer::~GamePlayer()
 {}
 
+bool GamePlayer::possibleBet(int money)
+{
+    if(this->player_balance >= money){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
+
+
+void GamePlayer::addBet(int money)
+{
+    this->player_balance -= money;
+    this->bet_money += money;
+}
+
+
 int GamePlayer::printCardSum() {
 	this->sum = printSum<int>(Hand);
 	return this->sum;
@@ -65,52 +78,10 @@ int GamePlayer::printCardSum() {
 
 void GamePlayer::setStartBal()
 {
-        this->start_balance = this->player_balance;           // starting balance = $50
+        this->start_balance = this->player_balance; // starting balance = $100
         this->player_balance -= this->bet_money;
 }
 
-bool GamePlayer::betMoneyAvail(double amount)
-{
-    try             // Handling Exceptions
-    {
-        if (amount != 10 || amount != 20 || amount != 30)
-            throw amount;
-    }
-    catch(double exception)
-    {
-        cout << "Entered $" << exception << " to bet." << endl;
-        cout << "Please re-enter the correct amount to bet." << endl;
-    }
-
-    if (this->player_balance >= amount && this->player_balance - amount >= 0)
-        return true;
-    else
-        return false;
-}
-
-void GamePlayer::betMoney(double amount)
-{
-    try             // Handling Exceptions
-    {
-        if (amount != 10 || amount != 20 || amount != 30)
-            throw amount;
-    }
-    catch(double exception)
-    {
-        cout << "Entered $" << exception << " to bet." << endl;
-        cout << "Please re-enter the correct amount to bet." << endl;
-    }
-
-    this->start_balance -= amount;
-    this->player_balance = this->start_balance;
-    this->bet_money += amount;
-    /*
-    if ( player wins )
-        this->player_balance += amount * 2;
-    else
-        this->player_balance += 0;
-    */
-}
 
 double GamePlayer::getCardSum()
 {

@@ -12,10 +12,32 @@ Game::Game() {}
 
 Game::~Game()
 {
-	storePlayers(); // 게임 종료 시 players.txt에 플레이어 목록 저장
+    // when game is over, save the player's name and final balance in "players.txt"
+	storePlayers();
 }
 
-//
+
+// check whether the player is registered already
+void Game::loadPlayers()
+{
+    ifstream fin;
+    fin.open("players.txt");
+
+
+    int num = 1;
+    string playerName;
+    double balance;
+
+    for(int i = 0; i < 1; i++ )
+    {
+        fin>>playerName>>balance;
+        Players.push_back(PlayerInfo(num,playerName, balance));
+    }
+    fin.close();
+
+}
+
+//to store player's name and ending balance
 void Game::storePlayers()
 {
 	ofstream fout;
@@ -23,21 +45,19 @@ void Game::storePlayers()
 
 	for(int i = 0; i < Players.size(); i++ )
 	{
-		fout << Players[i].getNum() << " " << Players[i].getName() << " " << Players[i].getBalance() << endl;
+		fout << " " << Players[i].getName() << " " << Players[i].getBalance() << endl;
 	}
 	fout.close();
 }
 
-// Show Intro
+// Show Introduction of the game
 void Game::intro()
 {
 	/*
 	 1. The user has to register his name before he begins playing the game
-	 2. 기존 플레이어로 게임 시작
-	 3. 잔고 기준 플레이어 랭킹 출력
-	 4. 기존 플레이어 게임머니 충전하기
-	 5. 라이센스 출력 혹은 게임방법 출력
-	 6. 게임 종료
+	 2. Start game is the player registered already
+	 3. To check the Information of the game
+	 4. The user chooses to end the game
 	 */
 
 	printLine();
@@ -52,33 +72,15 @@ void Game::intro()
 	cout<<"Which menu are you going to choose? : ";
 }
 
-void Game::loadPlayers()
-{
-	ifstream fin;
-	fin.open("players.txt");
-	int n_ofplayers;
-	fin>>n_ofplayers;
-	
-	int num;
-	string playerName;
-	int balance;
-	
-	for(int i = 0; i < n_ofplayers; i++)
-	{
-		fin>>num>>playerName>>balance;
-		Players.push_back(PlayerInfo(num, playerName, balance));
-	}
-	fin.close();
-}
 
-// Add new player
+// Add player's name by user's input
 void Game::addPlayer()
 {
 	/*
 	 1. Enter name
-	 2. ->입력한 이름이 이미 있는 이름이면 메뉴 첫화면으로 return
-	 3. ->입력한 이름이 없으면 이름 입력 받고 그 이름으로 fillUp() 호출해 게임머니 충전하고 메뉴 첫화면으로 return
+	 2. ->if name exists, return to the menu
 	 */
+
 	string playerName;
 	while(true)
 	{
@@ -94,18 +96,11 @@ void Game::addPlayer()
 				else
 					throw playerName;
 			}
-            
-            if(getPlayerIndex(playerName) != -1)
-			{
-				cout<<endl<<"Existing name!"<<endl;
-				throw playerName;
-			}
-			else
-			{
-				PlayerInfo newPlayer((unsigned int)Players.size(), playerName, 50);
-				Players.push_back(newPlayer);
-				return;
-            }
+
+            PlayerInfo newPlayer(1, playerName, 100);
+            Players.push_back(newPlayer);
+            return;
+
 		}
 		catch(...)
 		{
@@ -115,27 +110,25 @@ void Game::addPlayer()
 	}
 }
 
-
+//to update player's information after every round
 void Blackjack::updatePlayer()
 {
     int i = getPlayerIndex(currentPlayer.getName());
 	Players[i].setPlayer(currentPlayer);
 }
 
-// #2. 기존 플레이어로 게임 시작
+//startGame
 void Game::startGame()
 {
 	/*
-	 이 부분은 Blackjack 클래스의 멤버함수로 함
+	 using member function from Blackjack class
 	 */
 }
 
-// 완성)#5. 라이센스 출력
+// print our license (names of the contributors)
 void Game::printLicense()
 {
-	/*
-	 2. 라이센스 출력
-	 */
+
 	cout<<"---------------------------------------------------"<<endl;
 	cout<<"|            Contributors to this Game            |"<<endl;
 	cout<<"|                                                 |"<<endl;
@@ -148,31 +141,36 @@ void Game::printLicense()
 	cout<<"---------------------------------------------------"<<endl;
 }
 
+
+// give the player his index number to check whetehr his name is registered already
 int Game::getPlayerIndex(string playerName)
 {
 	int i = 0;
 	int result = -1;
-	while(i < Players.size())
-	{
-		if(Players[i].getName() == playerName)
-		{
-			result = i;
-			break;
-		}
-		i++;
-	}
-	
+
+    while(i < Players.size())
+    {
+        if(Players[i].getName() == playerName)
+        {
+            result = i;
+            break;
+        }
+        i++;
+    }
+
 	return result;
 }
 
-// 완성)#6. 게임 종료
+
+// To end the game
 void Game::exit()
 {
 	/*
-	 1. save the player's information in players.txt including the name and the balance
-	 2. print out  "Thank you for playing"
+	 1. save the player's information in players.txt including the name and the ending balance
+	 2. print out  "Thank you for playing BLACKJACK"
 	 3. return
 	 */
+
 	storePlayers();
 	cout << "Thank you for playing BLACKJACK" << endl;
 }
@@ -188,7 +186,7 @@ Blackjack::~Blackjack()
 bool Blackjack::loadPlayer()
 {
 	string playerName;
-	int i=0;
+    int j,k=-1;
 	while(true)
 	{
 		try {
@@ -203,25 +201,28 @@ bool Blackjack::loadPlayer()
 				else
 					throw playerName;
 			}
-			break;
 
-            i = getPlayerIndex(playerName);
-			if( i == -1 )
+            //if the name is not registered
+            j = getPlayerIndex(playerName);
+			if( j == -1 )
 			{
 				cout<<endl<<"Your name does not exist."<<endl;
 				throw playerName;
+
 			}
+            k++;
 			break;
+
 		}
 		catch (...)
 		{
-			
 			cout << "Please Enter Again." << endl;
 			cin.clear();
 		}
 	}
-	currentPlayer.setPlayer(Players[i]);
+	currentPlayer.setPlayer(Players[j]);
 	return true;
+
 }
 
 // Player betting : Return true if betting succeeds, else return false
@@ -245,26 +246,25 @@ bool Blackjack::doBetting()
 
     		amount = stod(money_s);
 
+            //user is given with  options
 			if (amount == 10 || amount == 20 || amount == 30) {
-                return true;
+                if(currentPlayer.possibleBet(amount))
+                {
+                    currentPlayer.addBet(amount);
+                    currentPlayer.show_info();
+                    return true;
+                }
+                else
+                {
+                    cout<<"You don't have enough money."<<endl;
+                    cout<<"You go to main menu."<<endl;
+                    return false;
+                }
             }
 			else{
 
 				throw money_s;
             }
-			if(currentPlayer.betMoneyAvail(amount))
-			{
-				currentPlayer.betMoney(amount);
-				return true;
-			}
-			else
-			{
-				cout<<"You don't have enough money."<<endl;
-                currentPlayer.show_info();
-                cout<<endl;
-				cout<<"Go to main menu."<<endl;
-				return false;
-			}
         }
         // tell the player that he entered wrong betting amount
 		catch(string wrong)
@@ -300,8 +300,8 @@ int Blackjack::getTwoCards()
 
 }
 
-
-bool Blackjack::restart() //새로 시작
+//another around of the game
+bool Blackjack::restart()
 {
     cout<<"Do you want another round? (Y/N) : ";
     char answer;
@@ -353,13 +353,13 @@ void Blackjack::showPlayerChoices()
 int Blackjack::playerTurn()
 {
     /*
-    * 플레이어 할일 :(플레이어가 블랙잭인 경우는 이미 다뤄졌음)
     ** Print choices -> choose
     (1) STAY -> Dealer's Turn.
     (2) HIT -> Draw another card. -> Print the drawn card.
         (a) Sum > 22 -> Lose round
         (b) Sum <= 21 -> go to 1)
     */
+
     currentPlayer.showHand();
     if (currentPlayer.isFirstCardsBJ())
         return 6;
@@ -369,7 +369,7 @@ int Blackjack::playerTurn()
     while(true)
     {
         try{
-            showPlayerChoices();   // 메뉴 선택
+            showPlayerChoices();   // choose choice
             cin>>input;
             cin.ignore();
 
@@ -484,17 +484,17 @@ int Blackjack::dealerTurn() {
 // 1.BJ 2.Player Win 3.Draw 4.Lose
 void Blackjack::getResult(int result) {
     /*
-     1 -> 플레이어가 BLACKJACK인 경우 : 베팅금액 3배를 돌려받기
-     2 -> 플레이어가 win한 경우 : 베팅금액 2배 돌려받기
-     3 -> draw 인 경우 : 베팅금액을 돌려받기
-     4 -> lose 모든 실패의 경우 : 그냥 끝
+     1 -> Player is BLACKJACK : return triple of bet_money
+     2 -> Player WIN : return double of bet_money
+     3 -> DRAW : return bet_money
+     4 -> Player LOSE :  game over
      */
 
     int bet = currentPlayer.getBet();
     switch (result) {
         case 1:
             cout << "BLACKJACK!" << endl;
-            currentPlayer.setBalance(bet + bet * 2);
+            currentPlayer.setBalance(bet +  bet * 3);
             break;
 
         case 2:
@@ -518,43 +518,30 @@ void Blackjack::getResult(int result) {
 
 void Blackjack::startGame() {
     /*
-     1. Shuffle Cards
+     1. Check the name is registered
+     2. Shuffle Cards
      2. Player choose the amount of money to bet
-        -> Starting_Balance = 50 (정해진건가?)
-        에 Balance를 백업하고 Balance에서 베팅금액을 뺀다.
-     3. 플레이어가 카드 1장 받고 딜러가 히든카드 1장 받는다. 그리고 다시 플레이어, 딜러 각각 1장씩 받는다.
-     4. 각 패를 보여준다.
-     5. 딜러의 오픈카드가 에이스가 아니다. :
-     1) 플레이어는 블랙잭이다.
-        (a) 딜러도 블랙잭이다. -> push이므로(비겼으므로) 베팅금액만을 그대로 다시 돌려 받는다. -> 게임 끝(3)
-        (b) 딜러는 블랙잭이 아니다 -> 딜러가 할일한다. -> 결과에 따라 계산한다. -> 게임 끝
-     2) 플레이어가 블랙잭이 아니다.
-        (a) 플레이어가 할일 한후
-            (i) 결과가 1인 경우
-                 > 딜러는 블랙잭이다.(21) -> 딜러가 이겼다. -> 게임 끝
-                 > 딜러가 블랙잭이 아니다.
-                 > 딜러가 할일 한후 ->  결과에 따라 처리 -> 게임 끝
-             (ii) 결과가 5혹은 6인 경우 -> 게임 종료(5)
+        -> Starting_Balance = 100
+        Update curernt Balance then substract the money of bet
+     3. Player and dealer each draws two cards.
+     4. Show each cards except dealer's hidden card. (Total 3 cards shown)
+     5. BLACKJACK == sum of cards is 21.
+        a. Player is BLACKJACK, player automatically WINS -> Round over
+        b. Dealer is BLACKJACK, player automatically LOSES -> Round over
+        c. If no BLACKJACK, move on.
 
-     6. 게임끝이면 다시 게임할건지 묻는다.
-     1) 다시 할거다. -> 1.로 간다.
-     2) 끝낸다. -> 지금까지의 게임 결과 출력하고 updatePlayer()로 currentPlayer를 Players에 업데이트한 후 return
+      6. Player's turn. Print two choices and select one:
+      1. STAY
+         - Player's turn is over and dealer shows hidden card.
+            1. If player's card sum < dealer's card sum, player LOSES -> Round over
+            2. If player's card sum > dealer's card sum OR dealer's card sum > 21, player WINS -> Round over
+      2. HIT
+         - Player draws another card. (If the player's card sum < 21, player goes back to step 5.)
+            1. If player card sum > 21 OR player card sum < dealer card sum, player LOSES -> Round over
+            2. If player card sum > dealer card sum, player WINS -> Round over
 
-     * 플레이어 할일 :(플레이어가 블랙잭인 경우는 이미 다뤄졌음)
-     ** 메뉴를 출력한다. -> 메뉴를 선택한다.
-     (1) Stay -> turn을 딜러로 넘긴다.
-     (2) Hit -> 추가 카드를 받는다. -> 추가 카드를 출력한다.
-     (a) 합이 22 이상이다 -> 베팅금액 잃고 게임 끝(5)
-     (b) 합이 21 이하이다 -> 1)로 간다. ->SURRENDER 비활성화
 
-     * 딜러가 할일 :(딜러의 오픈카드가 에이스인 경우, 딜러가 블랙잭인 경우는 이미 다뤄졌음)
-     ** 히든카드를 출력한다.
-     (1) 합이 16 이하다. -> 추가 카드를 획득한다. -> 추가 카드를 출력한다. -> 다시 분기로 이동
-     (2) 합이 22 이상이다. -> 딜러가 버스트했으므로 플레이어는 베팅금액 + 베팅금액을 받는다. -> 게임 끝(2)
-     (3) 합이 21 이하이다. -> 플레이어의 카드 합과 비교한다.
-     (a) 플레이어가 합이 더 크다. -> 플레이어가 이겼으므로 베팅금액 + 베팅금액을 받는다. -> 게임 끝(2)
-     (b) 딜러가 합이 더 크다. -> 플레이어는 베팅금액을 잃는다. -> 게임 끝(5)
-     (c) 합이 같다. -> push이므로 베팅금액만 그대로 돌려받는다. -> 게임 끝(3)
+
      */
 
     bool continue_game;
@@ -565,7 +552,6 @@ void Blackjack::startGame() {
     else
     {
         continue_game = false;
-        return;
     }
 
     while (continue_game) {
@@ -573,8 +559,8 @@ void Blackjack::startGame() {
         deck.init(); // initialise  52 cards
         deck.mixDeck(); // shuffle the deck
 
-        currentPlayer.initGame(); // 카드와 베팅금액을 비운다.
-        Computer.initGame(); // 카드를 비운다.
+        currentPlayer.initGame(); // empty card and bet_money
+        Computer.initGame(); // empty cards
         player_draw = 0;
         if (!doBetting()) // doBetting() returns true if betting succeeds, else return false
             break;
@@ -621,12 +607,14 @@ void Blackjack::startGame() {
         }
 
         if (restart()) {
-            continue_game = 1;
+            continue_game = true;
             cout << endl;
             cout << "Let's play again!" << endl;
             cout << endl;
-        } else
-            continue_game = 0;
+        }
+
+        else
+            continue_game = false;
     }
     updatePlayer();
 }
