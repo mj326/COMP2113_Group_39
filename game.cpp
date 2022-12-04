@@ -79,6 +79,7 @@ void Game::addPlayer()
 			}
 				PlayerInfo currentPlayer(playerName, 50);
 				Players.push_back(currentPlayer);
+                Players[0].setPlayer(currentPlayer);
 				return;
 			
 		}
@@ -562,4 +563,8 @@ void Blackjack::startGame() {
         } else
             continue_game = 0;
     }
+}
+void Blackjack::updatePlayer()
+{
+	Players[0].setPlayer(currentPlayer);
 }
