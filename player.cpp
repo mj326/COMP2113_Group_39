@@ -119,14 +119,14 @@ void GamePlayer::show_info()
     cout << "Current accumulated Bet Money" << this->bet_money << endl;
 }
 
-void GamePlayer::betMoney(int amount)
+void GamePlayer::betMoney(double amount)
 {
     try             // Handling Exceptions
     {
-        if (amount != 0 || amount != 10 || amount != 20)
+        if (amount != 10 || amount != 20 || amount != 30)
             throw amount;
     }
-    catch(int exception)
+    catch(double exception)
     {
         cout << "Entered $" << exception << " to bet." << endl;
         cout << "Please re-enter the correct amount to bet." << endl;

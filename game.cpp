@@ -173,7 +173,7 @@ bool Blackjack::doBetting()
 			else
 			{
 				cout<<"You don't have enough money."<<endl;
-				cout<<"You go to main menu."<<endl;
+				cout<<"Go to main menu."<<endl;
 				return false;
 			}
         }

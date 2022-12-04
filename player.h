@@ -61,7 +61,7 @@ public:
     //Setting Player in-game Information
     void setStartBal();
     bool betMoneyAvail(double amount);
-    void betMoney(int amount);
+    void betMoney(double amount);
     void show_info();
     void showFirstTwoCards();
     void drawTwoCards(Deck &deck);
