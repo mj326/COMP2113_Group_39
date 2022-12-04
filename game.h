@@ -15,7 +15,7 @@ void printLine();
 class Game
 {
 protected:
-	vector<PlayerInfo> Players; // 등록된 플레이어들
+	vector<PlayerInfo> Players; // registered player
 
 public:
 	Game();
@@ -73,19 +73,19 @@ public:
 	// Print choices for the player after card open
 	void showPlayerChoices();
 	
-	// 플레이어 턴에 할일 : 블랙잭이나 버스트가 아닐 경우
+	// what the player needs to do if it's not BLACKJACK
 	int playerTurn();
 	
-	// 딜러 턴에 할 일 : 플레이어가 할일 다 한 경우
+	// what the dealer need to do once player is done
 	int dealerTurn();
 	
-	// 어떤 케이스냐에 따라 처리하는 결과가 달라짐
+	// decide on the result
 	void getResult(int result);
 	
 	bool restart();
 
 	virtual void startGame();
 	
-	// Players에 이번 플레이어의 정보 업데이트
+	// Update the player's information
 	void updatePlayer();
 };

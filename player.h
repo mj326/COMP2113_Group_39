@@ -9,7 +9,7 @@ class PlayerInfo
 {
 
 protected:
-    int player_num;
+    int player_num = 1;
     string player_name;
     int player_balance;
 
@@ -55,8 +55,8 @@ public:
 
     //Setting Player in-game Information
     void setStartBal();
-    bool betMoneyAvail(double amount);
-    void betMoney(double amount);
+    bool possibleBet(int money);
+    void addBet(int money);
     void show_info();
     void showFirstTwoCards();
     void drawTwoCards(Deck &deck);
@@ -69,7 +69,7 @@ public:
 
 };
 
-// 딜러 카드의 합과 플레이어 카드의 합 비교
+// compare the sum of Cards of the Player's and the Dealer's
 bool operator>(GamePlayer& p1, GamePlayer& p2);
 bool operator==(GamePlayer& p1, GamePlayer& p2);
 
