@@ -23,7 +23,7 @@ void Game::storePlayers()
 
 	for(int i = 0; i < Players.size(); i++ )
 	{
-		fout << Players[i].getName() << " " << Players[i].getBalance() << endl;
+		fout << Players[i].getNum() << " " << Players[i].getName() << " " << Players[i].getBalance() << endl;
 	}
 	fout.close();
 }
@@ -65,8 +65,8 @@ void Game::loadPlayers()
 	
 	for(int i = 0; i < n_ofplayers; i++)
 	{
-		fin>>playerName>>balance;
-		Players.push_back(PlayerInfo(playerName, balance));
+		fin>>num>>playerName>>balance;
+		Players.push_back(PlayerInfo(num, playerName, balance));
 	}
 	fin.close();
 }
@@ -102,7 +102,7 @@ void Game::addPlayer()
 			}
 			else
 			{
-				PlayerInfo newPlayer(playerName, 50);
+				PlayerInfo newPlayer((unsigned int)Players.size(), playerName, 50);
 				Players.push_back(newPlayer);
 				return;
             }
