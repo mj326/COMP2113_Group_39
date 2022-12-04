@@ -488,7 +488,7 @@ void Blackjack::startGame() {
 			}
 				PlayerInfo currentPlayer(playerName, 50);
 				Players.push_back(currentPlayer);
-				return;
+				break;
 			
 		}
 		catch(...)
