@@ -476,35 +476,6 @@ void Blackjack::getResult(int result) {
     }
 }
 
-bool Blackjack::nextRound() {
-    cout << "Continue? (Y) :";
-    char answer;
-    while (true) {
-        try {
-            // 메뉴 선택
-            cin >> answer;
-            cin.ignore();
-
-            if (!isalpha(answer))
-                throw answer;
-
-            switch (answer) {
-                case 'Y':
-                case 'y':
-                    return true;
-                default:
-                    continue;
-            }
-            break;
-        }
-        catch (char exception) {
-            cout << "Please Enter Again" << endl;
-            cin.clear();
-        }
-    }
-}
-
-
 void Blackjack::startGame() {
     /*
      1. Shuffle Cards
@@ -573,7 +544,6 @@ void Blackjack::startGame() {
 
         switch (first_result) {
             case 1: // Player is BJ
-                // nextRound();
                 after_dealer = dealerTurn();
                 if (after_dealer == 7) {
                     getResult(3);

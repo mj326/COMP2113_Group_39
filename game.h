@@ -80,8 +80,7 @@ public:
 	void getResult(int result);
 	
 	bool restart();
-	
-	bool nextRound();
+
 	virtual void startGame();
 	
 	// Players에 이번 플레이어의 정보 업데이트
