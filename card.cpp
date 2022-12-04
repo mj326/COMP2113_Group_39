@@ -59,92 +59,76 @@ char Card::printSuit() { // getShape => printSuit
         if (sut == 1){
             suit = 'D';
             cout<<endl;
-            cout<<" *ㅡㅡㅡ*"<<endl;
-            cout<<"| ◆        |"<<endl;
-            cout<<"|          |"<<endl;
-            cout<<"|    "<<(char)number<<"     |"<<endl;
-            cout<<"|          |"<<endl;
-            cout<<"|       ◇ |"<<endl;
-            cout<<" *ㅡㅡㅡ*"<<endl;
+            cout<<" _______ "<<endl;
+            cout<<"| ◆      |"<<endl;
+            cout<<"|    "<<(char)number<<"   |"<<endl;
+            cout<<"|      ◆ |"<<endl;
+            cout<<" _______ "<<endl;
         }
 
         else if (sut == 2){
             suit = 'S';
             cout<<endl;
-            cout<<" *ㅡㅡㅡ*"<<endl;
-            cout<<"| ♠        |"<<endl;
-            cout<<"|          |"<<endl;
-            cout<<"|    "<<(char)number<<"     |"<<endl;
-            cout<<"|          |"<<endl;
-            cout<<"|       ♤ |"<<endl;
-            cout<<" *ㅡㅡㅡ*"<<endl;
+            cout<<" _______ "<<endl;
+            cout<<"| ♠      |"<<endl;
+            cout<<"|    "<<(char)number<<"   |"<<endl;
+            cout<<"|      ♠ |"<<endl;
+            cout<<" _______ "<<endl;
         }
         else if (sut == 3){
             suit = 'H';
             cout<<endl;
-            cout<<" *ㅡㅡㅡ*"<<endl;
-            cout<<"| ♥        |"<<endl;
-            cout<<"|          |"<<endl;
-            cout<<"|    "<<(char)number<<"     |"<<endl;
-            cout<<"|          |"<<endl;
-            cout<<"|       ♡ |"<<endl;
-            cout<<" *ㅡㅡㅡ*"<<endl;
+            cout<<" _______ "<<endl;
+            cout<<"| ♥      |"<<endl;
+            cout<<"|    "<<(char)number<<"   |"<<endl;
+            cout<<"|      ♥ |"<<endl;
+            cout<<" _______ "<<endl;
         }
         else if (sut == 4){
             suit = 'C';
             cout<<endl;
-            cout<<" *ㅡㅡㅡ*"<<endl;
-            cout<<"| ♣        |"<<endl;
-            cout<<"|          |"<<endl;
-            cout<<"|    "<<(char)number<<"     |"<<endl;
-            cout<<"|          |"<<endl;
-            cout<<"|       ♧ |"<<endl;
-            cout<<" *ㅡㅡㅡ*"<<endl;
+            cout<<" _______ "<<endl;
+            cout<<"| ♣      |"<<endl;
+            cout<<"|    "<<(char)number<<"   |"<<endl;
+            cout<<"|      ♣ |"<<endl;
+            cout<<" _______ "<<endl;
         }
     } else {
         if (sut == 1){
             suit = 'D';
             cout<<endl;
-            cout<<" *ㅡㅡㅡ*"<<endl;
-            cout<<"| ◆        |"<<endl;
-            cout<<"|          |"<<endl;
-            cout<<"|    "<<number<<"     |"<<endl;
-            cout<<"|          |"<<endl;
-            cout<<"|       ◇ |"<<endl;
-            cout<<" *ㅡㅡㅡ*"<<endl;
+            cout<<" _______ "<<endl;
+            cout<<"| ◆      |"<<endl;
+            cout<<"|    "<<number<<"   |"<<endl;
+            cout<<"|      ◆ |"<<endl;
+            cout<<" _______ "<<endl;
         }
         else if (sut == 2){
             suit = 'S';
             cout<<endl;
-            cout<<" *ㅡㅡㅡ*"<<endl;
-            cout<<"| ♠        |"<<endl;
-            cout<<"|          |"<<endl;
-            cout<<"|    "<<number<<"     |"<<endl;
-            cout<<"|          |"<<endl;
-            cout<<"|       ♤ |"<<endl;
-            cout<<" *ㅡㅡㅡ*"<<endl;
+            cout<<" _______ "<<endl;
+            cout<<"| ♠      |"<<endl;
+            cout<<"|    "<<number<<"   |"<<endl;
+            cout<<"|      ♠ |"<<endl;
+            cout<<" _______ "<<endl;
         }
         else if (sut == 3){
             suit = 'H';
             cout<<endl;
-            cout<<" *ㅡㅡㅡ*"<<endl;
-            cout<<"| ♥        |"<<endl;
-            cout<<"|          |"<<endl;
-            cout<<"|    "<<number<<"     |"<<endl;
-            cout<<"|          |"<<endl;
-            cout<<"|       ♡ |"<<endl;
-            cout<<" *ㅡㅡㅡ*"<<endl;
+            cout<<" _______"<<endl;
+            cout<<"| ♥      |"<<endl;
+            cout<<"|    "<<number<<"   |"<<endl;
+            cout<<"|      ♥ |"<<endl;
+            cout<<" _______ "<<endl;
         }
         else if (sut == 4){
             suit = 'C';
             cout<<endl;
-            cout<<" *ㅡㅡㅡ*"<<endl;
-            cout<<"| ♣        |"<<endl;
-            cout<<"|          |"<<endl;
-            cout<<"|    "<<number<<"     |"<<endl;
-            cout<<"|          |"<<endl;
-            cout<<"|       ♧ |"<<endl;
-            cout<<" *ㅡㅡㅡ*"<<endl;
+            cout<<" _______ "<<endl;
+            cout<<"| ♣      |"<<endl;
+            cout<<"|    "<<number<<"   |"<<endl;
+            cout<<"|      ♣ |"<<endl;
+            cout<<" _______ "<<endl;
         }
     }
     return suit;

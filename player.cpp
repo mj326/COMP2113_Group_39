@@ -230,7 +230,7 @@ bool operator==(GamePlayer& p1, GamePlayer& p2)
 
 
 void Dealer::showOpenCard(){
-    cout<<"[ Dealer ]"<<endl;
+    cout<<"Dealer's Open Card : "<<endl;
     Hand[1].printSuit();
     cout<<"[ "<<Hand[1].printValue()<<" ]"<<endl;
     cout<<"-----------------------------------------------------------------"<<endl;
