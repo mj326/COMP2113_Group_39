@@ -151,6 +151,7 @@ bool Blackjack::doBetting()
 	{
 		try {
 			cout << "Choose how much you want to bet : " << endl;
+            currentPlayer.show_info();
             cout << " 1) $10   2) $20   3) $30 " << endl;
 			cin >> money_s;
 			cin.ignore();
@@ -182,6 +183,7 @@ bool Blackjack::doBetting()
 		{
 			cout << "Wrong input. Please enter 10, 20 or 30." << endl;
 			cout << "You entered : " << wrong << endl;
+            printLine();
 			cin.clear();
             // return false;
 		}
