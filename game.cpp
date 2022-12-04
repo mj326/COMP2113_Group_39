@@ -77,8 +77,8 @@ void Game::addPlayer()
 				else
 					throw playerName;
 			}
-				PlayerInfo newPlayer(playerName, 50);
-				Players.push_back(newPlayer);
+				PlayerInfo currentPlayer(playerName, 50);
+				Players.push_back(currentPlayer);
 				return;
 			
 		}
@@ -167,13 +167,14 @@ bool Blackjack::doBetting()
             }
 			if(currentPlayer.betMoneyAvail(amount))
 			{
-				currentPlayer.betMoney(amount); // 베팅금액을 덮어씌우는게 아니라 더해야 함.
-				currentPlayer.show_info();
+				currentPlayer.betMoney(amount);
 				return true;
 			}
 			else
 			{
 				cout<<"You don't have enough money."<<endl;
+                currentPlayer.show_info();
+                cout<<endl;
 				cout<<"Go to main menu."<<endl;
 				return false;
 			}
@@ -234,7 +235,7 @@ bool Blackjack::restart() //새로 시작
             cin>>answer;
             cin.ignore();
 
-            if(!isalpha(answer))
+            if(answer!='Y' || answer!='y' || answer!='N' || answer!='n')
                 throw answer;
 
             switch (answer) {
@@ -272,7 +273,7 @@ void Blackjack::showPlayerChoices()
 //	printLine();
 }
 
-// 1=Stay, 5=burst
+// 1=Stay, 5=burst, 6=Player BJ
 int Blackjack::playerTurn()
 {
     /*
@@ -283,6 +284,9 @@ int Blackjack::playerTurn()
         (a) Sum > 22 -> Lose round
         (b) Sum <= 21 -> go to 1)
     */
+    currentPlayer.showHand();
+    if (currentPlayer.isFirstCardsBJ())
+        return 6;
 
     char input;
     int result = 0;
@@ -544,6 +548,15 @@ void Blackjack::startGame() {
                         getResult(4);
                     } else {
                         getResult(after_dealer);
+                    }
+                    break;
+                }
+                else if (after_player == 6) {
+                    after_dealer = dealerTurn();
+                    if (after_dealer == 7) {
+                        getResult(3);
+                    } else {
+                        getResult(2);
                     }
                     break;
                 }

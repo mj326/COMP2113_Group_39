@@ -1,18 +1,11 @@
 #include "player.h"
 using namespace std;
 
-PlayerInfo::PlayerInfo()
-{
-    this->player_name = "";
-    this->player_balance = 50;
+PlayerInfo::PlayerInfo(string player_name, int player_balance) : player_name(player_name), player_balance(player_balance)
+{}
 
-}
-PlayerInfo::PlayerInfo(string player_name, int player_balance)
-{
-    this->player_name = player_name;
-    this->player_balance = player_balance;
-}
-PlayerInfo::~PlayerInfo() {};
+PlayerInfo::PlayerInfo() {}
+PlayerInfo::~PlayerInfo() {}
 
 void PlayerInfo::setName(PlayerInfo playerX) // who -> playerX
 {
@@ -35,13 +28,6 @@ void PlayerInfo::setBalance(int balance)
 double PlayerInfo::getBalance() const
 {
     return player_balance;
-}
-
-//bool compNum(const PlayerInfo &a, const PlayerInfo &b){
-//    return a.getNum() < b.getNum();
-//}
-bool compBalance(const PlayerInfo &a, const PlayerInfo &b){
-    return a.getBalance() > b.getBalance();
 }
 
 GamePlayer::GamePlayer(string player_name, int player_balance)
@@ -114,9 +100,10 @@ bool GamePlayer::betMoneyAvail(double amount)
 void GamePlayer::show_info()
 {
     cout << "Name : " << this->player_name << endl;
-    cout << "Starting Balance : " << this->start_balance << endl;
-    cout << "Current Balance : " << this->player_balance << endl;
-    cout << "Current Bet Money: " << this->bet_money << endl;
+    cout << "Starting Balance : $" << this->start_balance << endl;
+    cout << "Current Balance : $" << this->player_balance << endl;
+    cout<<"---------------------------------------------------"<<endl;
+
 }
 
 void GamePlayer::betMoney(double amount)
