@@ -29,9 +29,6 @@ public:
 //    inline int getBalance() const {return player_balance;}
 };
 
-//bool compNum(const PlayerInfo &a, const PlayerInfo &b);
-bool compBalance(const PlayerInfo &a, const PlayerInfo &b);
-
 class GamePlayer : public PlayerInfo
         // Inheritance of Player class to Game class
 {
