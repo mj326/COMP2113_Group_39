@@ -164,10 +164,9 @@ bool Blackjack::doBetting()
 
 				throw money_s;
             }
-
 			if(currentPlayer.betMoneyAvail(amount))
 			{
-				currentPlayer.betMoney(amount);
+				currentPlayer.betMoney(amount); // 베팅금액을 덮어씌우는게 아니라 더해야 함.
 				currentPlayer.show_info();
 				return true;
 			}
@@ -271,7 +270,7 @@ void Blackjack::showPlayerChoices()
 //	printLine();
 }
 
-// 1=Stay, 4=burst
+// 1=Stay, 5=burst
 int Blackjack::playerTurn()
 {
     /*
@@ -295,25 +294,27 @@ int Blackjack::playerTurn()
             if(!isalpha(input))
                 throw input;
 
-            switch (input)
+            if(player_draw == 1)
+            {
+                switch (input)
                 {
-                // STAY
-                case 'S':
-                case 's':
-                    result = 1; // STAY
-                    break;
-                    // HIT
-                case 'H':
-                case 'h':
-                    currentPlayer.drawACard(deck);
-                    player_draw++;
-                    currentPlayer.showHand();
-                    if(currentPlayer.getCardSum() > 21)
-                        {
-                        result = 4; // BURST
+                    // STAY
+                    case 'S':
+                    case 's':
+                        result = 1; // STAY
                         break;
+                    // HIT
+                    case 'H':
+                    case 'h':
+                        currentPlayer.drawACard(deck);
+                        player_draw++;
+                        currentPlayer.showHand();
+                        if(currentPlayer.getCardSum() > 21)
+                        {
+                            result = 4; // BURST
+                            break;
                         }
-                    else
+                        else
                         {
                             continue;
                         }
@@ -321,6 +322,35 @@ int Blackjack::playerTurn()
                         continue;
                 }
             }
+            else
+            {
+                switch (input) {
+                    // STAY
+                    case 'S':
+                    case 's':
+                        result = 1; // STAY
+                        break;
+                        // HIT
+                    case 'H':
+                    case 'h':
+                        currentPlayer.drawACard(deck);
+                        player_draw++;
+                        currentPlayer.showHand();
+                        if(currentPlayer.getCardSum() > 21)
+                        {
+                            result = 4; // BURST
+                            break;
+                        }
+                        else
+                        {
+                            continue;
+                        }
+                    default:
+                        continue;
+                }
+            }
+            break;
+        }
         catch(char exception)
         {
             cout<<"Please Try Again."<<endl;
@@ -331,13 +361,13 @@ int Blackjack::playerTurn()
 }
 
 
-// 1=player wins, 2=dealer wins, 3=draw, 4=playerBJ, 5=dealerBJ
+// 7=BJ 2=Dealer lose 3=Draw 5=Player wins
 int Blackjack::dealerTurn() {
     int result = 0;
 
     Computer.showHand();
     if (Computer.isFirstCardsBJ())
-        return 5;
+        return 7;
 
     bool dealer = true;
     while (dealer) {
@@ -351,7 +381,7 @@ int Blackjack::dealerTurn() {
         else if (dealerSum > 21) {
             dealer = false;
             cout << "Dealer burst!" << endl;
-            result = 1; // Player Wins
+            result = 2; // Player Wins
         }
         else
         //dealer's card sum is less than 21 and greater than 16
@@ -360,16 +390,16 @@ int Blackjack::dealerTurn() {
             if (currentPlayer == Computer)// Sum = Player == Dealer
                 result = 3; // Draw
             else if (currentPlayer > Computer) // Sum = Player > Dealer
-                result = 1; // player wins
+                result = 2; // Dealer wins
             else // Sum = Player < Dealer
-                result = 2; // player loses
+                result = 4; // Player lose
         }
     }
     return result;
 }
 
 
-// 1=playerBJ 2=Player win 3=Draw 4=player lose
+// 1.BJ 2.Player Win 3.Draw 4.Lose
 void Blackjack::getResult(int result) {
     /*
      1 -> 플레이어가 BLACKJACK인 경우 : 베팅금액 3배를 돌려받기
@@ -409,6 +439,7 @@ bool Blackjack::nextRound() {
     char answer;
     while (true) {
         try {
+            // 메뉴 선택
             cin >> answer;
             cin.ignore();
 
@@ -494,10 +525,10 @@ void Blackjack::startGame() {
         int after_player, after_dealer;
 
         switch (first_result) {
-            case 1: // Dealer is BJ
+            case 1: // Player is BJ
                 nextRound();
                 after_dealer = dealerTurn();
-                if (after_dealer == 5) {
+                if (after_dealer == 7) {
                     getResult(3);
                 } else {
                     getResult(1);
@@ -507,7 +538,7 @@ void Blackjack::startGame() {
                 after_player = playerTurn();
                 if (after_player == 1) {
                     after_dealer = dealerTurn();
-                    if (after_dealer == 5) {
+                    if (after_dealer == 7) {
                         getResult(4);
                     } else {
                         getResult(after_dealer);
