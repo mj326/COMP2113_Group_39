@@ -77,7 +77,7 @@ void Game::addPlayer()
 				else
 					throw playerName;
 			}
-				PlayerInfo newPlayer(playerName, 0);
+				PlayerInfo newPlayer(playerName, 50);
 				Players.push_back(newPlayer);
 				return;
 			
@@ -150,8 +150,8 @@ bool Blackjack::doBetting()
 	while(true)
 	{
 		try {
-			cout << "Choose how much you want to bet : " << endl;
             currentPlayer.show_info();
+			cout << "Choose how much you want to bet : " << endl;
             cout << " 1) $10   2) $20   3) $30 " << endl;
 			cin >> money_s;
 			cin.ignore();

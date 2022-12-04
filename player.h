@@ -9,9 +9,7 @@ class PlayerInfo
 {
 
 protected:
-    // player's name
     string player_name;
-    // player's money
     int player_balance;
 
 
@@ -21,7 +19,6 @@ public:     // Initializing Player
     ~PlayerInfo();
 
 public:
-
     // Setting Information
     void setName(PlayerInfo who);
     void setBalance(int player_balance);
@@ -30,8 +27,6 @@ public:
     double getBalance() const;
 //    inline string getName() const {return player_name;}
 //    inline int getBalance() const {return player_balance;}
-
-
 };
 
 //bool compNum(const PlayerInfo &a, const PlayerInfo &b);

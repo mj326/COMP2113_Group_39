@@ -4,7 +4,7 @@ using namespace std;
 PlayerInfo::PlayerInfo()
 {
     this->player_name = "";
-    this->player_balance = 0;
+    this->player_balance = 50;
 
 }
 PlayerInfo::PlayerInfo(string player_name, int player_balance)
@@ -16,9 +16,9 @@ PlayerInfo::~PlayerInfo() {};
 
 void PlayerInfo::setName(PlayerInfo playerX) // who -> playerX
 {
-    //cin.getline(player_name);
     cin >> player_name;
     this->player_name = playerX.player_name;
+    this->player_balance = playerX.player_balance;
 }
 
 string PlayerInfo::getName() const
@@ -26,10 +26,10 @@ string PlayerInfo::getName() const
     return  player_name;
 }
 
-void PlayerInfo::setBalance(int player_balance)
+void PlayerInfo::setBalance(int balance)
 {
-    cin >> player_balance;
-    this->player_balance = player_balance;
+    // cin >> player_balance;
+    player_balance += balance;
 }
 
 double PlayerInfo::getBalance() const
@@ -116,7 +116,7 @@ void GamePlayer::show_info()
     cout << "Name : " << this->player_name << endl;
     cout << "Starting Balance : " << this->start_balance << endl;
     cout << "Current Balance : " << this->player_balance << endl;
-    cout << "Current accumulated Bet Money" << this->bet_money << endl;
+    cout << "Current Bet Money: " << this->bet_money << endl;
 }
 
 void GamePlayer::betMoney(double amount)
