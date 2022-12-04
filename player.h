@@ -9,12 +9,13 @@ class PlayerInfo
 {
 
 protected:
+    int player_num;
     string player_name;
     int player_balance;
 
 
 public:     // Initializing Player
-    PlayerInfo(string player_name, int player_balance);
+    PlayerInfo(int player_num, string player_name, int player_balance);
     PlayerInfo();
     ~PlayerInfo();
 
@@ -24,6 +25,7 @@ public:
     void setPlayer (PlayerInfo someone);
     void setBalance(int player_balance);
     //void setBalance(double money);
+    int getNum() const;
     string getName() const;
     double getBalance() const;
 //    inline string getName() const {return player_name;}
@@ -41,7 +43,7 @@ protected:
 
 public:
     // Initilization
-    GamePlayer(string player_name, int balance);
+    GamePlayer(int player_num, string player_name, int balance);
     GamePlayer();
     ~GamePlayer();
 

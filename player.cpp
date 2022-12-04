@@ -1,7 +1,7 @@
 #include "player.h"
 using namespace std;
 
-PlayerInfo::PlayerInfo(string player_name, int player_balance) : player_name(player_name), player_balance(player_balance)
+PlayerInfo::PlayerInfo(int player_num, string player_name, int player_balance) :player_num(player_num), player_name(player_name), player_balance(player_balance)
 {}
 
 PlayerInfo::PlayerInfo() {}
@@ -16,6 +16,7 @@ PlayerInfo::~PlayerInfo() {}
 
 void PlayerInfo::setPlayer(PlayerInfo playerX) // who -> playerX
 {
+    this->player_num = playerX.player_num;
 	this->player_name = playerX.player_name;
 	this->player_balance = playerX.player_balance;
 }
@@ -25,7 +26,10 @@ void GamePlayer::show_info()
     cout<<"Current Balance : $"<< this->player_balance<<endl;
 }
 
-
+int PlayerInfo::getNum() const
+{
+	return player_num;
+}
 
 string PlayerInfo::getName() const
 {
@@ -43,9 +47,9 @@ double PlayerInfo::getBalance() const
     return player_balance;
 }
 
-GamePlayer::GamePlayer(string player_name, int player_balance)
+GamePlayer::GamePlayer(int player_num, string player_name, int player_balance)
 {
-    PlayerInfo(player_name, player_balance);
+    PlayerInfo(player_num, player_name, player_balance);
 }
 
 GamePlayer::GamePlayer() : PlayerInfo()
