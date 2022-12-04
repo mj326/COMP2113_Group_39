@@ -95,7 +95,7 @@ void Game::addPlayer()
 					throw playerName;
 			}
             
-            if( getPlayerIndex(playerName) != -1 )
+            if(getPlayerIndex(playerName) != -1)
 			{
 				cout<<endl<<"Existing name!"<<endl;
 				throw playerName;
