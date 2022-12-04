@@ -54,42 +54,7 @@ void Game::intro()
 
 
 // Add new player
-void Game::addPlayer()
-{
-	/*
-	 1. Enter name
-	 2. ->입력한 이름이 이미 있는 이름이면 메뉴 첫화면으로 return
-	 3. ->입력한 이름이 없으면 이름 입력 받고 그 이름으로 fillUp() 호출해 게임머니 충전하고 메뉴 첫화면으로 return
-	 */
-	string playerName;
-	
-	while(true)
-	{
-		try {
-			cout << "Enter your name: ";
-			cin >> playerName;
-			cin.ignore();
-			
-			for(int i = 0; i < playerName.size(); i++)
-			{
-				if(isalnum(playerName[i]))
-					continue;
-				else
-					throw playerName;
-			}
-				PlayerInfo currentPlayer(playerName, 50);
-				Players.push_back(currentPlayer);
-                Players[0].setPlayer(currentPlayer);
-				return;
-			
-		}
-		catch(...)
-		{
-			cout<<"Please Try Again"<<endl;
-			cin.clear();
-		}
-	}
-}
+
 
 
 // #2. 기존 플레이어로 게임 시작
@@ -501,6 +466,37 @@ void Blackjack::startGame() {
      */
 
     int continue_game = 1;
+	/*
+	 1. Enter name
+	 2. ->입력한 이름이 이미 있는 이름이면 메뉴 첫화면으로 return
+	 3. ->입력한 이름이 없으면 이름 입력 받고 그 이름으로 fillUp() 호출해 게임머니 충전하고 메뉴 첫화면으로 return
+	 */
+	string playerName;
+	while(true)
+	{
+		try {
+			cout << "Enter your name: ";
+			cin >> playerName;
+			cin.ignore();
+			
+			for(int i = 0; i < playerName.size(); i++)
+			{
+				if(isalnum(playerName[i]))
+					continue;
+				else
+					throw playerName;
+			}
+				PlayerInfo currentPlayer(playerName, 50);
+				Players.push_back(currentPlayer);
+				return;
+			
+		}
+		catch(...)
+		{
+			cout<<"Please Try Again"<<endl;
+			cin.clear();
+		}
+	}
 
     while (continue_game == 1) {
 
@@ -518,7 +514,7 @@ void Blackjack::startGame() {
 
         switch (first_result) {
             case 1: // Player is BJ
-                nextRound();
+                // nextRound();
                 after_dealer = dealerTurn();
                 if (after_dealer == 7) {
                     getResult(3);
