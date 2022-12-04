@@ -52,10 +52,60 @@ void Game::intro()
 	cout<<"Which menu are you going to choose? : ";
 }
 
+void Game::loadPlayer()
+{
+	ifstream fin;
+	fin.open("players.txt");
+	int n_ofplayers;
+	fin>>n_ofplayers;
+	
+	int num;
+	string playerName;
+	int balance;
+	
+	for(int i = 0; i < n_ofplayers; i++ )
+	{
+		fin>>num>>playerName>>balance;
+		Players.push_back(PlayerInfo(playerName, balance));
+	}
+	fin.close();
+}
 
 // Add new player
-
-
+void Game::addPlayer()
+{
+	/*
+	 1. Enter name
+	 2. ->입력한 이름이 이미 있는 이름이면 메뉴 첫화면으로 return
+	 3. ->입력한 이름이 없으면 이름 입력 받고 그 이름으로 fillUp() 호출해 게임머니 충전하고 메뉴 첫화면으로 return
+	 */
+	string playerName;
+	while(true)
+	{
+		try {
+			cout << "Enter your name: ";
+			cin >> playerName;
+			cin.ignore();
+			
+			for(int i = 0; i < playerName.size(); i++)
+			{
+				if(isalnum(playerName[i]))
+					continue;
+				else
+					throw playerName;
+			}
+				PlayerInfo newPlayer(playerName, 50);
+				Players.push_back(newPlayer);
+				return;
+			
+		}
+		catch(...)
+		{
+			cout<<"Please Try Again"<<endl;
+			cin.clear();
+		}
+	}
+}
 
 // #2. 기존 플레이어로 게임 시작
 void Game::startGame()
@@ -102,6 +152,37 @@ Blackjack::Blackjack() : Game()
 }
 Blackjack::~Blackjack()
 {}
+
+bool Blackjack::loadPlayer()
+{
+	string playerName;
+	int i=0;
+	while(true)
+	{
+		try {
+			cout<<"Enter your name. : ";
+			cin>>playerName;
+			cin.ignore();
+			
+			for(int i = 0; i < playerName.size(); i++)
+			{
+				if(isalnum(playerName[i]))
+					continue;
+				else
+					throw playerName;
+			}
+			break;
+		}
+		catch (...)
+		{
+			
+			cout << "Please Enter Again." << endl;
+			cin.clear();
+		}
+	}
+	currentPlayer.setPlayer(Players[i]);
+	return true;
+}
 
 // Player betting : Return true if betting succeeds, else return false
 bool Blackjack::doBetting()
@@ -465,40 +546,18 @@ void Blackjack::startGame() {
      (c) 합이 같다. -> push이므로 베팅금액만 그대로 돌려받는다. -> 게임 끝(3)
      */
 
-    int continue_game = 1;
-	/*
-	 1. Enter name
-	 2. ->입력한 이름이 이미 있는 이름이면 메뉴 첫화면으로 return
-	 3. ->입력한 이름이 없으면 이름 입력 받고 그 이름으로 fillUp() 호출해 게임머니 충전하고 메뉴 첫화면으로 return
-	 */
-	string playerName;
-	while(true)
-	{
-		try {
-			cout << "Enter your name: ";
-			cin >> playerName;
-			cin.ignore();
-			
-			for(int i = 0; i < playerName.size(); i++)
-			{
-				if(isalnum(playerName[i]))
-					continue;
-				else
-					throw playerName;
-			}
-				PlayerInfo currentPlayer(playerName, 50);
-				Players.push_back(currentPlayer);
-				break;
-			
-		}
-		catch(...)
-		{
-			cout<<"Please Try Again"<<endl;
-			cin.clear();
-		}
-	}
+    bool continue_game;
+    if(loadPlayer())
+    {
+        continue_game = true;
+    }
+    else
+    {
+        continue_game = false;
+        return;
+    }
 
-    while (continue_game == 1) {
+    while (continue_game) {
 
         deck.init(); // initialise  52 cards
         deck.mixDeck(); // shuffle the deck

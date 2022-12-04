@@ -27,6 +27,9 @@ public:
 	// Save player record on players.txt
 	void storePlayers();
 
+	// Load existing player
+	void loadPlayer();
+
     // Input user's name
     void addPlayer();
 	
@@ -55,7 +58,7 @@ public:
 	~Blackjack();
 
 	// Load the current player info : return true if no error, else return false
-	//bool loadPlayer();
+	bool loadPlayer();
 	// Player bets : Return true if betting has no error, else return false
 	bool doBetting();
 	
