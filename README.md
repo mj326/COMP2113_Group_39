@@ -1,33 +1,44 @@
-# blackjack project
+# BlackJack project
 
 1. Shuffle the cards.
 2. Player bets. -> Show Starting_Balance and subtract betting amount.
 3. Player and dealer each draws two cards.
 4. Show each cards except dealer's hidden card.
-5(a). If dealer's card sum > 21 and 
-    i) If player's card sum <= 21
+
+5. Player decided which amount to bet from the options($10, $20,$30)
+   a) if lose: -bet money
+   b) if win: +bet money * 2 
+
+Let's assume that the player chose bet_money as $10. 
+
+6. (a). If dealer's card sum > 21 and 
+    i) If player's card sum <= 21 (플레이어 승)
         (1) Show dealer's hidden card.
         (2) Get win money($20). -> Round over
-    ii) If player's card sum > 21:
+    ii) If player's card sum > 21: (무승부 / tie)
         (1) Show dealer's hidden card.
         (2) Get initial betting amount($10) -> Round over
 
-5(b). If player's card sum > 21:
-    i) If dealer's card sum <= 21
+   (b). If player's card sum > 21 and
+    i) If dealer's card sum <= 21: (플레이어 패)
         (1) Show dealer's hidden card.
         (2) Lose betting amount(-$10) -> Round over
-    ii) If dealer's card sum > 21
+    ii) If dealer's card sum > 21:  (무승부 / tie)
         (1) Show dealer's hidden card.
         (2) Get initial betting amount($10) -> Round over
 
-    iii) If player's card sum <=21 :
-        (1) Player takes turn -> Show dealer's hidden card after player has done everything
+    iii) If player's card sum <=21 (and dealr's card <21 ?)  :
+        (1) Player takes turn
+            -> Show dealer's hidden card after player has chosen either stand or hit
             (a) If dealer's card sum == 21 -> Lose betting amount -> Round over
             (b) Calculate card sums and show who wins -> Round over
 
-6. Ask to play again after round ends
-7. Play again -> Go to 1.
-8. End game -> Print game status, use updatePlayer() to update currentPlayer on Players.txt and return
+7. Ask to play again after round ends
+8. Play again -> Go to 1.
+9. End game -> Print game status, use updatePlayer() to update currentPlayer on Players.txt and return
+
+
+//깃허브 참고용 
 
 Player's turn :(플레이어가 블랙잭인 경우는 이미 다뤄졌음) ** Print choices -> Select a move 
 (1) STAY -> Player's turn ends.
