@@ -32,7 +32,7 @@
 
 Let's assume that the player chose bet_money as $10. 
 
-6. (a). If dealer's card sum > 21 and 
+1. If dealer's card sum > 21,
     i) If player's card sum <= 21 (Player wins)
         (1) Show dealer's hidden card.
         (2) Get win money($20). -> Round over
@@ -40,7 +40,7 @@ Let's assume that the player chose bet_money as $10.
         (1) Show dealer's hidden card.
         (2) Get initial betting amount -> Round over
 
-   (b). If player's card sum > 21 and
+2. If player's card sum > 2,
     i) If dealer's card sum <= 21: (Player loses)
         (1) Show dealer's hidden card.
         (2) Lose betting amount(-$10) -> Round over
@@ -58,23 +58,6 @@ Let's assume that the player chose bet_money as $10.
 8. Play again -> Go to step 1.
 9. End game -> Print ending message, use updatePlayer() to update currentPlayer on Players.txt and return
 
-
-//깃허브 참고용
-Player's turn :(플레이어가 블랙잭인 경우는 이미 다뤄졌음) ** Print choices -> Select a move 
-(1) STAY -> Player's turn ends.
-(2) HIT -> input additional betting amount -> draw a card -> show the card
-    (a) card sum > 21 -> Lose betting amount and end round.
-    (b) card sum <= 21 -> go back to 1 -> SURRENDER 비활성화
-(3) SURRENDER -> 베팅금액의 1/2만 다시 Balance에 충전되고 게임 끝
-
-Dealer's turn :(딜러의 오픈카드가 에이스인 경우, 딜러가 블랙잭인 경우는 이미 다뤄졌음) ** Show hidden card.
-(1) Card sum <= 16 -> Draw a card -> Show the card -> Go back to Dealer's turn
-(2) Card sum > 21 -> Dealer bursts and player wins, receives initial bet money($20) -> Round over
-(3) Card sum <= 21> -> Compare with player's card sum
-    (a) Player's card sum is larger -> Player wins, receives win money -> Round over
-    (b) Dealer's card sum is larger -> Player loses betting money -> Round over
-    (c) Card sums are same -> Draw -> Receive only the betting money -> Round over
-
-
+## Makefile
 Use makefile to run the game: make main -> ./main
 Use makefile to clean directory: make clean
