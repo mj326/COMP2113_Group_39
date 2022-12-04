@@ -21,7 +21,8 @@ void PlayerInfo::setPlayer(PlayerInfo playerX) // who -> playerX
 }
 void GamePlayer::show_info()
 {
-	cout<<"Player Name : "<<this->player_name<<" Balance : "<< this->player_balance<<endl;
+	cout<<"Player Name : "<<this->player_name<<endl;
+    cout<<"Current Balance : $"<< this->player_balance<<endl;
 }
 
 
@@ -77,47 +78,11 @@ bool GamePlayer::betMoneyAvail(double amount)
         cout << "Please re-enter the correct amount to bet." << endl;
     }
 
-    /* switch(amount)
-    {
-        case 1:         //betting 10
-       {
-            if (this->player_balance >= amount && this->player_balance - amount >= 0)
-                return true;
-            else
-                return false;
-            break;
-        }
-        case 2:         //betting 20
-        {
-            if (this->player_balance >= amount && this->player_balance - amount >= 0)
-                return true;
-            else
-                return false;
-            break;
-        }
-        case 3:        //betting 30
-        {
-            if (this->player_balance >= amount && this->player_balance - amount >= 0)
-                return true;
-            else
-                return false;
-            break;
-        }
-    } */
     if (this->player_balance >= amount && this->player_balance - amount >= 0)
         return true;
     else
         return false;
 }
-
-/* void GamePlayer::show_info()
-{
-    cout << "Name : " << this->player_name << endl;
-    cout << "Starting Balance : $" << this->start_balance << endl;
-    cout << "Current Balance : $" << this->player_balance << endl;
-    cout<<"---------------------------------------------------"<<endl;
-
-} */
 
 void GamePlayer::betMoney(double amount)
 {
