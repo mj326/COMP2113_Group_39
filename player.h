@@ -86,6 +86,5 @@ class Dealer : public GamePlayer
 public:
 	
 	void showOpenCard();
-	bool isOpenCardAce();
 	void showHand();
 };
