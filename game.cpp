@@ -15,14 +15,14 @@ Game::~Game()
 	storePlayers(); // 게임 종료 시 players.txt에 플레이어 목록 저장
 }
 
-// 완성
+//
 void Game::storePlayers()
 {
 	ofstream fout;
 	fout.open("players.txt");
 	
 	//sort(Players.begin(), Players.end(), //compNum// );
-	fout << Players.size() << endl;
+	//fout << Players.size() << endl;
 
 	for(int i = 0; i < Players.size(); i++ )
 	{
@@ -35,8 +35,7 @@ void Game::storePlayers()
 void Game::intro()
 {
 	/*
-	 먼저 loadPlayers() 통해서 players.txt로부터 Players 로딩
-	 1. 새로운 플레이어 등록
+	 1. The user has to register his name before he begins playing the game
 	 2. 기존 플레이어로 게임 시작
 	 3. 잔고 기준 플레이어 랭킹 출력
 	 4. 기존 플레이어 게임머니 충전하기
@@ -46,8 +45,8 @@ void Game::intro()
 
 	printLine();
 	
-	cout<<"1. Register new Player.(R or r)"<<endl;
-	cout<<"2. Game start if you have registered.(G or g)"<<endl;
+	cout<<"1. Register your name.(R or r)"<<endl;
+	cout<<"2. Game start if you have registered your name.(G or g)"<<endl;
 	cout<<"3. Information : Who made this game?(I or i)"<<endl;
 	cout<<"4. End game.(E or e)"<<endl;
 	
@@ -125,8 +124,8 @@ void Game::printLicense()
 void Game::exit()
 {
 	/*
-	 1. savePlayer() 통해서 Players를 players.txt 파일에 다시 저장하고
-	 2. "Thank you for playing" 출력후
+	 1. save the player's information in players.txt including the name and the balance
+	 2. print out  "Thank you for playing"
 	 3. return
 	 */
 	storePlayers();
@@ -141,7 +140,7 @@ Blackjack::Blackjack() : Game()
 Blackjack::~Blackjack()
 {}
 
-// Player betting : Return true if betting succeeds, else false
+// Player betting : Return true if betting succeeds, else return false
 bool Blackjack::doBetting()
 {
 	string money_s;
@@ -477,8 +476,10 @@ bool Blackjack::nextRound() {
 
 void Blackjack::startGame() {
     /*
-     1. 카드를 섞는다.
-     2. 플레이어가 베팅을 한다. -> Starting_Balance에 Balance를 백업하고 Balance에서 베팅금액을 뺀다.
+     1. Shuffle Cards
+     2. Player choose the amount of money to bet
+        -> Starting_Balance = 50 (정해진건가?)
+        에 Balance를 백업하고 Balance에서 베팅금액을 뺀다.
      3. 플레이어가 카드 1장 받고 딜러가 히든카드 1장 받는다. 그리고 다시 플레이어, 딜러 각각 1장씩 받는다.
      4. 각 패를 보여준다.
      5. 딜러의 오픈카드가 에이스가 아니다. :
@@ -514,9 +515,10 @@ void Blackjack::startGame() {
      (c) 합이 같다. -> push이므로 베팅금액만 그대로 돌려받는다. -> 게임 끝(3)
      */
 
-    bool cont;
+    int continue_game = 1;
 
-    while (true) {
+    while (continue_game == 1) {
+
         deck.init(); // initialise  52 cards
         deck.mixDeck(); // shuffle the deck
 
@@ -528,6 +530,7 @@ void Blackjack::startGame() {
 
         int first_result = getTwoCards();
 
+        //show two initial card;
         showInitialCards();
 
         int after_player, after_dealer;
@@ -562,11 +565,11 @@ void Blackjack::startGame() {
         }
 
         if (restart()) {
-            cont = true;
+            continue_game = 1;
             cout << endl;
             cout << "Let's play again!" << endl;
             cout << endl;
         } else
-            cont = false;
+            continue_game = 0;
     }
 }
