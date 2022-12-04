@@ -67,11 +67,11 @@ int main()
             cin >> menu;
             cin.ignore();
 
-            if (menu == "R" || menu == "r")
+            /*if (menu == "R" || menu == "r")
             {
                 BJ.addPlayer();
-            }
-            else if (menu == "G" || menu == "g")
+            }*/
+            if (menu == "G" || menu == "g")
             {
                 BJ.startGame();
             }
