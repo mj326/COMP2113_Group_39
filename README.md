@@ -4,7 +4,6 @@
 2. Player bets.($10, $20, $30) -> Show Starting_Balance and subtract betting amount from balance.
       a) Starting balance is $100
          - Player LOSES if balance < 10. -> End Game
-         - Player WINS if balance > 200. -> End Game
 3. Player and dealer each draws two cards.
 4. Show each cards except dealer's hidden card. (Total 3 cards shown)
 5. BLACKJACK == sum of cards is 21.
