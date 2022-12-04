@@ -220,37 +220,31 @@ bool Blackjack::restart() //새로 시작
     char answer;
     while(true)
     {
-        try
-        {
-            cin>>answer;
-            cin.ignore();
-
-            if(answer!='Y' || answer!='y' || answer!='N' || answer!='n')
-            {
-                throw answer;
-            }
-            else
-            {
-                switch (answer) {
-                    case 'Y':
-                    case 'y':
-                        return true;
-                        break;
-                    case 'N':
-                    case 'n':
-                        return false;
-                        break;
-                    default:
-                        continue;
-            }
-            break;
-            }
-        }
-        catch(char exception)
-        {
-            cout<<"Please Try Again."<<endl;
-            cin.clear();
-        }
+        try{
+			// 메뉴 선택
+			cin>>answer;
+			cin.ignore();
+			
+			if(!isalpha(answer))
+				throw answer;
+			
+			switch (answer) {
+				case 'Y':
+				case 'y':
+					return true;
+				case 'N':
+				case 'n':
+					return false;
+				default:
+					continue;
+			}
+			break;
+		}
+		catch(char wrong)
+		{
+			cout<<"Please Try Again."<<endl;
+			cin.clear();
+		}
     }
 }
 
