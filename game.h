@@ -24,11 +24,14 @@ public:
 	// Print intro on terminal
 	void intro();
 
+	// load player's index from players.txt
+	int getPlayerIndex(string playerName);
+
 	// Save player record on players.txt
 	void storePlayers();
 
 	// Load existing player
-	void loadPlayer();
+	void loadPlayers();
 
     // Input user's name
     void addPlayer();

@@ -23,7 +23,7 @@ void Game::storePlayers()
 
 	for(int i = 0; i < Players.size(); i++ )
 	{
-		fout << " " << Players[i].getName() << " " << Players[i].getBalance() << endl;
+		fout << Players[i].getName() << " " << Players[i].getBalance() << endl;
 	}
 	fout.close();
 }
@@ -52,7 +52,7 @@ void Game::intro()
 	cout<<"Which menu are you going to choose? : ";
 }
 
-void Game::loadPlayer()
+void Game::loadPlayers()
 {
 	ifstream fin;
 	fin.open("players.txt");
@@ -63,9 +63,9 @@ void Game::loadPlayer()
 	string playerName;
 	int balance;
 	
-	for(int i = 0; i < n_ofplayers; i++ )
+	for(int i = 0; i < n_ofplayers; i++)
 	{
-		fin>>num>>playerName>>balance;
+		fin>>playerName>>balance;
 		Players.push_back(PlayerInfo(playerName, balance));
 	}
 	fin.close();
@@ -94,10 +94,18 @@ void Game::addPlayer()
 				else
 					throw playerName;
 			}
+            
+            if( getPlayerIndex(playerName) != -1 )
+			{
+				cout<<endl<<"Existing name!"<<endl;
+				throw playerName;
+			}
+			else
+			{
 				PlayerInfo newPlayer(playerName, 50);
 				Players.push_back(newPlayer);
 				return;
-			
+            }
 		}
 		catch(...)
 		{
@@ -105,6 +113,13 @@ void Game::addPlayer()
 			cin.clear();
 		}
 	}
+}
+
+
+void Blackjack::updatePlayer()
+{
+    int i = getPlayerIndex(currentPlayer.getName());
+	Players[i].setPlayer(currentPlayer);
 }
 
 // #2. 기존 플레이어로 게임 시작
@@ -131,6 +146,23 @@ void Game::printLicense()
 	cout<<"|               Yoojin Kang                       |"<<endl;
 	cout<<"|                                                 |"<<endl;
 	cout<<"---------------------------------------------------"<<endl;
+}
+
+int Game::getPlayerIndex(string playerName)
+{
+	int i = 0;
+	int result = -1;
+	while(i < Players.size())
+	{
+		if(Players[i].getName() == playerName)
+		{
+			result = i;
+			break;
+		}
+		i++;
+	}
+	
+	return result;
 }
 
 // 완성)#6. 게임 종료
@@ -160,7 +192,7 @@ bool Blackjack::loadPlayer()
 	while(true)
 	{
 		try {
-			cout<<"Enter your name. : ";
+			cout<<"Enter your name : ";
 			cin>>playerName;
 			cin.ignore();
 			
@@ -170,6 +202,14 @@ bool Blackjack::loadPlayer()
 					continue;
 				else
 					throw playerName;
+			}
+			break;
+
+            i = getPlayerIndex(playerName);
+			if( i == -1 )
+			{
+				cout<<endl<<"Your name does not exist."<<endl;
+				throw playerName;
 			}
 			break;
 		}
@@ -588,8 +628,5 @@ void Blackjack::startGame() {
         } else
             continue_game = 0;
     }
-}
-void Blackjack::updatePlayer()
-{
-	Players[0].setPlayer(currentPlayer);
+    updatePlayer();
 }
