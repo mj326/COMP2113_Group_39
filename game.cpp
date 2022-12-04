@@ -191,14 +191,6 @@ bool Blackjack::doBetting()
 	}
 }
 
-void Blackjack::showInitialCards() // Dealer shows one(open card), player shows two
-{
-	Computer.showOpenCard();
-	currentPlayer.showFirstTwoCards();
-}
-
-
-
 // 1= BJ, 2 = not BJ
 int Blackjack::getTwoCards()
 {
@@ -210,13 +202,11 @@ int Blackjack::getTwoCards()
 
     if(currentPlayer.isFirstCardsBJ())
     {
-        currentPlayer.showFirstTwoCards();
         cout << "Player is BlackJack!" << endl;
         return 1;
     }
     else
     {
-        currentPlayer.showFirstTwoCards();
         cout << "Player is not BlackJack" << endl;
         return 2;
     }
@@ -235,9 +225,10 @@ bool Blackjack::restart() //새로 시작
             cin>>answer;
             cin.ignore();
 
-            if(answer!='Y' || answer!='y' || answer!='N' || answer!='n')
+            if(answer!='Y' || answer!='y' || answer!='N' || answer!='n') {
                 throw answer;
-
+            }
+            else
             switch (answer) {
                 case 'Y':
                 case 'y':
@@ -524,9 +515,6 @@ void Blackjack::startGame() {
             break;
 
         int first_result = getTwoCards();
-
-        //show two initial card;
-        //showInitialCards();
 
         int after_player, after_dealer;
 
