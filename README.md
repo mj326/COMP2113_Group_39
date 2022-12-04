@@ -59,5 +59,5 @@ Let's assume that the player chose bet_money as $10.
 9. End game -> Print ending message, use updatePlayer() to update currentPlayer on Players.txt and return
 
 ## Makefile
-Use makefile to run the game: make main -> ./main
+Use makefile to run the game: make main -> ./main\n
 Use makefile to clean directory: make clean
