@@ -7,12 +7,24 @@ PlayerInfo::PlayerInfo(string player_name, int player_balance) : player_name(pla
 PlayerInfo::PlayerInfo() {}
 PlayerInfo::~PlayerInfo() {}
 
-void PlayerInfo::setName(PlayerInfo playerX) // who -> playerX
+/* void PlayerInfo::setName(PlayerInfo playerX) // who -> playerX
 {
-    cin >> player_name;
+    // cin >> player_name;
     this->player_name = playerX.player_name;
     this->player_balance = playerX.player_balance;
+} */
+
+void PlayerInfo::setPlayer(PlayerInfo playerX) // who -> playerX
+{
+	this->player_name = playerX.player_name;
+	this->player_balance = playerX.player_balance;
 }
+void GamePlayer::show_info()
+{
+	cout<<"Player Name : "<<this->player_name<<" Balance : "<< this->player_balance<<endl;
+}
+
+
 
 string PlayerInfo::getName() const
 {
@@ -48,7 +60,8 @@ int GamePlayer::printCardSum() {
 
 void GamePlayer::setStartBal()
 {
-        this->start_balance = 50;           // starting balance = $50
+        this->start_balance = this->player_balance;           // starting balance = $50
+        this->player_balance -= this->bet_money;
 }
 
 bool GamePlayer::betMoneyAvail(double amount)
@@ -97,14 +110,14 @@ bool GamePlayer::betMoneyAvail(double amount)
         return false;
 }
 
-void GamePlayer::show_info()
+/* void GamePlayer::show_info()
 {
     cout << "Name : " << this->player_name << endl;
     cout << "Starting Balance : $" << this->start_balance << endl;
     cout << "Current Balance : $" << this->player_balance << endl;
     cout<<"---------------------------------------------------"<<endl;
 
-}
+} */
 
 void GamePlayer::betMoney(double amount)
 {
