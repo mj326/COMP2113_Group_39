@@ -86,20 +86,20 @@ private:
 	int cards;
 	
 public:
-	int sut, number, cardName; //shp => sut
+	int sut, number, cardName;
 	Card();
 	~Card();
 	Card(const Card & ca);
-	void setupCard(int cardName) ; //setCard => setupCard 
+	void setupCard(int cardName) ;
 	
-	void setupSuit(int cardName); //prev - void setShape(int cardName);
-	void setupValue(int cardName); //void setValue(int cardName);
+	void setupSuit(int cardName);
+	void setupValue(int cardName);
 	
-	void setupNumber(int cardName); //void setNumber(int cardName);
+	void setupNumber(int cardName);
 	
-	char printSuit() ; // Shape => Suit // getShape => char printSuit() ;
-	int printNum() ; // getNumber => printNum
-	int printValue() ; //getValue => printValue
+	char printSuit() ;
+	int printNum() ;
+	int printValue() ;
 };
 
 class Deck
@@ -108,21 +108,21 @@ class Deck
 public:
 	Deck();
 	~Deck();
-	void mixDeck(); //shuffleDeck => mixDeck
-	int printRemainCardsNum(); //getRemainCardsNum => printRemainCardsNum
-	Card drawACard() ; //getACard() => drawACard()
+	void mixDeck();
+	int printRemainCardsNum();
+	Card drawACard() ;
 	void init();
 };
 
 template <typename T>
-T printSum(vector <Card> &Hand) { //getSum => printSum
+T printSum(vector <Card> &Hand) {
 	T num, sum = 0;
 	if (Hand.empty())
 		return 0;
 	
 	num = (int)Hand.size();
 	for (int i = 0; i < num; i++) {
-		sum += Hand[i].printValue(); //getValue => printValue
+		sum += Hand[i].printValue();
 	}
 	return sum;
 }
