@@ -21,6 +21,7 @@ public:     // Initializing Player
 public:
     // Setting Information
     void setName(PlayerInfo who);
+    void setPlayer (PlayerInfo who);
     void setBalance(int player_balance);
     //void setBalance(double money);
     string getName() const;
