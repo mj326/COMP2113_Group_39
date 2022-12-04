@@ -26,9 +26,6 @@ public:
     void setName(PlayerInfo who);
     void setBalance(int player_balance);
     //void setBalance(double money);
-    void showPlayerInfo();
-
-    // Getting Information
     string getName() const;
     double getBalance() const;
 //    inline string getName() const {return player_name;}
@@ -63,7 +60,7 @@ public:
 
     //Setting Player in-game Information
     void setStartBal();
-    bool betMoneyAvail(int amount);
+    bool betMoneyAvail(double amount);
     void betMoney(int amount);
     void show_info();
     void showFirstTwoCards();

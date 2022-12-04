@@ -65,20 +65,20 @@ void GamePlayer::setStartBal()
         this->start_balance = 50;           // starting balance = $50
 }
 
-bool GamePlayer::betMoneyAvail(int amount)
+bool GamePlayer::betMoneyAvail(double amount)
 {
     try             // Handling Exceptions
     {
         if (amount != 10 || amount != 20 || amount != 30)
             throw amount;
     }
-    catch(int exception)
+    catch(double exception)
     {
         cout << "Entered $" << exception << " to bet." << endl;
         cout << "Please re-enter the correct amount to bet." << endl;
     }
 
-    switch(amount)
+    /* switch(amount)
     {
         case 1:         //betting 10
        {
@@ -104,9 +104,11 @@ bool GamePlayer::betMoneyAvail(int amount)
                 return false;
             break;
         }
-    }
-
-    return 0;
+    } */
+    if (this->player_balance >= amount && this->player_balance - amount >= 0)
+        return true;
+    else
+        return false;
 }
 
 void GamePlayer::show_info()
@@ -172,23 +174,23 @@ bool GamePlayer::isFirstCardsBJ()
 
 
 void GamePlayer::showHand(){
-    cout<<"[ Player ]"<<endl;
+    cout<<"Player's Cards : "<<endl;
     vector<Card>::iterator i;
     for(i=Hand.begin(); i != Hand.end(); i++){
         (*i).printSuit();
     }
-    cout<<"[ "<<printSum<int>(Hand)<<" ]"<<endl;
-    cout<<"-----------------------------------------------------------------"<<endl;
+    cout<<"Your card sum is : "<<printSum<int>(Hand)<<endl;
+	cout<<"---------------------------------------------------"<<endl;
 }
 
 
 
 void GamePlayer::showFirstTwoCards()
 {
-	cout << "[ Player ]" << endl;
+	cout << "Player's Cards : " << endl;
 	Hand[0].printSuit();
 	Hand[1].printSuit();
-	cout << printSum<int>(Hand) << endl;
+	cout << "Your card sum is : " << printSum<int>(Hand) << endl;
 }
 
 void GamePlayer::drawTwoCards(Deck &deck){
@@ -230,18 +232,18 @@ bool operator==(GamePlayer& p1, GamePlayer& p2)
 
 
 void Dealer::showOpenCard(){
-    cout<<"Dealer's Open Card : "<<endl;
+    cout<<endl<<"Dealer's Open Card :";
     Hand[1].printSuit();
-    cout<<"[ "<<Hand[1].printValue()<<" ]"<<endl;
-    cout<<"-----------------------------------------------------------------"<<endl;
+    cout<<"Open card sum is : "<<Hand[1].printValue()<<endl;
+	cout<<"---------------------------------------------------"<<endl;
 }
 
 void Dealer::showHand(){
-    cout<<"[ Dealer ]"<<endl;
+    cout<<"Dealer's cards are : ";
     vector<Card>::iterator i;
     for(i=Hand.begin(); i != Hand.end(); i++){
         (*i).printSuit();
     }
-    cout<<"[ "<<printSum<int>(Hand)<<" ]"<<endl;
-    cout<<"-----------------------------------------------------------------"<<endl;
+    cout<<"Dealer's card sum is :  "<<printSum<int>(Hand)<<endl;
+	cout<<"---------------------------------------------------"<<endl;
 }

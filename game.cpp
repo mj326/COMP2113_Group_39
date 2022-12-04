@@ -165,8 +165,19 @@ bool Blackjack::doBetting()
 				throw money_s;
             }
 
-		}
-
+			if(currentPlayer.betMoneyAvail(amount))
+			{
+				currentPlayer.betMoney(amount);
+				currentPlayer.show_info();
+				return true;
+			}
+			else
+			{
+				cout<<"You don't have enough money."<<endl;
+				cout<<"You go to main menu."<<endl;
+				return false;
+			}
+        }
         // tell the player that he entered wrong betting amount
 		catch(string wrong)
 		{
