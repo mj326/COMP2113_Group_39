@@ -33,12 +33,15 @@
 - Classes(public, protected, private) for storing player information
 - Namespace(namespace Card_namespace) for displaying calculating cards to integer
 - Template(typename T) for simplified and concise code
-- Various types of functions for running the game
-- Exceptions(try, catch, throw, default)
+- Various types of functions(void, int, double) for running the game
+- Exceptions(try, catch, throw, default) for dynamic work flow
 
 ## To start the game 
 - The player has to register his name 
-- To register a new player, current player needs to end his game. 
+- To register a new player, current player needs to end his game.
+- If not registered, player cannot start the game.
+
+We HIGHLY RECOMMEND to increase the terminal size for a better view of cards and for a smooth play.
 
 ## Game Description
 
