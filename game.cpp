@@ -240,7 +240,7 @@ bool Blackjack::doBetting()
 		try {
             currentPlayer.show_info();
 			cout << "Choose how much you want to bet : " << endl;
-            cout << " 1) $10   2) $20   3) $30 " << endl;
+            cout << " 1) 10   2) 20   3) 30 " << endl;
 			cin >> money_s;
 			cin.ignore();
 
