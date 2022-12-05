@@ -5,7 +5,7 @@ using namespace std;
 Card::Card() { cards = 52; }
 
 //Class destructor
-Card::~Card() {};
+Card::~Card() {}
 
 //Card class initilization with taking input of Card variable and setting the class variables with input variables
 Card::Card(const Card & Ca){ // ca => Ca
@@ -170,7 +170,7 @@ Deck::Deck() {
 	init();
 }
 //class destructor
-Deck::~Deck() {};
+Deck::~Deck() {}
 
 //mixing the deck (shuffling) randomly
 void Deck::mixDeck()

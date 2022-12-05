@@ -15,8 +15,8 @@
     - The game saves and updates player info(balance) after each round is over.
     - Classes, 'this' pointers, and vectors are used as data structures for storing game status.
 3. Dynamic memory management
-    - This pointers are used for dynamic memory management.
-    - The game includes a function that makes the player and dealer takes one card from the deck.
+    - Iterators and pointers are used for dynamic memory management.
+    - The game includes functions to make player take one card the deck each turn. It removes the card from the player’s arraylist(hand) and adds it back to deck which includes the resizing function.
 4. File input/output (e.g., for loading/saving game status)
     - The directory contains "players.txt" file in order to save player.
     - fstream library is used to open file and store name, final balance of the player.
