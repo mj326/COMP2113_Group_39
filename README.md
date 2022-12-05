@@ -29,10 +29,11 @@
     - Every function and code has proper indentation, names related to its function and purpose.
 
 ## Features Implemented
-1. Classes for storing player information
-2. Namespace for displaying calculating cards to integer
-3. Template for simplified and concise code
-4. Various types of functions for running the game
+- Classes(public, protected, private) for storing player information
+- Namespace(namespace Card_namespace) for displaying calculating cards to integer
+- Template(typename T) for simplified and concise code
+- Various types of functions for running the game
+- Exceptions(try, catch, throw, default)
 
 ## Game Description
 
