@@ -16,13 +16,11 @@ Game::~Game()
 	storePlayers();
 }
 
-
 // check whether the player is registered already
 void Game::loadPlayers()
 {
     ifstream fin;
     fin.open("players.txt");
-
 
     int num = 1;
     string playerName;
@@ -37,7 +35,7 @@ void Game::loadPlayers()
 
 }
 
-//to store player's name and ending balance
+// to store player's name and ending balance
 void Game::storePlayers()
 {
 	ofstream fout;
@@ -136,7 +134,7 @@ void Game::printLicense()
 	cout<<"|               MinJun Kim                        |"<<endl;
 	cout<<"|               DongChan Shin                     |"<<endl;
 	cout<<"|               SiWoo Kim                         |"<<endl;
-	cout<<"|               Yoojin Kang                       |"<<endl;
+	cout<<"|               YooJin Kang                       |"<<endl;
 	cout<<"|                                                 |"<<endl;
 	cout<<"---------------------------------------------------"<<endl;
 }
@@ -278,7 +276,7 @@ bool Blackjack::doBetting()
 	}
 }
 
-// 1= BJ, 2 = not BJ
+// 1= BJ, 2= not BJ
 int Blackjack::getTwoCards()
 {
 	currentPlayer.drawTwoCards(deck);
@@ -308,7 +306,7 @@ bool Blackjack::restart()
     while(true)
     {
         try{
-			// 메뉴 선택
+			// Choose menu
 			cin>>answer;
 			cin.ignore();
 			
