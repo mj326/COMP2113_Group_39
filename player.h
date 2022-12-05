@@ -71,7 +71,6 @@ public:
     bool isFirstCardsBJ();					//bool function to see if the player is black jack from the first cards received
     void drawACard(Deck &deck);					//drawing a card from the deck
     void showHand();						//shows the cards that the player has 
-    double getCardSum();					//getting the sum of the card the player has
     double getBet();						//getting the amount of money bet the player has made
     void initGame();						//initilizing the game
 
