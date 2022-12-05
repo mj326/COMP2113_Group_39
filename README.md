@@ -9,24 +9,31 @@
 
 ## Code Requirement
 1. Generation of random game sets or events
-    - The game contains a random generation of drawing cards from the deck
-    - The deck is shuffled for random drawn cards from including the random library
+    - The game contains a random generation of drawing cards from the deck.
+    - The deck is shuffled for random drawn cards from including the random library.
 2. Data structures for storing game status
     - The game saves and updates player info(balance) after each round is over.
-    - 
-• Dynamic memory management
-3. File input/output (e.g., for loading/saving game status)
+    - Classes, 'this' pointers, and vectors are used as data structures for storing game status.
+3. Dynamic memory management
+    - This pointers are used for dynamic memory management.
+4. File input/output (e.g., for loading/saving game status)
     - The directory contains "players.txt" file in order to save player.
     - fstream library is used to open file and store name, final balance of the player.
-4. Program codes in multiple files
+5. Program codes in multiple files
     - card.cpp, card.h for card related functions
     - player.cpp, player.h for player related functions
     - game.cpp, game.h for game related functions
     - main.cpp for main function
     - Makefile for making main, and cleaning the directory(deleting *.o, main)
-5. Proper indentation and naming styles/In-code documentation
+6. Proper indentation and naming styles/In-code documentation
+    - Every function and code has proper indentation, names related to its function and purpose.
 
-## Game Explained
+## Features Implemented
+1. Classes for storing player information
+2. Namespace for displaying cards
+3. Template for simplified and concise code
+
+## Game Description
 
 1. Shuffle the cards.
 2. Player bets.($10, $20, $30) -> Show Starting_Balance and subtract betting amount from balance.
