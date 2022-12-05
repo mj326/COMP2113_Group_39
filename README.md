@@ -30,8 +30,9 @@
 
 ## Features Implemented
 1. Classes for storing player information
-2. Namespace for displaying cards
+2. Namespace for displaying calculating cards to integer
 3. Template for simplified and concise code
+4. Various types of functions for running the game
 
 ## Game Description
 
@@ -73,7 +74,6 @@
    - if player WINS by BLACKJACK: balance += bet_money * 3
 
 
-
 ## Game Example
 
 Let's assume that the player chose bet_money as $10. 
@@ -104,6 +104,6 @@ Let's assume that the player chose bet_money as $10.
 8. Play again -> Go to step 1.
 9. End game -> Print ending message, use updatePlayer() to update currentPlayer on Players.txt and return
 
-## Makefile
+## How to start the game (Makefile)
 1. Use makefile to run the game: make main -> ./main
 2. Use makefile to clean directory: make clean

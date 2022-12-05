@@ -12,7 +12,7 @@ using namespace std;
 namespace Card_namespace {
 
 	const int NumofCards = 52;
-	// Calculate Ace as 1 or 10
+	// Calculate Ace as 11
 	const int DIAMOND_A = 1; 
 	const int SPADE_A = 2;
 	const int HEART_A = 3;
