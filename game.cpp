@@ -453,7 +453,7 @@ output:stay if input='S'or's', hit if input='H'or'h', error if the input is not 
                         currentPlayer.drawACard(deck);
                         player_draw++;
                         currentPlayer.showHand();
-                        if(currentPlayer.getCardSum() > 21)
+                        if(currentPlayer.printCardSum() > 21)
                         {
                             result = 4; // BURST
                             break;
@@ -480,7 +480,7 @@ output:stay if input='S'or's', hit if input='H'or'h', error if the input is not 
                         currentPlayer.drawACard(deck);
                         player_draw++;
                         currentPlayer.showHand();
-                        if(currentPlayer.getCardSum() > 21)
+                        if(currentPlayer.printCardSum() > 21)
                         {
                             result = 4; // BURST
                             break;
@@ -521,7 +521,7 @@ output:return result
     bool dealer = true;
     while (dealer) {
 
-        int dealerSum = Computer.getCardSum();
+        int dealerSum = Computer.printCardSum();
         if (dealerSum <= 16) {
             Computer.drawACard(deck);
             Computer.showHand();
