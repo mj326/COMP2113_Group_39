@@ -19,6 +19,11 @@ Game::~Game()
 // check whether the player is registered already
 void Game::loadPlayers()
 {
+/*
+this function loads existing players 
+input:none
+output: addition of the name/balance of player into players.txt and vector players
+*/
     ifstream fin;
     fin.open("players.txt");
 
@@ -38,6 +43,11 @@ void Game::loadPlayers()
 // to store player's name and ending balance
 void Game::storePlayers()
 {
+/*
+this function stores the player's name and balance 
+input:none
+output:print out playername and balance from players.txt 
+*/
 	ofstream fout;
 	fout.open("players.txt");
 
@@ -51,6 +61,11 @@ void Game::storePlayers()
 // Show Introduction of the game
 void Game::intro()
 {
+/*
+this function prints the menu
+input:none
+output:lines printed
+*/
 	/*
 	 1. The user has to register his name before he begins playing the game
 	 2. Start game is the player registered already
@@ -74,6 +89,11 @@ void Game::intro()
 // Add player's name by user's input
 void Game::addPlayer()
 {
+/*
+this function adds playername by user's input
+input:playername
+output:if the name only includes alphabet and number, added to vector players, print "Please try again" otherwise.
+*/
 	/*
 	 1. Enter name
 	 2. ->if name exists, return to the menu
@@ -111,6 +131,11 @@ void Game::addPlayer()
 //to update player's information after every round
 void Blackjack::updatePlayer()
 {
+/*
+this function updates player's information after every round
+input:playerindex
+output:player information updated
+*/
     int i = getPlayerIndex(currentPlayer.getName());
 	Players[i].setPlayer(currentPlayer);
 }
@@ -126,7 +151,11 @@ void Game::startGame()
 // print our license (names of the contributors)
 void Game::printLicense()
 {
-
+/*
+this function prints license
+input:none
+output:lines printed
+*/
 	cout<<"---------------------------------------------------"<<endl;
 	cout<<"|            Contributors to this Game            |"<<endl;
 	cout<<"|                                                 |"<<endl;
@@ -143,6 +172,11 @@ void Game::printLicense()
 // give the player his index number to check whetehr his name is registered already
 int Game::getPlayerIndex(string playerName)
 {
+/*
+this function gives the player his index number to check whether his name is registered already
+input:playername
+output:return result
+*/
 	int i = 0;
 	int result = -1;
 
@@ -163,11 +197,11 @@ int Game::getPlayerIndex(string playerName)
 // To end the game
 void Game::exit()
 {
-	/*
-	 1. save the player's information in players.txt including the name and the ending balance
-	 2. print out  "Thank you for playing BLACKJACK"
-	 3. return
-	 */
+/*
+this function saves the player's information in players.txt including the name and the ending balance and exit the game
+input:none
+output:print out  "Thank you for playing BLACKJACK"
+*/
 
 	storePlayers();
 	cout << "Thank you for playing BLACKJACK" << endl;
@@ -183,6 +217,11 @@ Blackjack::~Blackjack()
 
 bool Blackjack::loadPlayer()
 {
+ /*
+ this function loads the player
+ input:playername
+ output:if the name is not registered print "your name does not exist", otherwise loaded
+ */
 	string playerName;
     int j,k=-1;
 	while(true)
@@ -226,6 +265,11 @@ bool Blackjack::loadPlayer()
 // Player betting : Return true if betting succeeds, else return false
 bool Blackjack::doBetting()
 {
+ /*
+ this function determines the availability of betting
+ input:money_s
+ output:Return true if betting succeeds, else return false
+ */
 	string money_s;
 	double amount;
 
@@ -279,6 +323,11 @@ bool Blackjack::doBetting()
 // 1= BJ, 2= not BJ
 int Blackjack::getTwoCards()
 {
+/*
+this function decides if the player is BlackJack in the first turn
+input:currentPlayer.drawTwoCards(deck), Computer.drawTwoCards(deck)
+output:return 1 if blackjack, 2 if not blackjack
+*/
 	currentPlayer.drawTwoCards(deck);
 	Computer.drawTwoCards(deck);
 	player_draw = 1;
@@ -301,6 +350,11 @@ int Blackjack::getTwoCards()
 //another around of the game
 bool Blackjack::restart()
 {
+/*
+this function asks if the player wants the another round
+input:answer
+output:return True if the answer:'Y' or 'y', False if the answer:'N' or 'n', else error is shown
+*/
     cout<<"Do you want another round? (Y/N) : ";
     char answer;
     while(true)
@@ -337,7 +391,12 @@ bool Blackjack::restart()
 // Print choices for player
 void Blackjack::showPlayerChoices()
 {
-	
+/*
+this function prints choices for player
+input:none
+output:lines from linenumber 392to393 printed
+*/
+
 	// 1. STAY 2. HIT
 	cout<<"What do you want to do?"<<endl;
 	printLine();
@@ -350,6 +409,11 @@ void Blackjack::showPlayerChoices()
 // 1=Stay, 5=burst, 6=Player BJ
 int Blackjack::playerTurn()
 {
+/*
+this functions ask if the player wants stay or hit
+input:the choice from the player
+output:stay if input='S'or's', hit if input='H'or'h', error if the input is not from possible options
+*/
     /*
     ** Print choices -> choose
     (1) STAY -> Dealer's Turn.
@@ -443,6 +507,11 @@ int Blackjack::playerTurn()
 
 // 7=BJ 2=Dealer lose 3=Draw 5=Player wins
 int Blackjack::dealerTurn() {
+/*
+this function introduces the dealer's turn
+input:none
+output:return result
+*/
     int result = 0;
 
     Computer.showHand();
@@ -481,7 +550,10 @@ int Blackjack::dealerTurn() {
 
 // 1.BJ 2.Player Win 3.Draw 4.Lose
 void Blackjack::getResult(int result) {
-    /*
+     /*
+     this function determines the result
+     input:result
+     output:
      1 -> Player is BLACKJACK : return triple of bet_money
      2 -> Player WIN : return double of bet_money
      3 -> DRAW : return bet_money
@@ -516,6 +588,9 @@ void Blackjack::getResult(int result) {
 
 void Blackjack::startGame() {
     /*
+    this function starts the game
+    input: none
+    output:
      1. Check the name is registered
      2. Shuffle Cards
      2. Player choose the amount of money to bet
@@ -537,9 +612,6 @@ void Blackjack::startGame() {
          - Player draws another card. (If the player's card sum < 21, player goes back to step 5.)
             1. If player card sum > 21 OR player card sum < dealer card sum, player LOSES -> Round over
             2. If player card sum > dealer card sum, player WINS -> Round over
-
-
-
      */
 
     bool continue_game;
