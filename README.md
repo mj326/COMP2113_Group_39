@@ -1,11 +1,11 @@
 # BlackJack project
 
 ## Team Members
-1. Min Jun Kim
-2. Kyoung Min Park
-3. Dong Chan Shin
-4. Si Woo Kim
-5. Yoo Jin Kang
+1. Min Jun Kim (3035829450) 
+2. Kyoung Min Park (3035666528)
+3. Dong Chan Shin (3035550169)
+4. Si Woo Kim (3035661243)
+5. Yoo Jin Kang (3035745623)
 
 ## Code Requirement
 1. Generation of random game sets or events
