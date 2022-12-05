@@ -157,8 +157,8 @@ void GamePlayer::drawACard(Deck &deck)
 //bool operator function for comparing the dealer's card sum and the player's card sum and returns a bool value
 bool operator>(GamePlayer& p1, GamePlayer& p2)
 {
-    int sum1 = p1.getCardSum();
-    int sum2 = p2.getCardSum();
+    int sum1 = p1.printCardSum();
+    int sum2 = p2.printCardSum();
 
     if(sum1 < sum2)
         return false;
@@ -171,8 +171,8 @@ bool operator>(GamePlayer& p1, GamePlayer& p2)
 //bool operator function for comparing the dealer's card sum and the player's card sum
 bool operator==(GamePlayer& p1, GamePlayer& p2)
 {
-    int sum1 = p1.getCardSum();
-    int sum2 = p2.getCardSum();
+    int sum1 = p1.printCardSum();
+    int sum2 = p2.printCardSum();
 
     if(sum1 < sum2)
         return false;
