@@ -1,5 +1,31 @@
 # BlackJack project
 
+## Team Members
+1. Min Jun Kim
+2. Kyoung Min Park
+3. Dong Chan Shin
+4. Si Woo Kim
+5. Yoo Jin Kang
+
+## Code Requirement
+1. Generation of random game sets or events
+    - The game contains a random generation of drawing cards from the deck
+    - The deck is shuffled for random drawn cards from including the random library
+2. Data structures for storing game status
+    - The game saves and updates player info(balance) after each round is over.
+    - 
+• Dynamic memory management
+3. File input/output (e.g., for loading/saving game status)
+    - The directory contains "players.txt" file in order to save player.
+    - fstream library is used to open file and store name, final balance of the player.
+4. Program codes in multiple files
+    - card.cpp, card.h for card related functions
+    - player.cpp, player.h for player related functions
+    - game.cpp, game.h for game related functions
+    - main.cpp for main function
+    - Makefile for making main, and cleaning the directory(deleting *.o, main)
+5. Proper indentation and naming styles/In-code documentation
+
 ## Game Explained
 
 1. Shuffle the cards.
