@@ -95,7 +95,7 @@ Let's assume that the player chose bet_money as $10.
         1. Show dealer's hidden card.
         2. Get initial betting amount -> Round over
 
-    - If player's card sum <=21 (and dealr's card <21 ?)  :
+    - If player's card sum <=21 (and dealer's card <21)  :
         1. Player takes turn
             -> Show dealer's hidden card after player has chosen either stand or hit
             - If dealer's card sum == 21 -> Lose betting amount -> Round over
